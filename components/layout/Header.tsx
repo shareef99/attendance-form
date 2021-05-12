@@ -1,12 +1,22 @@
-import React from "react";
+import React, { Fragment, ReactElement } from "react";
+import NewFormHeader from "../new-form/NewFormHeader";
 
-interface Props {}
+interface Props {
+    PageName: string;
+}
 
-const Header = (props: Props) => {
+const Header = ({ PageName }: Props) => {
+    if (PageName === "NewForm") {
+        return (
+            <Fragment>
+                <NewFormHeader />
+            </Fragment>
+        );
+    }
     return (
-        <div>
-            <h1>Header</h1>
-        </div>
+        <Fragment>
+            <h1 className="">Header</h1>
+        </Fragment>
     );
 };
 

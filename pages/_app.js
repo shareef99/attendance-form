@@ -1,5 +1,6 @@
-import "../styles/globals.css";
-import "../styles/tailwind.css";
+import "../styles/globals.scss";
+import "../styles/tailwind.scss";
+import "../styles/utils.scss";
 import Layout from "../components/layout/Layout";
 
 function MyApp({ Component, pageProps }) {

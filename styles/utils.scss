@@ -1,0 +1,13 @@
+@use './tailwind.scss';
+
+@layer components {
+    .flexCenter {
+        @apply flex justify-center items-center;
+    }
+    .rowCenter {
+        @apply flexCenter flex-row;
+    }
+    .colCenter {
+        @apply flexCenter flex-col;
+    }
+}
