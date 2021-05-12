@@ -13,10 +13,10 @@ const NewFormFooter = (props: Props) => {
                 className={`absolute bottom-0 left-auto right-auto rowCenter space-x-8 h-14 container
                     ${classes.newFormFooterIcons}`}
             >
-                <HiOutlinePlusCircle title="Add Option" />
-                <MdTextFields />
-                <RiImageAddFill />
-                <RiVideoAddFill />
+                <HiOutlinePlusCircle title="Add Question" />
+                <MdTextFields title="Add title and description" />
+                <RiImageAddFill title="Add Image" />
+                <RiVideoAddFill title="Add YouTube Video" />
             </div>
         </footer>
     );

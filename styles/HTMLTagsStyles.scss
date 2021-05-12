@@ -1,0 +1,8 @@
+@use './tailwind.scss';
+
+@layer base {
+    input[type="text"] {
+        @apply transform transition-all duration-500 ease-in text-purple-600;
+        @apply border-b-4 rounded-br-md rounded-bl-md border-purple-400;
+    }
+}

@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useState } from "react";
 import { HiPencil } from "react-icons/hi";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -41,7 +41,6 @@ const FileName = (props: Props) => {
                     <form action="" onSubmit={handleSubmit(onSubmit)}>
                         <input
                             type="text"
-                            // ref={fileNameRef}
                             name="fileName"
                             id="fileName"
                             className="border-b-2"
