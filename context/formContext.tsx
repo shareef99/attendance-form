@@ -1,11 +1,14 @@
-import { createContext, ReactElement, useContext } from "react";
+import { createContext, ReactElement, useContext, useState } from "react";
+import AddQuestion from "../components/add-questions/AddQuestion";
 
 type formContextType = {
-    question: boolean;
+    questions: Array<ReactElement>;
+    handleAddQuestions: Function;
 };
 
 const formContextDefaultValues: formContextType = {
-    question: false,
+    questions: [],
+    handleAddQuestions: function () {},
 };
 
 const FormContext = createContext<formContextType>(formContextDefaultValues);
@@ -19,8 +22,18 @@ type Props = {
 };
 
 export default function FormProvider({ children }: Props) {
+    // state
+    const [questions, setQuestions] = useState<Array<ReactElement>>([]);
+
+    function handleAddQuestions() {
+        console.log("working");
+        console.log(questions);
+        setQuestions((prevQuestions) => [...prevQuestions, <AddQuestion />]);
+    }
+
     const value: formContextType = {
-        question: true,
+        questions,
+        handleAddQuestions,
     };
     return (
         <>
