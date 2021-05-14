@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { OptionListItem } from "../components/add-questions/Options";
 
 // React-Icon imports
@@ -11,9 +11,9 @@ import {
 import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
 import { CgRadioChecked } from "react-icons/cg";
 
-type questionsContextType = {
+interface questionsContextType {
     options: Array<OptionListItem>;
-};
+}
 
 const questionsContextDefaultValues: questionsContextType = {
     options: [],
@@ -57,7 +57,6 @@ export default function QuestionsProvider({ children }: Props) {
     ];
 
     // state
-    // const [option];
 
     // Handler functions
 

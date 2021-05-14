@@ -1,9 +1,12 @@
 import React from "react";
+import { OptionListItem } from "../add-questions/Options";
 
-interface Props {}
+interface Props {
+    selectedOption: OptionListItem;
+}
 
-const QuestionDetails = (props: Props) => {
-    return <div>Question Details</div>;
+const QuestionDetails = ({ selectedOption }: Props) => {
+    return <div>{selectedOption.option}</div>;
 };
 
 export default QuestionDetails;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import QuestionDetails from "../option-details/QuestionDetails";
 import AddQuestion from "./AddQuestion";
 
@@ -12,7 +12,7 @@ const QuestionsList = ({ questions }: Props) => {
             {questions.map((question, index) => (
                 <li className="container" key={index}>
                     <AddQuestion />
-                    <QuestionDetails />
+                    {/* <QuestionDetails /> */}
                 </li>
             ))}
         </ul>

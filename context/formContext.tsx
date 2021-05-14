@@ -27,8 +27,6 @@ export default function FormProvider({ children }: Props) {
 
     // Handler functions
     function handleAddQuestions() {
-        console.log("working");
-        console.log(questions);
         setQuestions((prevQuestions) => [...prevQuestions, <AddQuestion />]);
     }
 

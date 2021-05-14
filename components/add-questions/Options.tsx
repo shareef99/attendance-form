@@ -11,22 +11,25 @@ import { IconType } from "react-icons/lib";
 // ...others
 import { useQuestions } from "../../context/questionsContext";
 
-interface Props {}
+interface Props {
+    selectedOption?: OptionListItem;
+    onSetSelectedOption?: (option: OptionListItem) => void;
+}
 
 export interface OptionListItem {
     Icon: IconType;
     option: string;
 }
 
-const Options = ({}: Props) => {
+const Options = ({ onSetSelectedOption, selectedOption }: Props) => {
     // Context
     const { options } = useQuestions();
 
     // State
     const [open, setOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState<OptionListItem>(
-        options[0]
-    );
+    // const [selectedOption, setSelectedOption] = useState<OptionListItem>(
+    //     options[0]
+    // );
 
     // Handler Functions
     const handleClickOpen = () => {
@@ -35,7 +38,8 @@ const Options = ({}: Props) => {
 
     const handleClose = (option?: OptionListItem) => {
         setOpen(false);
-        setSelectedOption(option);
+        // setSelectedOption(option);
+        onSetSelectedOption(option);
     };
 
     return (
