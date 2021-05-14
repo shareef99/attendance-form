@@ -1,8 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
-import AddQuestion from "../../components/add-questions/AddQuestion";
 import QuestionsList from "../../components/add-questions/QuestionsList";
-import NewFormFooter from "../../components/new-form/NewFormFooter";
 import { useForm } from "../../context/formContext";
 
 interface Props {}

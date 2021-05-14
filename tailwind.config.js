@@ -4,8 +4,9 @@ module.exports = {
     purge: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",
+        "./styles/**/*.{scss,css,module.css,module.scss}",
     ],
-    mode: "jit",
+    // mode: "jit",
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {},
