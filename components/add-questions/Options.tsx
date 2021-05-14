@@ -12,11 +12,11 @@ import { IconType } from "react-icons/lib";
 import { useQuestions } from "../../context/questionsContext";
 
 interface Props {
-    selectedOption?: OptionListItem;
-    onSetSelectedOption?: (option: OptionListItem) => void;
+    selectedOption?: OptionType;
+    onSetSelectedOption?: (option: OptionType) => void;
 }
 
-export interface OptionListItem {
+export interface OptionType {
     Icon: IconType;
     option: string;
 }
@@ -36,7 +36,7 @@ const Options = ({ onSetSelectedOption, selectedOption }: Props) => {
         setOpen(true);
     };
 
-    const handleClose = (option?: OptionListItem) => {
+    const handleClose = (option?: OptionType) => {
         setOpen(false);
         // setSelectedOption(option);
         onSetSelectedOption(option);

@@ -7,10 +7,10 @@ import { useState } from "react";
 // React-Icon imports
 import { RiImageAddFill } from "react-icons/ri";
 import { useQuestions } from "../../context/questionsContext";
-import QuestionDetails from "../option-details/QuestionDetails";
+import QuestionDetails from "../question-details/QuestionDetails";
 
 // React Components imports
-import Options, { OptionListItem } from "./Options";
+import Options, { OptionType } from "./Options";
 
 interface Props {}
 
@@ -19,12 +19,12 @@ const AddQuestion = ({}: Props) => {
     const { options } = useQuestions();
 
     // State
-    const [selectedOption, setSelectedOption] = useState<OptionListItem>(
+    const [selectedOption, setSelectedOption] = useState<OptionType>(
         options[0]
     );
 
     // Handlers
-    const handleSetSelectedOption = (option: OptionListItem) => {
+    const handleSetSelectedOption = (option: OptionType) => {
         setSelectedOption(option);
     };
 

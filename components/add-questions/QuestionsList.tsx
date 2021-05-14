@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import QuestionDetails from "../option-details/QuestionDetails";
+import QuestionDetails from "../question-details/QuestionDetails";
 import AddQuestion from "./AddQuestion";
 
 interface Props {

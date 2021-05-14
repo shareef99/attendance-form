@@ -5,24 +5,24 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 
 // types import(s)
-import { OptionListItem } from "./Options";
+import { OptionType } from "./Options";
 
 // React Components
 import OptionItem from "./OptionItem";
 
 export interface Props {
     open: boolean;
-    onClose: (option?: OptionListItem) => void;
-    options: Array<OptionListItem>;
-    selectedOption: OptionListItem;
+    onClose: (option?: OptionType) => void;
+    options: Array<OptionType>;
+    selectedOption: OptionType;
 }
 
 const DialogOptions = ({ onClose, open, options, selectedOption }: Props) => {
-    const handleClose = (option: OptionListItem) => {
+    const handleClose = (option: OptionType) => {
         onClose(option);
     };
 
-    const handleListItemClick = (option: OptionListItem) => {
+    const handleListItemClick = (option: OptionType) => {
         onClose(option);
     };
 

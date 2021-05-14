@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext } from "react";
-import { OptionListItem } from "../components/add-questions/Options";
+import { OptionType } from "../components/add-questions/Options";
 
 // React-Icon imports
 import {
@@ -12,7 +12,7 @@ import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
 import { CgRadioChecked } from "react-icons/cg";
 
 interface questionsContextType {
-    options: Array<OptionListItem>;
+    options: Array<OptionType>;
 }
 
 const questionsContextDefaultValues: questionsContextType = {
@@ -33,7 +33,7 @@ interface Props {
 
 export default function QuestionsProvider({ children }: Props) {
     // Constants
-    const options: Array<OptionListItem> = [
+    const options: Array<OptionType> = [
         {
             Icon: MdShortText,
             option: "Short answer",
