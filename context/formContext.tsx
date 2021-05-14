@@ -1,8 +1,8 @@
-import { createContext, ReactElement, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import AddQuestion from "../components/add-questions/AddQuestion";
 
 type formContextType = {
-    questions: Array<ReactElement>;
+    questions: Array<ReactNode>;
     handleAddQuestions: Function;
 };
 
@@ -18,13 +18,14 @@ export function useForm() {
 }
 
 type Props = {
-    children: ReactElement;
+    children: ReactNode;
 };
 
 export default function FormProvider({ children }: Props) {
     // state
-    const [questions, setQuestions] = useState<Array<ReactElement>>([]);
+    const [questions, setQuestions] = useState<Array<ReactNode>>([]);
 
+    // Handler functions
     function handleAddQuestions() {
         console.log("working");
         console.log(questions);

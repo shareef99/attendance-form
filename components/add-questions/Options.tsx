@@ -82,6 +82,7 @@ const Options = ({}: Props) => {
                 open={open}
                 onClose={handleClose}
                 options={options}
+                selectedOption={selectedOption}
             />
         </Fragment>
     );

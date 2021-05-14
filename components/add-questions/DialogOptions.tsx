@@ -14,9 +14,10 @@ export interface Props {
     open: boolean;
     onClose: (option?: OptionListItem) => void;
     options: Array<OptionListItem>;
+    selectedOption: OptionListItem;
 }
 
-const DialogOptions = ({ onClose, open, options }: Props) => {
+const DialogOptions = ({ onClose, open, options, selectedOption }: Props) => {
     const handleClose = (option: OptionListItem) => {
         onClose(option);
     };
@@ -27,7 +28,7 @@ const DialogOptions = ({ onClose, open, options }: Props) => {
 
     return (
         <Dialog
-            onClose={() => handleClose(options[0])}
+            onClose={() => handleClose(selectedOption)}
             aria-labelledby="simple-dialog-title"
             open={open}
         >
