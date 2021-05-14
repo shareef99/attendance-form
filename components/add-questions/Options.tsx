@@ -1,22 +1,15 @@
-import { Fragment, ReactNode, useState } from "react";
+import { Fragment, useState } from "react";
 
 // Material-Ui import(s)
 import Button from "@material-ui/core/Button";
-
-// React-Icon imports
-import {
-    MdShortText,
-    MdArrowDropDownCircle,
-    MdDateRange,
-    MdAccessTime,
-} from "react-icons/md";
-import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
-import { CgRadioChecked } from "react-icons/cg";
 
 // React Components imports
 import DialogOptions from "./DialogOptions";
 import OptionItem from "./OptionItem";
 import { IconType } from "react-icons/lib";
+
+// ...others
+import { useQuestions } from "../../context/questionsContext";
 
 interface Props {}
 
@@ -26,29 +19,8 @@ export interface OptionListItem {
 }
 
 const Options = ({}: Props) => {
-    // Constants
-    const options: Array<OptionListItem> = [
-        {
-            Icon: MdShortText,
-            option: "Short answer",
-        },
-        {
-            Icon: ImParagraphLeft,
-            option: "Paragraph",
-        },
-        {
-            Icon: ImCheckboxChecked,
-            option: "Multiple choice",
-        },
-        {
-            Icon: CgRadioChecked,
-            option: "Checkboxes",
-        },
-        {
-            Icon: MdArrowDropDownCircle,
-            option: "Dropdown",
-        },
-    ];
+    // Context
+    const { options } = useQuestions();
 
     // State
     const [open, setOpen] = useState(false);

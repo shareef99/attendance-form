@@ -11,19 +11,17 @@ interface Props {}
 
 const AddQuestion = ({}: Props) => {
     return (
-        <li className="container">
-            <div className="p-8">
-                <form action="" className="rowCenter space-x-4">
-                    <TextField
-                        id="question"
-                        variant="filled"
-                        placeholder="Question"
-                    />
-                    <RiImageAddFill width="30px" height="50px" />
-                    <Options />
-                </form>
-            </div>
-        </li>
+        <div className="p-8">
+            <form action="" className="rowCenter space-x-4">
+                <TextField
+                    id="question"
+                    variant="filled"
+                    placeholder="Question"
+                />
+                <RiImageAddFill width="30px" height="50px" />
+                <Options />
+            </form>
+        </div>
     );
 };
 

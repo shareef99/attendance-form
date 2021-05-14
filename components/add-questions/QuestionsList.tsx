@@ -1,15 +1,19 @@
-import React, { ReactElement } from "react";
+import React, { ReactNode } from "react";
+import QuestionDetails from "../option-details/QuestionDetails";
 import AddQuestion from "./AddQuestion";
 
 interface Props {
-    questions: Array<ReactElement>;
+    questions: Array<ReactNode>;
 }
 
 const QuestionsList = ({ questions }: Props) => {
     return (
         <ul>
             {questions.map((question, index) => (
-                <AddQuestion key={index} />
+                <li className="container" key={index}>
+                    <AddQuestion />
+                    <QuestionDetails />
+                </li>
             ))}
         </ul>
     );
