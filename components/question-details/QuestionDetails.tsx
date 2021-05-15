@@ -4,6 +4,7 @@ import { OptionType } from "../add-questions/Options";
 // React Option Components
 import ShortAnswer from "./option-details/ShortAnswer";
 import Paragraph from "./option-details/Paragraph";
+import MultipleChoice from "./option-details/MultipleChoice";
 
 interface Props {
     selectedOption: OptionType;
@@ -22,6 +23,7 @@ const QuestionDetails = ({ selectedOption }: Props) => {
     }
 
     if (option === "Multiple choice") {
+        return <MultipleChoice />;
     }
     return <div>{selectedOption.option}</div>;
 };
