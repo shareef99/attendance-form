@@ -1,12 +1,12 @@
 import Link from "next/link";
 import QuestionsList from "../../components/add-questions/QuestionsList";
-import { useForm } from "../../context/formContext";
+import { useFormContext } from "../../context/formContext";
 
 interface Props {}
 
 const NewForm = ({}: Props) => {
     // Context
-    const { questions } = useForm();
+    const { questions } = useFormContext();
 
     return (
         <section>

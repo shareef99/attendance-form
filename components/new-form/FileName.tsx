@@ -9,13 +9,15 @@ import { SubmitHandler, useForm } from "react-hook-form";
 // Form Context import
 import { useFormContext } from "../../context/formContext";
 
-interface Props {}
+interface Props {
+    preview?: boolean;
+}
 
 interface InputType {
     fileName: string;
 }
 
-const FileName = (props: Props) => {
+const FileName = ({ preview }: Props) => {
     // Context
     const { formTitle, handleFormTitle } = useFormContext();
 
@@ -33,6 +35,9 @@ const FileName = (props: Props) => {
 
     // Handler Functions
     function handleEditFileName() {
+        if (preview) {
+            return;
+        }
         setIsEditingFileName(true);
     }
 
@@ -55,7 +60,7 @@ const FileName = (props: Props) => {
                 ) : (
                     <>
                         {formTitle ? formTitle : "Untitled"}{" "}
-                        <HiPencil className="ml-1" />
+                        {!preview && <HiPencil className="ml-1" />}
                     </>
                 )}
             </div>

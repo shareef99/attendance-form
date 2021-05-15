@@ -4,14 +4,16 @@ import { HiPencil, HiLink, HiCheck, HiChevronDown } from "react-icons/hi";
 import FileName from "./FileName";
 // import { Menu, Transition } from "@headlessui/react";
 
-interface Props {}
+interface Props {
+    preview?: boolean;
+}
 
-const NewFormHeader = ({}: Props) => {
+const NewFormHeader = ({ preview }: Props) => {
     return (
         <Fragment>
             <header className="flexCenter flex-col sm:flex-row justify-between container h-16 my-4">
                 <div className="rowCenter">
-                    Logo <FileName />{" "}
+                    Logo <FileName preview={preview} />{" "}
                 </div>
                 <div className="rowCenter space-x-8 ">
                     <Link href="/form/new">

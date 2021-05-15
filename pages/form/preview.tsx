@@ -11,9 +11,9 @@ const Preview = (props: Props) => {
     return (
         <div>
             {multipleChoice.map((x, index) => (
-                <>
-                    <span key={index}>{x.text}</span> <br />
-                </>
+                <div key={index}>
+                    <span>{x.text}</span> <br />
+                </div>
             ))}
         </div>
     );
