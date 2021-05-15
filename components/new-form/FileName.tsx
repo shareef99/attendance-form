@@ -1,6 +1,13 @@
 import { Fragment, useState } from "react";
+
+// React-Icons Import(s)
 import { HiPencil } from "react-icons/hi";
+
+// React Hook Form Import(S)
 import { SubmitHandler, useForm } from "react-hook-form";
+
+// Form Context import
+import { useFormContext } from "../../context/formContext";
 
 interface Props {}
 
@@ -9,20 +16,18 @@ interface InputType {
 }
 
 const FileName = (props: Props) => {
+    // Context
+    const { formTitle, handleFormTitle } = useFormContext();
+
     // State
-    const [fileName, setFileName] = useState<string>("Untitled");
     const [isEditingFileName, setIsEditingFileName] = useState<boolean>(false);
 
-    // Refs
-    // const fileNameRef = useRef<HTMLInputElement>();
-
     // React-hook-form
-    const { register, handleSubmit, watch } = useForm<InputType>();
+    const { register, handleSubmit } = useForm<InputType>();
 
     const onSubmit: SubmitHandler<InputType> = (data) => {
-        // const newFileName = fileNameRef.current.value;
         const newFileName = data.fileName;
-        setFileName(newFileName);
+        handleFormTitle(newFileName);
         setIsEditingFileName(false);
     };
 
@@ -49,7 +54,7 @@ const FileName = (props: Props) => {
                     </form>
                 ) : (
                     <>
-                        {fileName ? fileName : "Untitled"}{" "}
+                        {formTitle ? formTitle : "Untitled"}{" "}
                         <HiPencil className="ml-1" />
                     </>
                 )}

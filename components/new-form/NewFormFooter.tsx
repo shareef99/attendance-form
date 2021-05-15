@@ -2,13 +2,13 @@ import React from "react";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { MdTextFields } from "react-icons/md";
 import { RiImageAddFill, RiVideoAddFill } from "react-icons/ri";
-import { useForm } from "../../context/formContext";
+import { useFormContext } from "../../context/formContext";
 import classes from "../../styles/components/new-form/new-form-footer.module.scss";
 
 interface Props {}
 
 const NewFormFooter = ({}: Props) => {
-    const { handleAddQuestions } = useForm();
+    const { handleAddQuestions } = useFormContext();
 
     return (
         <footer className="rowCenter">
