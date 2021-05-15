@@ -18,12 +18,18 @@ export interface QuestionType {
     id: number;
     option: string;
     optionIcon: IconType;
+    question: string;
 }
 
 interface questionsContextType {
     questions: Array<QuestionType>;
     handleAddQuestions: Function;
-    updateQuestion: (id: number, option: string, optionIcon: IconType) => void;
+    updateQuestion: (
+        id: number,
+        option: string,
+        optionIcon: IconType,
+        question: string
+    ) => void;
     options: Array<OptionType>;
     multipleChoice: Array<ChoiceType>;
     handleMultipleChoice: (choices: Array<ChoiceType>) => void;
@@ -77,7 +83,12 @@ export default function QuestionsProvider({ children }: Props) {
 
     //
     const [questions, setQuestions] = useState<Array<QuestionType>>([
-        { id: 0, option: "Short answer", optionIcon: MdShortText },
+        {
+            id: 0,
+            option: "Short answer",
+            optionIcon: MdShortText,
+            question: null,
+        },
     ]);
     const [multipleChoice, setMultipleChoice] = useState<Array<ChoiceType>>([
         { id: "Default", text: "option 1" },
@@ -92,6 +103,7 @@ export default function QuestionsProvider({ children }: Props) {
                 id: prevQuestions[numberOfQuestions - 1].id + 1,
                 option: "Short answer",
                 optionIcon: MdShortText,
+                question: null,
             },
         ]);
     }
@@ -99,12 +111,18 @@ export default function QuestionsProvider({ children }: Props) {
     const updateQuestion = (
         id: number,
         option: string,
-        optionIcon: IconType
+        optionIcon: IconType,
+        questionText: string
     ) => {
         setQuestions(
             questions.map((question) =>
                 question.id === id
-                    ? { ...question, option, optionIcon }
+                    ? {
+                          ...question,
+                          option,
+                          optionIcon,
+                          question: questionText,
+                      }
                     : { ...question }
             )
         );

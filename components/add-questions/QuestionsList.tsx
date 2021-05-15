@@ -14,6 +14,7 @@ const QuestionsList = ({ questions }: Props) => {
                         <AddQuestion
                             id={question.id}
                             option={question.option}
+                            optionIcon={question.optionIcon}
                         />
                     </li>
                 );
