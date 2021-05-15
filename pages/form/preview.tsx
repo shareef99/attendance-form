@@ -8,8 +8,7 @@ interface Props {}
 
 const Preview = (props: Props) => {
     // Context
-    const { multipleChoice } = useQuestions();
-    const { questions } = useFormContext();
+    const { questions, multipleChoice } = useQuestions();
 
     // Others
     console.log({ multipleChoice, questions });

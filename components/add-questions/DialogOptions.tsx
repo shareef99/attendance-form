@@ -19,13 +19,10 @@ interface Props {
     selectedOption: OptionType;
 }
 
-const DialogOptions = ({
-    id,
-    onClose,
-    open,
-    options,
-    selectedOption,
-}: Props) => {
+const DialogOptions = (props: Props) => {
+    const { id, onClose, open, options, selectedOption } = props;
+
+    // Handlers
     const handleClose = (option: OptionType, id: number) => {
         onClose(option, id);
     };

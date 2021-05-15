@@ -28,8 +28,7 @@ const Options = (props: Props) => {
     const { id, option, onSetSelectedOption, selectedOption } = props;
 
     // Context
-    const { options } = useQuestions();
-    const { updateQuestion } = useFormContext();
+    const { options, updateQuestion } = useQuestions();
 
     // State
     const [open, setOpen] = useState(false);

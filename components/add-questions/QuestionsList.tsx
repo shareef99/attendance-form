@@ -1,4 +1,4 @@
-import { QuestionType } from "../../context/formContext";
+import { QuestionType } from "../../context/questionsContext";
 import AddQuestion from "./AddQuestion";
 
 interface Props {
