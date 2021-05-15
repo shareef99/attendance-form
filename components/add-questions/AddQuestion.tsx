@@ -31,11 +31,7 @@ const AddQuestion = ({}: Props) => {
     return (
         <div className="p-8">
             <form action="" className="rowCenter space-x-4">
-                <TextField
-                    id="question"
-                    variant="filled"
-                    placeholder="Question"
-                />
+                <TextField variant="filled" placeholder="Question" />
                 <RiImageAddFill width="30px" height="50px" />
                 <Options
                     selectedOption={selectedOption}

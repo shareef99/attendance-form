@@ -6,6 +6,7 @@ import ShortAnswer from "./option-details/ShortAnswer";
 import Paragraph from "./option-details/Paragraph";
 import MultipleChoice from "./option-details/MultipleChoice";
 import Checkboxes from "./option-details/Checkboxes";
+import Dropdown from "./option-details/Dropdown";
 
 interface Props {
     selectedOption: OptionType;
@@ -31,7 +32,9 @@ const QuestionDetails = ({ selectedOption }: Props) => {
         return <Checkboxes />;
     }
 
-    return <div>{selectedOption.option}</div>;
+    if (option === "Dropdown") {
+        return <Dropdown />;
+    }
 };
 
 export default QuestionDetails;
