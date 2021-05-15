@@ -8,11 +8,7 @@ interface Props {
 const ShortAnswer = ({ option }: Props) => {
     return (
         <form>
-            <TextField
-                id="standard-basic"
-                placeholder={option + " text"}
-                disabled
-            />
+            <TextField placeholder={option + " text"} disabled />
         </form>
     );
 };

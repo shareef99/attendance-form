@@ -10,8 +10,11 @@ import { IconType } from "react-icons/lib";
 
 // ...others
 import { useQuestions } from "../../context/questionsContext";
+import { useFormContext } from "../../context/formContext";
 
 interface Props {
+    id?: number;
+    option?: string;
     selectedOption?: OptionType;
     onSetSelectedOption?: (option: OptionType) => void;
 }
@@ -21,25 +24,25 @@ export interface OptionType {
     option: string;
 }
 
-const Options = ({ onSetSelectedOption, selectedOption }: Props) => {
+const Options = (props: Props) => {
+    const { id, option, onSetSelectedOption, selectedOption } = props;
+
     // Context
     const { options } = useQuestions();
+    const { updateQuestion } = useFormContext();
 
     // State
     const [open, setOpen] = useState(false);
-    // const [selectedOption, setSelectedOption] = useState<OptionListItem>(
-    //     options[0]
-    // );
 
     // Handler Functions
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = (option?: OptionType) => {
+    const handleClose = (option: OptionType, id: number) => {
         setOpen(false);
-        // setSelectedOption(option);
         onSetSelectedOption(option);
+        updateQuestion(id, option.option, option.Icon);
     };
 
     return (
@@ -49,12 +52,10 @@ const Options = ({ onSetSelectedOption, selectedOption }: Props) => {
                 color="primary"
                 onClick={handleClickOpen}
             >
-                <OptionItem
-                    Icon={selectedOption.Icon}
-                    option={selectedOption.option}
-                />
+                <OptionItem Icon={selectedOption.Icon} option={option} />
             </Button>
             <DialogOptions
+                id={id}
                 open={open}
                 onClose={handleClose}
                 options={options}

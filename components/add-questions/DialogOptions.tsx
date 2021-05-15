@@ -9,27 +9,35 @@ import { OptionType } from "./Options";
 
 // React Components
 import OptionItem from "./OptionItem";
+import { IconType } from "react-icons/lib";
 
-export interface Props {
+interface Props {
+    id?: number;
     open: boolean;
-    onClose: (option?: OptionType) => void;
+    onClose: (option: OptionType, id?: number) => void;
     options: Array<OptionType>;
     selectedOption: OptionType;
 }
 
-const DialogOptions = ({ onClose, open, options, selectedOption }: Props) => {
-    const handleClose = (option: OptionType) => {
-        onClose(option);
+const DialogOptions = ({
+    id,
+    onClose,
+    open,
+    options,
+    selectedOption,
+}: Props) => {
+    const handleClose = (option: OptionType, id: number) => {
+        onClose(option, id);
     };
 
-    const handleListItemClick = (option: OptionType) => {
-        onClose(option);
+    const handleListItemClick = (option: OptionType, id: number) => {
+        onClose(option, id);
     };
 
     return (
         <Dialog
-            onClose={() => handleClose(selectedOption)}
-            aria-labelledby="simple-dialog-title"
+            onClose={() => handleClose(selectedOption, id)}
+            aria-labelledby="options-dialog"
             open={open}
         >
             <DialogTitle id="simple-dialog-title">
@@ -39,7 +47,7 @@ const DialogOptions = ({ onClose, open, options, selectedOption }: Props) => {
                 {options.map((option) => (
                     <ListItem
                         button
-                        onClick={() => handleListItemClick(option)}
+                        onClick={() => handleListItemClick(option, id)}
                         key={option.option}
                     >
                         <OptionItem Icon={option.Icon} option={option.option} />

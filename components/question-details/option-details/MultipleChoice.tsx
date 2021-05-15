@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 // Material-Ui Imports
 import FormControl from "@material-ui/core/FormControl";
@@ -7,31 +7,54 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import TextField from "@material-ui/core/TextField";
 
+import { useQuestions } from "../../../context/questionsContext";
+
 interface Props {}
 
+export interface ChoiceType {
+    id: string;
+    text: string;
+}
+
 const MultipleChoice = (props: Props) => {
+    // Context
+    const { handleMultipleChoice, multipleChoice } = useQuestions();
+
     // State
-    const [choices, setChoices] = useState<any[]>([""]);
+    const [choices, setChoices] = useState<Array<ChoiceType>>([
+        { id: "Default", text: "option 1" },
+    ]);
     const [hasOthers, setHasOthers] = useState<boolean>(false);
+
+    // Effects
+    useEffect(() => {
+        handleMultipleChoice(choices);
+    }, [choices]);
 
     // Handlers
     const handleAddChoice = () => {
-        setChoices((prevChoices) => [...prevChoices, ""]);
+        setChoices((prevChoices) => [
+            ...prevChoices,
+            { id: "random", text: "random" },
+        ]);
     };
 
     const handleAddOther = () => {
-        setChoices((prevChoices) => [...prevChoices, "others"]);
+        setChoices((prevChoices) => [
+            ...prevChoices,
+            { id: "random", text: "others" },
+        ]);
         setHasOthers(true);
     };
 
     // Others
-    console.log(choices);
+    console.log({ choices, multipleChoice });
 
     return (
         <FormControl component="fieldset">
             <RadioGroup aria-label="Multiple Choice" name="multiple-choice">
                 {choices.map((choice, index) => {
-                    if (choice === "others") {
+                    if (choice.text === "others") {
                         return (
                             <FormControlLabel
                                 disabled

@@ -8,6 +8,9 @@ const NewForm = ({}: Props) => {
     // Context
     const { questions } = useFormContext();
 
+    // Others
+    console.log(questions);
+
     return (
         <section>
             <h1>New Form</h1>

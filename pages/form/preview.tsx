@@ -1,4 +1,7 @@
 import React from "react";
+
+// Context
+import { useFormContext } from "../../context/formContext";
 import { useQuestions } from "../../context/questionsContext";
 
 interface Props {}
@@ -6,7 +9,10 @@ interface Props {}
 const Preview = (props: Props) => {
     // Context
     const { multipleChoice } = useQuestions();
-    console.log(multipleChoice);
+    const { questions } = useFormContext();
+
+    // Others
+    console.log({ multipleChoice, questions });
 
     return (
         <div>

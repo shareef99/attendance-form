@@ -1,9 +1,13 @@
 import React from "react";
+import { IconType } from "react-icons";
 
 // Types import(s)
 import { OptionType } from "./Options";
 
-interface Props extends OptionType {}
+interface Props {
+    Icon: IconType;
+    option: string;
+}
 
 const OptionItem = ({ Icon, option }: Props) => {
     return (

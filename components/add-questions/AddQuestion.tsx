@@ -12,9 +12,12 @@ import QuestionDetails from "../question-details/QuestionDetails";
 // React Components imports
 import Options, { OptionType } from "./Options";
 
-interface Props {}
+interface Props {
+    id?: number;
+    option?: string;
+}
 
-const AddQuestion = ({}: Props) => {
+const AddQuestion = ({ id, option }: Props) => {
     //Context
     const { options } = useQuestions();
 
@@ -34,6 +37,8 @@ const AddQuestion = ({}: Props) => {
                 <TextField variant="filled" placeholder="Question" />
                 <RiImageAddFill width="30px" height="50px" />
                 <Options
+                    id={id}
+                    option={option}
                     selectedOption={selectedOption}
                     onSetSelectedOption={handleSetSelectedOption}
                 />

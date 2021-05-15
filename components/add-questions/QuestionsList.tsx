@@ -1,18 +1,23 @@
-import React, { ReactNode, useState } from "react";
+import { QuestionType } from "../../context/formContext";
 import AddQuestion from "./AddQuestion";
 
 interface Props {
-    questions: Array<ReactNode>;
+    questions: Array<QuestionType>;
 }
 
 const QuestionsList = ({ questions }: Props) => {
     return (
         <ul>
-            {questions.map((question, index) => (
-                <li className="container" key={index}>
-                    <AddQuestion />
-                </li>
-            ))}
+            {questions.map((question) => {
+                return (
+                    <li className="container" key={question.id}>
+                        <AddQuestion
+                            id={question.id}
+                            option={question.option}
+                        />
+                    </li>
+                );
+            })}
         </ul>
     );
 };
