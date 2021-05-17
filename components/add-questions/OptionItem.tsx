@@ -13,7 +13,7 @@ const OptionItem = ({ Icon, option }: Props) => {
     return (
         <div className="rowCenter space-x-4">
             <Icon />
-            {option}
+            <p>{option}</p>
         </div>
     );
 };

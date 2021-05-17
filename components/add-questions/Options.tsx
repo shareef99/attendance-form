@@ -17,6 +17,7 @@ interface Props {
     option?: string;
     selectedOption?: OptionType;
     onSetSelectedOption?: (option: OptionType) => void;
+    preview?: boolean;
 }
 
 export interface OptionType {
@@ -25,7 +26,7 @@ export interface OptionType {
 }
 
 const Options = (props: Props) => {
-    const { id, option, onSetSelectedOption, selectedOption } = props;
+    const { id, option, onSetSelectedOption, selectedOption, preview } = props;
 
     // Context
     const { options, updateQuestion } = useQuestions();
@@ -35,6 +36,9 @@ const Options = (props: Props) => {
 
     // Handler Functions
     const handleClickOpen = () => {
+        if (preview) {
+            return;
+        }
         setOpen(true);
     };
 

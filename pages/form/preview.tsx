@@ -1,25 +1,19 @@
-import React from "react";
-
 // Context
-import { useFormContext } from "../../context/formContext";
+import QuestionsList from "../../components/add-questions/QuestionsList";
 import { useQuestions } from "../../context/questionsContext";
 
 interface Props {}
 
 const Preview = (props: Props) => {
     // Context
-    const { questions, multipleChoice } = useQuestions();
+    const { questions } = useQuestions();
 
     // Others
-    console.log({ multipleChoice, questions });
+    console.log(questions);
 
     return (
         <div>
-            {multipleChoice.map((x, index) => (
-                <div key={index}>
-                    <span>{x.text}</span> <br />
-                </div>
-            ))}
+            <QuestionsList questions={questions} preview />
         </div>
     );
 };

@@ -28,7 +28,7 @@ interface questionsContextType {
         id: number,
         option: string,
         optionIcon: IconType,
-        question: string
+        question?: string
     ) => void;
     options: Array<OptionType>;
     multipleChoice: Array<ChoiceType>;

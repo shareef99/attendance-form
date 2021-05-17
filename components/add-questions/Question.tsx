@@ -13,13 +13,14 @@ interface Props {
     id: number;
     option: string;
     optionIcon: IconType;
+    preview: boolean;
 }
 
 interface QuestionFormType {
     question: string;
 }
 
-const Question = ({ id, option, optionIcon }: Props) => {
+const Question = ({ id, option, optionIcon, preview }: Props) => {
     // Context
     const { updateQuestion, questions } = useQuestions();
 
@@ -28,27 +29,30 @@ const Question = ({ id, option, optionIcon }: Props) => {
 
     const onSubmit: SubmitHandler<QuestionFormType> = (data) => {
         const { question } = data;
+        console.log(data);
         updateQuestion(id, option, optionIcon, question);
-        console.log("called");
     };
 
     return (
-        <form
-            action=""
-            className="rowCenter space-x-4"
-            onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="rowCenter space-x-4" onSubmit={handleSubmit(onSubmit)}>
             <TextField
+                className="border-b-4"
+                type="text"
+                disabled={preview ? true : false}
+                placeholder="Questions"
                 variant="filled"
-                placeholder="Question"
                 defaultValue={
                     questions.find((x) => x.id === id).question || undefined
                 }
                 {...register("question")}
             />
-            <button type="submit">
-                <ImCheckboxChecked />
-            </button>
+            {preview ? (
+                <></>
+            ) : (
+                <button type="submit">
+                    <ImCheckboxChecked />
+                </button>
+            )}
         </form>
     );
 };
