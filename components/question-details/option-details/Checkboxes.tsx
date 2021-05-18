@@ -1,4 +1,8 @@
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
+import {
+    OptionDetailsType,
+    useQuestions,
+} from "../../../context/questionsContext";
 
 // Material-Ui Imports
 import FormControl from "@material-ui/core/FormControl";
@@ -6,38 +10,47 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 
-// Types
-import { OptionType } from "../../add-questions/Options";
-
 interface Props {
-    option: OptionType;
-    preview: boolean;
+    id: number;
     isDisable: boolean;
+    optionDetails: Array<OptionDetailsType>;
+    hasOthers: boolean;
+    handleSetHasOthers: (value: boolean) => void;
 }
 
-const Checkboxes = ({ option, preview, isDisable }: Props) => {
-    // States
-    const [checkboxes, setCheckboxes] = useState<Array<any>>([""]);
-    const [hasOthers, setHasOthers] = useState<boolean>(false);
+const Checkboxes = (props: Props) => {
+    const { id, isDisable, optionDetails, hasOthers, handleSetHasOthers } =
+        props;
+
+    // Context
+    const { handleUpdateOptionsDetails } = useQuestions();
 
     // Handlers
     const handleAddCheckbox = () => {
-        setCheckboxes((prevCheckboxes) => [...prevCheckboxes, ""]);
+        const lastIndex: number = optionDetails.length - 1;
+        handleUpdateOptionsDetails(id, {
+            id: optionDetails[lastIndex]?.id + 1,
+            text: "option " + (optionDetails[lastIndex]?.id + 1),
+        });
     };
 
     const handleAddOther = () => {
-        setCheckboxes((prevCheckboxes) => [...prevCheckboxes, "others"]);
-        setHasOthers(true);
+        const lastIndex: number = optionDetails.length - 1;
+        handleSetHasOthers(true);
+        handleUpdateOptionsDetails(id, {
+            id: optionDetails[lastIndex]?.id + 1,
+            text: "others",
+        });
     };
 
     return (
         <FormControl component="fieldset">
-            {checkboxes.map((checkbox, index) => {
-                if (checkbox === "others") {
+            {optionDetails.map((checkbox) => {
+                if (checkbox.text === "others") {
                     return (
                         <FormControlLabel
                             disabled={isDisable}
-                            key={index}
+                            key="others"
                             control={<Checkbox />}
                             label={
                                 <TextField
@@ -52,15 +65,18 @@ const Checkboxes = ({ option, preview, isDisable }: Props) => {
                 return (
                     <FormControlLabel
                         disabled={isDisable}
-                        key={index}
+                        key={checkbox.id}
                         control={<Checkbox />}
                         label={
-                            <TextField defaultValue={"option " + (index + 1)} />
+                            <TextField
+                                disabled={!isDisable}
+                                defaultValue={checkbox.text}
+                            />
                         }
                     />
                 );
             })}
-            {!hasOthers && (
+            {!hasOthers && isDisable && (
                 <FormControlLabel
                     disabled
                     control={<Checkbox />}

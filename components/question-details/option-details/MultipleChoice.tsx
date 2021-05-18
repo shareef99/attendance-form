@@ -23,13 +23,13 @@ const MultipleChoice = (props: Props) => {
         props;
 
     // Context
-    const { handleUpdateOptionsDetails, questions } = useQuestions();
+    const { handleUpdateOptionsDetails } = useQuestions();
 
     // Handlers
     const handleAddChoice = () => {
         const lastIndex: number = optionDetails.length - 1;
         handleUpdateOptionsDetails(id, {
-            id: questions[id]?.optionDetails[lastIndex]?.id + 1,
+            id: optionDetails[lastIndex]?.id + 1,
             text: "option " + (optionDetails[lastIndex]?.id + 1),
         });
     };
@@ -38,7 +38,7 @@ const MultipleChoice = (props: Props) => {
         const lastIndex: number = optionDetails.length - 1;
         handleSetHasOthers(true);
         handleUpdateOptionsDetails(id, {
-            id: questions[id]?.optionDetails[lastIndex]?.id + 1,
+            id: optionDetails[lastIndex]?.id + 1,
             text: "others",
         });
     };
@@ -55,7 +55,7 @@ const MultipleChoice = (props: Props) => {
                                 control={<Radio />}
                                 label={
                                     <TextField
-                                        disabled
+                                        disabled={isDisable}
                                         defaultValue="Others..."
                                     />
                                 }
@@ -70,6 +70,7 @@ const MultipleChoice = (props: Props) => {
                                 control={<Radio />}
                                 label={
                                     <TextField
+                                        disabled={!isDisable}
                                         defaultValue={optionDetail.text}
                                     />
                                 }

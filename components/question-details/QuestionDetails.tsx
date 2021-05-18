@@ -60,9 +60,10 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
         return (
             <Checkboxes
                 id={id}
-                option={{ option, Icon }}
-                preview={preview}
                 isDisable={isDisable}
+                optionDetails={optionDetails}
+                hasOthers={hasOthers}
+                handleSetHasOthers={handleSetHasOthers}
             />
         );
     }
