@@ -1,5 +1,8 @@
 import { Fragment, useState } from "react";
-import { useQuestions } from "../../../context/questionsContext";
+import {
+    OptionDetailsType,
+    useQuestions,
+} from "../../../context/questionsContext";
 // Material-Ui Imports
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -9,30 +12,31 @@ import TextField from "@material-ui/core/TextField";
 
 interface Props {
     id: number;
-    preview: boolean;
+    isDisable: boolean;
+    optionDetails: Array<OptionDetailsType>;
+    hasOthers: boolean;
+    handleSetHasOthers: (value: boolean) => void;
 }
 
-const MultipleChoice = ({ id, preview }: Props) => {
+const MultipleChoice = (props: Props) => {
+    const { id, isDisable, optionDetails, hasOthers, handleSetHasOthers } =
+        props;
+
     // Context
     const { handleUpdateOptionsDetails, questions } = useQuestions();
 
-    // State
-    const [hasOthers, setHasOthers] = useState<boolean>(
-        questions[id].optionDetails.some((x) => x.text === "others")
-    );
-
     // Handlers
     const handleAddChoice = () => {
-        const lastIndex: number = questions[id].optionDetails.length - 1;
+        const lastIndex: number = optionDetails.length - 1;
         handleUpdateOptionsDetails(id, {
             id: questions[id]?.optionDetails[lastIndex]?.id + 1,
-            text: "option " + (questions[id].optionDetails[lastIndex]?.id + 1),
+            text: "option " + (optionDetails[lastIndex]?.id + 1),
         });
     };
 
     const handleAddOther = () => {
-        const lastIndex: number = questions[id].optionDetails.length - 1;
-        setHasOthers(true);
+        const lastIndex: number = optionDetails.length - 1;
+        handleSetHasOthers(true);
         handleUpdateOptionsDetails(id, {
             id: questions[id]?.optionDetails[lastIndex]?.id + 1,
             text: "others",
@@ -42,7 +46,7 @@ const MultipleChoice = ({ id, preview }: Props) => {
     return (
         <FormControl component="fieldset">
             <RadioGroup aria-label="Multiple Choice" name="multiple-choice">
-                {questions[id].optionDetails.map((optionDetail) => {
+                {optionDetails.map((optionDetail) => {
                     if (optionDetail.text === "others") {
                         return (
                             <FormControlLabel
@@ -73,7 +77,7 @@ const MultipleChoice = ({ id, preview }: Props) => {
                         </Fragment>
                     );
                 })}
-                {!hasOthers && !preview && (
+                {!hasOthers && isDisable && (
                     <FormControlLabel
                         disabled
                         control={<Radio />}

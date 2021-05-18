@@ -1,5 +1,4 @@
 // Types
-import { OptionType } from "../add-questions/Options";
 
 // React Option Components
 import ShortAnswer from "./option-details/ShortAnswer";
@@ -8,6 +7,8 @@ import MultipleChoice from "./option-details/MultipleChoice";
 import Checkboxes from "./option-details/Checkboxes";
 import Dropdown from "./option-details/Dropdown";
 import { IconType } from "react-icons";
+import { useQuestions } from "../../context/questionsContext";
+import { useState } from "react";
 
 interface Props {
     id: number;
@@ -17,7 +18,21 @@ interface Props {
 }
 
 const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
-    const isDisable = preview ? true : false;
+    const { questions } = useQuestions();
+
+    // Constants
+    const isDisable = preview ? false : true;
+    const { optionDetails } = questions[id];
+
+    // States
+    const [hasOthers, setHasOthers] = useState<boolean>(
+        optionDetails.some((x) => x.text === "others")
+    );
+
+    // Handlers
+    const handleSetHasOthers = (value: boolean) => {
+        setHasOthers(value);
+    };
 
     if (option === "Short answer") {
         return (
@@ -30,12 +45,21 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     }
 
     if (option === "Multiple choice") {
-        return <MultipleChoice preview={preview} id={id} />;
+        return (
+            <MultipleChoice
+                id={id}
+                isDisable={isDisable}
+                optionDetails={optionDetails}
+                hasOthers={hasOthers}
+                handleSetHasOthers={handleSetHasOthers}
+            />
+        );
     }
 
     if (option === "Checkboxes") {
         return (
             <Checkboxes
+                id={id}
                 option={{ option, Icon }}
                 preview={preview}
                 isDisable={isDisable}
