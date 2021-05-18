@@ -69,7 +69,16 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     }
 
     if (option === "Dropdown") {
-        return <Dropdown option={{ option, Icon }} preview={preview} />;
+        return (
+            <Dropdown
+                id={id}
+                isDisable={isDisable}
+                optionDetails={optionDetails}
+                hasOthers={hasOthers}
+                handleSetHasOthers={handleSetHasOthers}
+                option={{ option, Icon }}
+            />
+        );
     }
 };
 
