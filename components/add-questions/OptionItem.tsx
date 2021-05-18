@@ -1,9 +1,6 @@
 import React from "react";
 import { IconType } from "react-icons";
 
-// Types import(s)
-import { OptionType } from "./Options";
-
 interface Props {
     Icon: IconType;
     option: string;

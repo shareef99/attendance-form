@@ -4,36 +4,37 @@ import ListItem from "@material-ui/core/ListItem";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 
-// types import(s)
-import { OptionType } from "./Options";
-
-// React Components
 import OptionItem from "./OptionItem";
+import { useQuestions } from "../../context/questionsContext";
 import { IconType } from "react-icons/lib";
 
 interface Props {
-    id?: number;
+    id: number;
     open: boolean;
-    onClose: (option: OptionType, id?: number) => void;
-    options: Array<OptionType>;
-    selectedOption: OptionType;
+    onClose: (option: string, Icon: IconType, id?: number) => void;
 }
 
-const DialogOptions = (props: Props) => {
-    const { id, onClose, open, options, selectedOption } = props;
+const DialogOptions = ({ id, onClose, open }: Props) => {
+    const { options, questions } = useQuestions();
 
     // Handlers
-    const handleClose = (option: OptionType, id: number) => {
-        onClose(option, id);
+    const handleClose = (option: string, Icon: IconType, id: number) => {
+        onClose(option, Icon, id);
     };
 
-    const handleListItemClick = (option: OptionType, id: number) => {
-        onClose(option, id);
+    const handleListItemClick = (
+        option: string,
+        Icon: IconType,
+        id: number
+    ) => {
+        onClose(option, Icon, id);
     };
 
     return (
         <Dialog
-            onClose={() => handleClose(selectedOption, id)}
+            onClose={() =>
+                handleClose(questions[id].option, questions[id].optionIcon, id)
+            }
             aria-labelledby="options-dialog"
             open={open}
         >
@@ -44,10 +45,12 @@ const DialogOptions = (props: Props) => {
                 {options.map((option) => (
                     <ListItem
                         button
-                        onClick={() => handleListItemClick(option, id)}
+                        onClick={() =>
+                            handleListItemClick(option.option, option.Icon, id)
+                        }
                         key={option.option}
                     >
-                        <OptionItem Icon={option.Icon} option={option.option} />
+                        <OptionItem option={option.option} Icon={option.Icon} />
                     </ListItem>
                 ))}
             </List>

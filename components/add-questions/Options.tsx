@@ -6,17 +6,14 @@ import Button from "@material-ui/core/Button";
 // React Components imports
 import DialogOptions from "./DialogOptions";
 import OptionItem from "./OptionItem";
-import { IconType } from "react-icons/lib";
 
 // ...others
 import { useQuestions } from "../../context/questionsContext";
-import { useFormContext } from "../../context/formContext";
+import { IconType } from "react-icons/lib";
 
 interface Props {
     id?: number;
     option?: string;
-    selectedOption?: OptionType;
-    onSetSelectedOption?: (option: OptionType) => void;
     preview?: boolean;
     Icon: IconType;
 }
@@ -27,11 +24,10 @@ export interface OptionType {
 }
 
 const Options = (props: Props) => {
-    const { id, option, onSetSelectedOption, selectedOption, preview, Icon } =
-        props;
+    const { id, option, preview, Icon } = props;
 
     // Context
-    const { options, updateQuestion } = useQuestions();
+    const { updateQuestion } = useQuestions();
 
     // State
     const [open, setOpen] = useState(false);
@@ -44,10 +40,9 @@ const Options = (props: Props) => {
         setOpen(true);
     };
 
-    const handleClose = (option: OptionType, id: number) => {
+    const handleClose = (option: string, Icon: IconType, id: number) => {
         setOpen(false);
-        onSetSelectedOption(option);
-        updateQuestion(id, option.option, option.Icon);
+        updateQuestion(id, option, Icon);
     };
 
     return (
@@ -55,17 +50,12 @@ const Options = (props: Props) => {
             <Button
                 variant="outlined"
                 color="primary"
+                disabled={preview}
                 onClick={handleClickOpen}
             >
                 <OptionItem Icon={Icon} option={option} />
             </Button>
-            <DialogOptions
-                id={id}
-                open={open}
-                onClose={handleClose}
-                options={options}
-                selectedOption={selectedOption}
-            />
+            <DialogOptions id={id} open={open} onClose={handleClose} />
         </Fragment>
     );
 };

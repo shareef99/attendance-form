@@ -1,4 +1,3 @@
-// Context
 import QuestionsList from "../../components/add-questions/QuestionsList";
 import { useQuestions } from "../../context/questionsContext";
 

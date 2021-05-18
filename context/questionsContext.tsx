@@ -11,7 +11,6 @@ import {
 import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
 import { CgRadioChecked } from "react-icons/cg";
 import { IconType } from "react-icons/lib";
-// import { QuestionType } from "./formContext";
 
 export interface OptionDetailsType {
     id: number;
@@ -39,6 +38,7 @@ interface questionsContextType {
         id: number,
         optionDetails: OptionDetailsType
     ) => void;
+    updateQuestionOption: (id: number, option: string) => void;
 }
 
 const questionsContextDefaultValues: questionsContextType = {
@@ -47,6 +47,7 @@ const questionsContextDefaultValues: questionsContextType = {
     updateQuestion: () => {},
     options: [],
     handleUpdateOptionsDetails: () => {},
+    updateQuestionOption: () => {},
 };
 
 const questionsContext = createContext<questionsContextType>(
@@ -99,11 +100,11 @@ export default function QuestionsProvider({ children }: Props) {
 
     // Handler functions
     function handleAddQuestions() {
-        const numberOfQuestions = questions.length;
+        const lastIndex = questions.length - 1;
         setQuestions((prevQuestions) => [
             ...prevQuestions,
             {
-                id: prevQuestions[numberOfQuestions - 1].id + 1,
+                id: prevQuestions[lastIndex].id + 1,
                 option: "Short answer",
                 optionIcon: MdShortText,
                 question: null,
@@ -111,6 +112,14 @@ export default function QuestionsProvider({ children }: Props) {
             },
         ]);
     }
+
+    const updateQuestionOption = (id: number, option: string) => {
+        setQuestions(
+            questions.map((question) =>
+                question.id === id ? { ...question, option } : { ...question }
+            )
+        );
+    };
 
     const updateQuestion = (
         id: number,
@@ -158,6 +167,7 @@ export default function QuestionsProvider({ children }: Props) {
         updateQuestion,
         options,
         handleUpdateOptionsDetails,
+        updateQuestionOption,
     };
 
     return (
