@@ -18,6 +18,7 @@ interface Props {
     selectedOption?: OptionType;
     onSetSelectedOption?: (option: OptionType) => void;
     preview?: boolean;
+    Icon: IconType;
 }
 
 export interface OptionType {
@@ -26,7 +27,8 @@ export interface OptionType {
 }
 
 const Options = (props: Props) => {
-    const { id, option, onSetSelectedOption, selectedOption, preview } = props;
+    const { id, option, onSetSelectedOption, selectedOption, preview, Icon } =
+        props;
 
     // Context
     const { options, updateQuestion } = useQuestions();
@@ -55,7 +57,7 @@ const Options = (props: Props) => {
                 color="primary"
                 onClick={handleClickOpen}
             >
-                <OptionItem Icon={selectedOption.Icon} option={option} />
+                <OptionItem Icon={Icon} option={option} />
             </Button>
             <DialogOptions
                 id={id}

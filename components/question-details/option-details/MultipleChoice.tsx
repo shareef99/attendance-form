@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useState } from "react";
-
+import { Fragment, useState } from "react";
+import { useQuestions } from "../../../context/questionsContext";
 // Material-Ui Imports
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -7,59 +7,47 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import TextField from "@material-ui/core/TextField";
 
-import { useQuestions } from "../../../context/questionsContext";
-
-interface Props {}
-
-export interface ChoiceType {
-    id: string;
-    text: string;
+interface Props {
+    id: number;
+    preview: boolean;
 }
 
-const MultipleChoice = (props: Props) => {
+const MultipleChoice = ({ id, preview }: Props) => {
     // Context
-    const { handleMultipleChoice, multipleChoice } = useQuestions();
+    const { handleUpdateOptionsDetails, questions } = useQuestions();
 
     // State
-    const [choices, setChoices] = useState<Array<ChoiceType>>([
-        { id: "Default", text: "option 1" },
-    ]);
-    const [hasOthers, setHasOthers] = useState<boolean>(false);
-
-    // Effects
-    useEffect(() => {
-        handleMultipleChoice(choices);
-    }, [choices]);
+    const [hasOthers, setHasOthers] = useState<boolean>(
+        questions[id].optionDetails.some((x) => x.text === "others")
+    );
 
     // Handlers
     const handleAddChoice = () => {
-        setChoices((prevChoices) => [
-            ...prevChoices,
-            { id: "random", text: "random" },
-        ]);
+        const lastIndex: number = questions[id].optionDetails.length - 1;
+        handleUpdateOptionsDetails(id, {
+            id: questions[id]?.optionDetails[lastIndex]?.id + 1,
+            text: "option " + (questions[id].optionDetails[lastIndex]?.id + 1),
+        });
     };
 
     const handleAddOther = () => {
-        setChoices((prevChoices) => [
-            ...prevChoices,
-            { id: "random", text: "others" },
-        ]);
+        const lastIndex: number = questions[id].optionDetails.length - 1;
         setHasOthers(true);
+        handleUpdateOptionsDetails(id, {
+            id: questions[id]?.optionDetails[lastIndex]?.id + 1,
+            text: "others",
+        });
     };
-
-    // Others
-    console.log({ choices, multipleChoice });
 
     return (
         <FormControl component="fieldset">
             <RadioGroup aria-label="Multiple Choice" name="multiple-choice">
-                {choices.map((choice, index) => {
-                    if (choice.text === "others") {
+                {questions[id].optionDetails.map((optionDetail) => {
+                    if (optionDetail.text === "others") {
                         return (
                             <FormControlLabel
                                 disabled
-                                key={index}
-                                value={index}
+                                key={optionDetail.id}
                                 control={<Radio />}
                                 label={
                                     <TextField
@@ -70,28 +58,28 @@ const MultipleChoice = (props: Props) => {
                             />
                         );
                     }
-
                     return (
-                        <FormControlLabel
-                            disabled
-                            key={index}
-                            value={index}
-                            control={<Radio />}
-                            label={
-                                <TextField
-                                    defaultValue={"option " + (index + 1)}
-                                />
-                            }
-                        />
+                        <Fragment>
+                            <FormControlLabel
+                                disabled
+                                key="others"
+                                control={<Radio />}
+                                label={
+                                    <TextField
+                                        defaultValue={optionDetail.text}
+                                    />
+                                }
+                            />
+                        </Fragment>
                     );
                 })}
-                {!hasOthers && (
+                {!hasOthers && !preview && (
                     <FormControlLabel
                         disabled
                         control={<Radio />}
                         label={
                             <Fragment>
-                                <button onClick={handleAddChoice}>
+                                <button onClick={() => handleAddChoice()}>
                                     Add option
                                 </button>{" "}
                                 <span>or</span>{" "}

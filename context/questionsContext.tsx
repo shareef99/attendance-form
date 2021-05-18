@@ -10,15 +10,19 @@ import {
 } from "react-icons/md";
 import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
 import { CgRadioChecked } from "react-icons/cg";
-import { ChoiceType } from "../components/question-details/option-details/MultipleChoice";
 import { IconType } from "react-icons/lib";
 // import { QuestionType } from "./formContext";
 
+export interface OptionDetailsType {
+    id: number;
+    text: string;
+}
 export interface QuestionType {
     id: number;
     option: string;
     optionIcon: IconType;
     question: string;
+    optionDetails: Array<OptionDetailsType>;
 }
 
 interface questionsContextType {
@@ -31,8 +35,10 @@ interface questionsContextType {
         question?: string
     ) => void;
     options: Array<OptionType>;
-    multipleChoice: Array<ChoiceType>;
-    handleMultipleChoice: (choices: Array<ChoiceType>) => void;
+    handleUpdateOptionsDetails: (
+        id: number,
+        optionDetails: OptionDetailsType
+    ) => void;
 }
 
 const questionsContextDefaultValues: questionsContextType = {
@@ -40,8 +46,7 @@ const questionsContextDefaultValues: questionsContextType = {
     handleAddQuestions: function () {},
     updateQuestion: () => {},
     options: [],
-    multipleChoice: [],
-    handleMultipleChoice: () => {},
+    handleUpdateOptionsDetails: () => {},
 };
 
 const questionsContext = createContext<questionsContextType>(
@@ -81,17 +86,15 @@ export default function QuestionsProvider({ children }: Props) {
         },
     ];
 
-    //
+    // States
     const [questions, setQuestions] = useState<Array<QuestionType>>([
         {
             id: 0,
             option: "Short answer",
             optionIcon: MdShortText,
             question: null,
+            optionDetails: [{ id: 1, text: "option 1" }],
         },
-    ]);
-    const [multipleChoice, setMultipleChoice] = useState<Array<ChoiceType>>([
-        { id: "Default", text: "option 1" },
     ]);
 
     // Handler functions
@@ -104,6 +107,7 @@ export default function QuestionsProvider({ children }: Props) {
                 option: "Short answer",
                 optionIcon: MdShortText,
                 question: null,
+                optionDetails: [{ id: 1, text: "option 1" }],
             },
         ]);
     }
@@ -128,8 +132,23 @@ export default function QuestionsProvider({ children }: Props) {
         );
     };
 
-    const handleMultipleChoice = (choices: Array<ChoiceType>) => {
-        setMultipleChoice(choices);
+    const handleUpdateOptionsDetails = (
+        id: number,
+        optionDetail: OptionDetailsType
+    ) => {
+        setQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? {
+                          ...question,
+                          optionDetails: [
+                              ...question.optionDetails,
+                              optionDetail,
+                          ],
+                      }
+                    : { ...question }
+            )
+        );
     };
 
     // Others
@@ -138,8 +157,7 @@ export default function QuestionsProvider({ children }: Props) {
         handleAddQuestions,
         updateQuestion,
         options,
-        multipleChoice,
-        handleMultipleChoice,
+        handleUpdateOptionsDetails,
     };
 
     return (

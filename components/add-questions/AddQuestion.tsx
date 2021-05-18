@@ -18,9 +18,10 @@ interface Props {
     option?: string;
     optionIcon?: IconType;
     preview?: boolean;
+    Icon?: IconType;
 }
 
-const AddQuestion = ({ id, option, optionIcon, preview }: Props) => {
+const AddQuestion = ({ id, option, optionIcon, preview, Icon }: Props) => {
     //Context
     const { options } = useQuestions();
 
@@ -48,11 +49,17 @@ const AddQuestion = ({ id, option, optionIcon, preview }: Props) => {
                     preview={preview}
                     id={id}
                     option={option}
+                    Icon={Icon}
                     selectedOption={selectedOption}
                     onSetSelectedOption={handleSetSelectedOption}
                 />
             </div>
-            <QuestionDetails selectedOption={selectedOption} />
+            <QuestionDetails
+                id={id}
+                option={option}
+                Icon={Icon}
+                preview={preview}
+            />
         </div>
     );
 };

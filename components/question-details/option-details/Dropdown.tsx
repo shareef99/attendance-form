@@ -3,7 +3,13 @@ import { useState } from "react";
 // Material-Ui Imports
 import TextField from "@material-ui/core/TextField";
 
-interface Props {}
+// Types
+import { OptionType } from "../../add-questions/Options";
+
+interface Props {
+    option: OptionType;
+    preview: boolean;
+}
 
 const Dropdown = (props: Props) => {
     // States

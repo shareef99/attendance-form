@@ -6,9 +6,16 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 
-interface Props {}
+// Types
+import { OptionType } from "../../add-questions/Options";
 
-const Checkboxes = (props: Props) => {
+interface Props {
+    option: OptionType;
+    preview: boolean;
+    isDisable: boolean;
+}
+
+const Checkboxes = ({ option, preview, isDisable }: Props) => {
     // States
     const [checkboxes, setCheckboxes] = useState<Array<any>>([""]);
     const [hasOthers, setHasOthers] = useState<boolean>(false);
@@ -29,12 +36,14 @@ const Checkboxes = (props: Props) => {
                 if (checkbox === "others") {
                     return (
                         <FormControlLabel
-                            disabled
+                            disabled={isDisable}
                             key={index}
-                            value={index}
                             control={<Checkbox />}
                             label={
-                                <TextField disabled defaultValue="Others..." />
+                                <TextField
+                                    disabled={isDisable}
+                                    defaultValue="Others..."
+                                />
                             }
                         />
                     );
@@ -42,9 +51,8 @@ const Checkboxes = (props: Props) => {
 
                 return (
                     <FormControlLabel
-                        disabled
+                        disabled={isDisable}
                         key={index}
-                        value={index}
                         control={<Checkbox />}
                         label={
                             <TextField defaultValue={"option " + (index + 1)} />

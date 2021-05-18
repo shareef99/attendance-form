@@ -1,14 +1,18 @@
 // Material-Ui Imports
 import TextField from "@material-ui/core/TextField";
 
+// Types
+import { OptionType } from "../../add-questions/Options";
+
 interface Props {
-    option: string;
+    selectedOption: OptionType;
+    preview: boolean;
 }
 
-const ShortAnswer = ({ option }: Props) => {
+const ShortAnswer = ({ selectedOption }: Props) => {
     return (
         <form>
-            <TextField placeholder={option + " text"} disabled />
+            <TextField placeholder={selectedOption.option + " text"} disabled />
         </form>
     );
 };

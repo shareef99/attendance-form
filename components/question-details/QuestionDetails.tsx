@@ -7,33 +7,44 @@ import Paragraph from "./option-details/Paragraph";
 import MultipleChoice from "./option-details/MultipleChoice";
 import Checkboxes from "./option-details/Checkboxes";
 import Dropdown from "./option-details/Dropdown";
+import { IconType } from "react-icons";
 
 interface Props {
-    selectedOption: OptionType;
+    id: number;
+    option: string;
+    Icon: IconType;
+    preview: boolean;
 }
 
-const QuestionDetails = ({ selectedOption }: Props) => {
-    const { option } = selectedOption;
-    console.log(option);
+const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
+    const isDisable = preview ? true : false;
 
     if (option === "Short answer") {
-        return <ShortAnswer option={option} />;
+        return (
+            <ShortAnswer selectedOption={{ option, Icon }} preview={preview} />
+        );
     }
 
     if (option === "Paragraph") {
-        return <Paragraph option={option} />;
+        return <Paragraph option={{ option, Icon }} preview={preview} />;
     }
 
     if (option === "Multiple choice") {
-        return <MultipleChoice />;
+        return <MultipleChoice preview={preview} id={id} />;
     }
 
     if (option === "Checkboxes") {
-        return <Checkboxes />;
+        return (
+            <Checkboxes
+                option={{ option, Icon }}
+                preview={preview}
+                isDisable={isDisable}
+            />
+        );
     }
 
     if (option === "Dropdown") {
-        return <Dropdown />;
+        return <Dropdown option={{ option, Icon }} preview={preview} />;
     }
 };
 

@@ -29,7 +29,6 @@ const Question = ({ id, option, optionIcon, preview }: Props) => {
 
     const onSubmit: SubmitHandler<QuestionFormType> = (data) => {
         const { question } = data;
-        console.log(data);
         updateQuestion(id, option, optionIcon, question);
     };
 

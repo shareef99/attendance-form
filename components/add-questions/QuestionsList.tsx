@@ -16,6 +16,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
                             preview={preview}
                             id={question.id}
                             option={question.option}
+                            Icon={question.optionIcon}
                             optionIcon={question.optionIcon}
                         />
                     </li>
