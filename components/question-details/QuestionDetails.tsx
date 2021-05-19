@@ -36,12 +36,15 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
 
     if (option === "Short answer") {
         return (
-            <ShortAnswer selectedOption={{ option, Icon }} preview={preview} />
+            <ShortAnswer
+                selectedOption={{ option, Icon }}
+                isDisable={isDisable}
+            />
         );
     }
 
     if (option === "Paragraph") {
-        return <Paragraph option={{ option, Icon }} preview={preview} />;
+        return <Paragraph option={{ option, Icon }} isDisable={isDisable} />;
     }
 
     if (option === "Multiple choice") {

@@ -6,16 +6,16 @@ import { OptionType } from "../../add-questions/Options";
 
 interface Props {
     option: OptionType;
-    preview: boolean;
+    isDisable: boolean;
 }
 
-const Paragraph = ({ option }: Props) => {
+const Paragraph = ({ option, isDisable }: Props) => {
     return (
         <form>
             <TextField
                 id="standard-basic"
                 placeholder={"Long answer text"}
-                disabled
+                disabled={isDisable}
             />
         </form>
     );
