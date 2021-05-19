@@ -1,8 +1,4 @@
 import { FormEvent, Fragment } from "react";
-
-// Material-Ui Imports
-import TextField from "@material-ui/core/TextField";
-
 // Types
 import { OptionType } from "../../add-questions/Options";
 import {
@@ -16,7 +12,6 @@ interface Props {
     optionDetails: Array<OptionDetailsType>;
     hasOthers: boolean;
     handleSetHasOthers: (value: boolean) => void;
-    option: OptionType;
 }
 
 const Dropdown = (props: Props) => {
@@ -24,7 +19,7 @@ const Dropdown = (props: Props) => {
         props;
 
     // Context
-    const { handleUpdateOptionsDetails } = useQuestions();
+    const { handleUpdateOptionsDetails, handleEditOption } = useQuestions();
 
     // Handlers
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -47,32 +42,47 @@ const Dropdown = (props: Props) => {
 
     return (
         <form className="" onSubmit={handleSubmit}>
-            {optionDetails.map((dropdown) => {
-                if (dropdown.text === "others") {
+            <ul>
+                {optionDetails.map((dropdown) => {
+                    if (dropdown.text === "others") {
+                        return (
+                            <li key="others">
+                                <input
+                                    type="text"
+                                    disabled
+                                    defaultValue={
+                                        isDisable ? "Other: " : "Others..."
+                                    }
+                                />
+                            </li>
+                        );
+                    }
                     return (
-                        <TextField
-                            key={dropdown.id}
-                            disabled={isDisable}
-                            defaultValue="Others..."
-                        />
+                        <li key={dropdown.id}>
+                            {dropdown.id}.{" "}
+                            <input
+                                type="text"
+                                disabled={!isDisable}
+                                defaultValue={dropdown.text}
+                                onChange={(e) =>
+                                    handleEditOption(
+                                        id,
+                                        dropdown.id,
+                                        e.target.value
+                                    )
+                                }
+                            />
+                        </li>
                     );
-                }
-                return (
-                    <div className="" key={dropdown.id}>
-                        {dropdown.id}.{" "}
-                        <TextField
-                            disabled={!isDisable}
-                            defaultValue={dropdown.text}
-                        />
-                    </div>
-                );
-            })}
-            {!hasOthers && isDisable && (
-                <Fragment>
-                    <button type="submit">Add option</button> <span>or</span>{" "}
-                    <button onClick={handleAddOther}>add "Other"</button>
-                </Fragment>
-            )}
+                })}
+                {!hasOthers && isDisable && (
+                    <Fragment>
+                        <button type="submit">Add option</button>{" "}
+                        <span>or</span>{" "}
+                        <button onClick={handleAddOther}>add "Other"</button>
+                    </Fragment>
+                )}
+            </ul>
         </form>
     );
 };

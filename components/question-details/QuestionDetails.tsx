@@ -79,7 +79,6 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
                 optionDetails={optionDetails}
                 hasOthers={hasOthers}
                 handleSetHasOthers={handleSetHasOthers}
-                option={{ option, Icon }}
             />
         );
     }
