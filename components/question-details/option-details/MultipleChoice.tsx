@@ -12,10 +12,6 @@ interface Props {
     handleSetHasOthers: (value: boolean) => void;
 }
 
-export interface FormValues {
-    optionDetails: Array<OptionDetailsType>;
-}
-
 const MultipleChoice = (props: Props) => {
     const { id, isDisable, optionDetails, hasOthers, handleSetHasOthers } =
         props;
@@ -54,6 +50,7 @@ const MultipleChoice = (props: Props) => {
                             <li key="others">
                                 <Radio disabled={isDisable} />
                                 <input
+                                    type="text"
                                     disabled
                                     defaultValue={
                                         isDisable ? "Other: " : "Others..."

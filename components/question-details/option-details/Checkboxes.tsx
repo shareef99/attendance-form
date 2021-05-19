@@ -1,13 +1,8 @@
-import { Fragment } from "react";
+import Checkbox from "@material-ui/core/Checkbox";
 import {
     OptionDetailsType,
     useQuestions,
 } from "../../../context/questionsContext";
-// Material-Ui Imports
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import TextField from "@material-ui/core/TextField";
 
 interface Props {
     id: number;
@@ -22,10 +17,12 @@ const Checkboxes = (props: Props) => {
         props;
 
     // Context
-    const { handleUpdateOptionsDetails } = useQuestions();
+    const { handleUpdateOptionsDetails, handleEditOption } = useQuestions();
 
     // Handlers
-    const handleAddCheckbox = () => {
+    const handleAddCheckbox = (e: any) => {
+        e.preventDefault();
+
         const lastIndex: number = optionDetails.length - 1;
         handleUpdateOptionsDetails(id, {
             id: optionDetails[lastIndex]?.id + 1,
@@ -33,7 +30,9 @@ const Checkboxes = (props: Props) => {
         });
     };
 
-    const handleAddOther = () => {
+    const handleAddOther = (e: any) => {
+        e.preventDefault();
+
         const lastIndex: number = optionDetails.length - 1;
         handleSetHasOthers(true);
         handleUpdateOptionsDetails(id, {
@@ -43,56 +42,49 @@ const Checkboxes = (props: Props) => {
     };
 
     return (
-        <FormControl component="fieldset">
-            {optionDetails.map((checkbox) => {
-                if (checkbox.text === "others") {
-                    return (
-                        <FormControlLabel
-                            disabled={isDisable}
-                            key="others"
-                            control={<Checkbox />}
-                            label={
-                                <TextField
-                                    disabled={isDisable}
-                                    defaultValue="Others..."
+        <form>
+            <ul>
+                {optionDetails.map((checkbox) => {
+                    if (checkbox.text === "others") {
+                        return (
+                            <li key="others">
+                                <Checkbox disabled={isDisable} />
+                                <input
+                                    type="text"
+                                    disabled
+                                    defaultValue={
+                                        isDisable ? "Other: " : "Others..."
+                                    }
                                 />
-                            }
-                        />
-                    );
-                }
-
-                return (
-                    <FormControlLabel
-                        disabled={isDisable}
-                        key={checkbox.id}
-                        control={<Checkbox />}
-                        label={
-                            <TextField
+                            </li>
+                        );
+                    }
+                    return (
+                        <li key={checkbox.id}>
+                            <Checkbox disabled={isDisable} />
+                            <input
                                 disabled={!isDisable}
                                 defaultValue={checkbox.text}
+                                onChange={(e) =>
+                                    handleEditOption(
+                                        id,
+                                        checkbox.id,
+                                        e.target.value
+                                    )
+                                }
                             />
-                        }
-                    />
-                );
-            })}
-            {!hasOthers && isDisable && (
-                <FormControlLabel
-                    disabled
-                    control={<Checkbox />}
-                    label={
-                        <Fragment>
-                            <button onClick={handleAddCheckbox}>
-                                Add option
-                            </button>{" "}
-                            <span>or</span>{" "}
-                            <button onClick={handleAddOther}>
-                                add "Other"
-                            </button>
-                        </Fragment>
-                    }
-                />
-            )}
-        </FormControl>
+                        </li>
+                    );
+                })}
+                {!hasOthers && isDisable && (
+                    <li>
+                        <button onClick={handleAddCheckbox}>Add option</button>{" "}
+                        <span>or</span>{" "}
+                        <button onClick={handleAddOther}>add "Other"</button>
+                    </li>
+                )}
+            </ul>
+        </form>
     );
 };
 
