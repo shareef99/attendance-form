@@ -39,6 +39,11 @@ interface questionsContextType {
         optionDetails: OptionDetailsType
     ) => void;
     updateQuestionOption: (id: number, option: string) => void;
+    handleEditOption: (
+        id: number,
+        optionId: number,
+        editedOptionValue: string
+    ) => void;
 }
 
 const questionsContextDefaultValues: questionsContextType = {
@@ -48,6 +53,7 @@ const questionsContextDefaultValues: questionsContextType = {
     options: [],
     handleUpdateOptionsDetails: () => {},
     updateQuestionOption: () => {},
+    handleEditOption: () => {},
 };
 
 const questionsContext = createContext<questionsContextType>(
@@ -160,6 +166,27 @@ export default function QuestionsProvider({ children }: Props) {
         );
     };
 
+    const handleEditOption = (
+        id: number,
+        optionId: number,
+        optionText: string
+    ) => {
+        setQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? {
+                          ...question,
+                          optionDetails: question.optionDetails.map((x) =>
+                              x.id === optionId
+                                  ? { ...x, text: optionText }
+                                  : { ...x }
+                          ),
+                      }
+                    : { ...question }
+            )
+        );
+    };
+
     // Others
     const value: questionsContextType = {
         questions,
@@ -168,6 +195,7 @@ export default function QuestionsProvider({ children }: Props) {
         options,
         handleUpdateOptionsDetails,
         updateQuestionOption,
+        handleEditOption,
     };
 
     return (

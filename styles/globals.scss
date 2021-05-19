@@ -10,16 +10,6 @@ body {
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-li {
-    text-decoration: none;
-    list-style: none;
-}
-
 * {
     box-sizing: border-box;
     padding: 0;
@@ -28,4 +18,16 @@ li {
     &:focus {
         outline: none;
     }
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+li {
+    @apply m-0;
+    color: inherit;
+    text-decoration: none;
+    list-style: none;
 }
