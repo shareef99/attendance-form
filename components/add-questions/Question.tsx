@@ -1,11 +1,4 @@
-// Material-Ui import(s)
 import TextField from "@material-ui/core/TextField";
-import { ImCheckboxChecked } from "react-icons/im";
-
-// React-Hook-Form Imports
-import { useForm, SubmitHandler } from "react-hook-form";
-
-// Others
 import { useQuestions } from "../../context/questionsContext";
 import { IconType } from "react-icons";
 
@@ -21,19 +14,10 @@ interface QuestionFormType {
 }
 
 const Question = ({ id, option, optionIcon, preview }: Props) => {
-    // Context
     const { updateQuestion, questions } = useQuestions();
 
-    // React-Hook-Form
-    const { register, handleSubmit } = useForm<QuestionFormType>();
-
-    const onSubmit: SubmitHandler<QuestionFormType> = (data) => {
-        const { question } = data;
-        updateQuestion(id, option, optionIcon, question);
-    };
-
     return (
-        <form className="rowCenter space-x-4" onSubmit={handleSubmit(onSubmit)}>
+        <div className="rowCenter space-x-4">
             <TextField
                 className="border-b-4"
                 type="text"
@@ -43,16 +27,11 @@ const Question = ({ id, option, optionIcon, preview }: Props) => {
                 defaultValue={
                     questions.find((x) => x.id === id).question || undefined
                 }
-                {...register("question")}
+                onChange={(e) =>
+                    updateQuestion(id, option, optionIcon, e.target.value)
+                }
             />
-            {preview ? (
-                <></>
-            ) : (
-                <button type="submit">
-                    <ImCheckboxChecked />
-                </button>
-            )}
-        </form>
+        </div>
     );
 };
 

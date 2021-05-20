@@ -11,10 +11,9 @@ const NewFormFooter = ({}: Props) => {
     const { handleAddQuestions } = useQuestions();
 
     return (
-        <footer className="rowCenter">
+        <footer className="rowCenter sticky bottom-0">
             <div
-                className={`absolute bottom-0 left-auto right-auto rowCenter space-x-8 h-14 container
-                    ${classes.newFormFooterIcons}`}
+                className={`rowCenter space-x-8 h-14 container ${classes.newFormFooterIcons}`}
             >
                 <HiOutlinePlusCircle
                     title="Add Question"
