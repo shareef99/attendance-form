@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { QuestionType } from "../../context/questionsContext";
 import AddQuestion from "./AddQuestion";
 import TitleNDescription from "./TitleNDescription";
@@ -9,7 +10,7 @@ interface Props {
 
 const QuestionsList = ({ questions, preview }: Props) => {
     return (
-        <ul>
+        <ul className="space-y-8 my-8">
             {questions.map((question) => {
                 const { id, option, optionIcon, title, description } = question;
                 if (title || description || title === "") {
@@ -25,7 +26,10 @@ const QuestionsList = ({ questions, preview }: Props) => {
                     );
                 }
                 return (
-                    <li className="container p-8" key={id}>
+                    <li
+                        className="container p-8 bg-white rounded-lg shadow-md"
+                        key={id}
+                    >
                         <AddQuestion
                             preview={preview}
                             id={id}

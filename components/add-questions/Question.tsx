@@ -12,7 +12,7 @@ const Question = ({ id, preview }: Props) => {
 
     return (
         <TextField
-            className="border-b-4"
+            className="flex-auto"
             type="text"
             disabled={preview ? true : false}
             placeholder="Questions"

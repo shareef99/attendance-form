@@ -10,7 +10,7 @@ const FormHeader = ({ preview }: Props) => {
     return (
         <header
             className="colCenter sm:flex-row sm:justify-between md:justify-around space-y-4 sm:space-y-0 
-                py-16 px-8 h-16 mx-auto bg-white"
+                py-16 px-8 h-16 mx-auto bg-white border-b-2 shadow"
         >
             <div className="rowCenter">
                 Logo <FileName preview={preview} />{" "}

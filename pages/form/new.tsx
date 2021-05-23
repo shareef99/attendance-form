@@ -13,11 +13,7 @@ const NewForm = ({}: Props) => {
 
     return (
         <section>
-            <h1>New Form</h1>
             <QuestionsList questions={questions} />
-            <button>
-                <Link href="/">Back to home</Link>
-            </button>
         </section>
     );
 };

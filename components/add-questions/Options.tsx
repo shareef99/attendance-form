@@ -27,7 +27,7 @@ const Options = (props: Props) => {
     const { id, option, preview, Icon } = props;
 
     // Context
-    const { updateQuestion } = useQuestions();
+    const { updateQuestionOption } = useQuestions();
 
     // State
     const [open, setOpen] = useState(false);
@@ -42,7 +42,7 @@ const Options = (props: Props) => {
 
     const handleClose = (option: string, Icon: IconType, id: number) => {
         setOpen(false);
-        updateQuestion(id, option, Icon);
+        updateQuestionOption(id, option);
     };
 
     return (
