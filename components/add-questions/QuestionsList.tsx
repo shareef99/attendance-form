@@ -27,7 +27,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
                 }
                 return (
                     <li
-                        className="container p-8 bg-white rounded-lg shadow-md"
+                        className="container p-8 bg-white rounded-lg shadow-md md:max-w-[60%]"
                         key={id}
                     >
                         <AddQuestion

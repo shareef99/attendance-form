@@ -21,11 +21,6 @@ module.exports = {
             center: true,
             padding: "2rem",
         },
-        flexGrow: {
-            0: 0,
-            1: 1,
-            auto: "auto",
-        },
     },
     variants: {
         extend: {},

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { HiPencil, HiLink, HiCheck, HiChevronDown } from "react-icons/hi";
 import FileName from "./FileName";
 
@@ -13,7 +14,13 @@ const FormHeader = ({ preview }: Props) => {
                 py-16 px-8 h-16 mx-auto bg-white border-b-2 shadow"
         >
             <div className="rowCenter">
-                Logo <FileName preview={preview} />{" "}
+                <Image
+                    width="48"
+                    height="48"
+                    src="/images/forms.png"
+                    alt="Form Logo by Freepik from flaticon"
+                />
+                <FileName preview={preview} />{" "}
             </div>
             <div className="rowCenter space-x-8 ">
                 <Link href="/form/new">
