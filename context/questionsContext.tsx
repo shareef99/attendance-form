@@ -127,7 +127,9 @@ export default function QuestionsProvider({ children }: Props) {
     };
 
     const handleDeleteQuestion = (id: number) => {
-        setQuestions(questions.filter((question) => question.id !== id));
+        if (questions.length > 1) {
+            setQuestions(questions.filter((question) => question.id !== id));
+        }
     };
 
     const handleAddTitleAndDescription = () => {

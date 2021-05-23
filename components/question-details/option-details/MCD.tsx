@@ -1,21 +1,29 @@
-import Radio from "@material-ui/core/Radio";
+import { Checkbox, Radio } from "@material-ui/core";
+import React from "react";
+import { ImCross } from "react-icons/im";
 import {
     OptionDetailsType,
     useQuestions,
 } from "../../../context/questionsContext";
-import { ImCross } from "react-icons/im";
 
 interface Props {
     id: number;
     isDisable: boolean;
+    option: string;
     optionDetails: Array<OptionDetailsType>;
     hasOthers: boolean;
     handleSetHasOthers: (value: boolean) => void;
 }
 
-const MultipleChoice = (props: Props) => {
-    const { id, isDisable, optionDetails, hasOthers, handleSetHasOthers } =
-        props;
+const MCD = (props: Props) => {
+    const {
+        id,
+        isDisable,
+        optionDetails,
+        hasOthers,
+        handleSetHasOthers,
+        option,
+    } = props;
 
     // Context
     const {
@@ -49,7 +57,7 @@ const MultipleChoice = (props: Props) => {
     return (
         <form>
             <ul>
-                {optionDetails.map((optionDetail) => {
+                {optionDetails.map((optionDetail, index) => {
                     if (optionDetail.text === "others") {
                         return (
                             <li
@@ -57,7 +65,15 @@ const MultipleChoice = (props: Props) => {
                                 className="rowCenter justify-between"
                             >
                                 <div>
-                                    <Radio disabled={isDisable} />
+                                    {option === "Checkboxes" && (
+                                        <Checkbox disabled={isDisable} />
+                                    )}
+                                    {option === "Multiple choice" && (
+                                        <Radio disabled={isDisable} />
+                                    )}
+                                    {option === "Dropdown" && (
+                                        <span>{index + 1}. </span>
+                                    )}
                                     <input
                                         type="text"
                                         disabled
@@ -88,8 +104,22 @@ const MultipleChoice = (props: Props) => {
                             key={optionDetail.id}
                             className="rowCenter justify-between"
                         >
-                            <div>
-                                <Radio disabled={isDisable} />
+                            <div
+                                style={
+                                    option === "Dropdown" && {
+                                        padding: ".5rem 0px",
+                                    }
+                                }
+                            >
+                                {option === "Checkboxes" && (
+                                    <Checkbox disabled={isDisable} />
+                                )}
+                                {option === "Multiple choice" && (
+                                    <Radio disabled={isDisable} />
+                                )}
+                                {option === "Dropdown" && (
+                                    <span>{index + 1}. </span>
+                                )}
                                 <input
                                     disabled={!isDisable}
                                     defaultValue={optionDetail.text}
@@ -131,4 +161,4 @@ const MultipleChoice = (props: Props) => {
     );
 };
 
-export default MultipleChoice;
+export default MCD;

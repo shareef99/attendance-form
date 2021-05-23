@@ -1,11 +1,9 @@
+import { useState } from "react";
 import ShortAnswer from "./option-details/ShortAnswer";
 import Paragraph from "./option-details/Paragraph";
-import MultipleChoice from "./option-details/MultipleChoice";
-import Checkboxes from "./option-details/Checkboxes";
-import Dropdown from "./option-details/Dropdown";
-import { IconType } from "react-icons";
+import MCD from "./option-details/MCD";
 import { useQuestions } from "../../context/questionsContext";
-import { useState } from "react";
+import { IconType } from "react-icons";
 
 interface Props {
     id: number;
@@ -44,35 +42,17 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
         return <Paragraph option={{ option, Icon }} isDisable={isDisable} />;
     }
 
-    if (option === "Multiple choice") {
+    if (
+        option === "Multiple choice" ||
+        option === "Checkboxes" ||
+        option === "Dropdown"
+    ) {
+        // MCD stands for multi choice, Checkboxes, DropDown
         return (
-            <MultipleChoice
+            <MCD
                 id={id}
                 isDisable={isDisable}
-                optionDetails={optionDetails}
-                hasOthers={hasOthers}
-                handleSetHasOthers={handleSetHasOthers}
-            />
-        );
-    }
-
-    if (option === "Checkboxes") {
-        return (
-            <Checkboxes
-                id={id}
-                isDisable={isDisable}
-                optionDetails={optionDetails}
-                hasOthers={hasOthers}
-                handleSetHasOthers={handleSetHasOthers}
-            />
-        );
-    }
-
-    if (option === "Dropdown") {
-        return (
-            <Dropdown
-                id={id}
-                isDisable={isDisable}
+                option={option}
                 optionDetails={optionDetails}
                 hasOthers={hasOthers}
                 handleSetHasOthers={handleSetHasOthers}
