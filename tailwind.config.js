@@ -8,7 +8,11 @@ module.exports = {
     mode: "jit",
     darkMode: false, // or 'media' or 'class'
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                bg: "var(--bg)",
+            },
+        },
         screens: {
             xs: "475px",
             ...defaultTheme.screens,

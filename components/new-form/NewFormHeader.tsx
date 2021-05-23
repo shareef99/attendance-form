@@ -9,7 +9,10 @@ interface Props {
 
 const NewFormHeader = ({ preview }: Props) => {
     return (
-        <header className="colCenter sm:flex-row justify-between container h-16 my-4">
+        <header
+            className="colCenter sm:flex-row sm:justify-between md:justify-around space-y-4 sm:space-y-0 
+                py-16 px-8 h-16 mx-auto bg-white"
+        >
             <div className="rowCenter">
                 Logo <FileName preview={preview} />{" "}
             </div>

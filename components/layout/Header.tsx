@@ -8,26 +8,14 @@ interface Props {
 
 const Header = ({ PageName }: Props) => {
     if (PageName === "NewForm") {
-        return (
-            <Fragment>
-                <NewFormHeader />
-            </Fragment>
-        );
+        return <NewFormHeader />;
     }
 
     if (PageName === "Preview") {
-        return (
-            <Fragment>
-                <PreviewHeader />
-            </Fragment>
-        );
+        return <PreviewHeader />;
     }
 
-    return (
-        <Fragment>
-            <h1 className="">Header</h1>
-        </Fragment>
-    );
+    return <Fragment></Fragment>;
 };
 
 export default Header;
