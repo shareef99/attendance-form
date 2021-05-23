@@ -22,7 +22,7 @@ const TitleNDescription = ({ preview, id, title, description }: Props) => {
             <TextField
                 placeholder="Description (optional)"
                 disabled={preview}
-                defaultValue={description || null}
+                defaultValue={description || ""}
                 onChange={(e) => handleUpdateDescription(id, e.target.value)}
             />
         </>

@@ -22,10 +22,6 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     const { optionDetails } = questions[id];
 
     // States
-    // let shareef: boolean = null;
-    // if (optionDetails) {
-    //     shareef = optionDetails.some((x) => x.text === "others");
-    // }
     const [hasOthers, setHasOthers] = useState<boolean>(
         optionDetails.some((x) => x.text === "others")
     );

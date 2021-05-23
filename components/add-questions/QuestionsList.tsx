@@ -11,25 +11,26 @@ const QuestionsList = ({ questions, preview }: Props) => {
     return (
         <ul>
             {questions.map((question) => {
-                if (question.title || question.description) {
+                const { id, option, optionIcon, title, description } = question;
+                if (title || description || title === "") {
                     return (
                         <li className="container p-8 colCenter items-start space-y-8">
                             <TitleNDescription
-                                id={question.id}
+                                id={id}
                                 preview={preview}
-                                title={question.title}
-                                description={question.description}
+                                title={title}
+                                description={description}
                             />
                         </li>
                     );
                 }
                 return (
-                    <li className="container p-8" key={question.id}>
+                    <li className="container p-8" key={id}>
                         <AddQuestion
                             preview={preview}
-                            id={question.id}
-                            option={question.option}
-                            Icon={question.optionIcon}
+                            id={id}
+                            option={option}
+                            Icon={optionIcon}
                         />
                     </li>
                 );
