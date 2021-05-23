@@ -19,11 +19,11 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
 
     // Constants
     const isDisable = preview ? false : true;
-    const { optionDetails } = questions[id];
+    const optionDetails = questions[id]?.optionDetails;
 
     // States
     const [hasOthers, setHasOthers] = useState<boolean>(
-        optionDetails.some((x) => x.text === "others")
+        optionDetails?.some((x) => x.text === "others")
     );
 
     // Handlers

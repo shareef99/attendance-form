@@ -45,6 +45,7 @@ interface questionsContextType {
     handleUpdateDescription: (id: number, description: string) => void;
     handleUpdateTitle: (id: number, title: string) => void;
     handleDeleteOptionDetail: (id: number, optionId: number) => void;
+    handleDeleteQuestion: (id: number) => void;
 }
 
 const questionsContextDefaultValues: questionsContextType = {
@@ -59,6 +60,7 @@ const questionsContextDefaultValues: questionsContextType = {
     handleUpdateDescription: () => {},
     handleUpdateTitle: () => {},
     handleDeleteOptionDetail: () => {},
+    handleDeleteQuestion: () => {},
 };
 
 const questionsContext = createContext<questionsContextType>(
@@ -122,6 +124,10 @@ export default function QuestionsProvider({ children }: Props) {
                 optionDetails: [{ id: 1, text: "option 1" }],
             },
         ]);
+    };
+
+    const handleDeleteQuestion = (id: number) => {
+        setQuestions(questions.filter((question) => question.id !== id));
     };
 
     const handleAddTitleAndDescription = () => {
@@ -243,6 +249,7 @@ export default function QuestionsProvider({ children }: Props) {
         handleUpdateDescription,
         handleUpdateTitle,
         handleDeleteOptionDetail,
+        handleDeleteQuestion,
     };
 
     return (

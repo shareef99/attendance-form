@@ -8,6 +8,7 @@ import { RiImageAddFill } from "react-icons/ri";
 import Options from "./Options";
 import QuestionDetails from "../question-details/QuestionDetails";
 import Question from "./Question";
+import QuestionFooter from "./QuestionFooter";
 
 interface Props {
     id?: number;
@@ -38,6 +39,8 @@ const AddQuestion = ({ id, option, preview, Icon }: Props) => {
                 Icon={Icon}
                 preview={preview}
             />
+            <div className="border-b-[3px]" />
+            <QuestionFooter id={id} />
         </div>
     );
 };
