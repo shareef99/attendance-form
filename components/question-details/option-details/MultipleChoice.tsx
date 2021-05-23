@@ -3,6 +3,7 @@ import {
     OptionDetailsType,
     useQuestions,
 } from "../../../context/questionsContext";
+import { ImCross } from "react-icons/im";
 
 interface Props {
     id: number;
@@ -17,7 +18,11 @@ const MultipleChoice = (props: Props) => {
         props;
 
     // Context
-    const { handleUpdateOptionsDetails, handleEditOption } = useQuestions();
+    const {
+        handleUpdateOptionsDetails,
+        handleEditOption,
+        handleDeleteOptionDetail,
+    } = useQuestions();
 
     // Handlers
     const handleAddChoice = (e: any) => {
@@ -47,32 +52,70 @@ const MultipleChoice = (props: Props) => {
                 {optionDetails.map((optionDetail) => {
                     if (optionDetail.text === "others") {
                         return (
-                            <li key="others">
-                                <Radio disabled={isDisable} />
-                                <input
-                                    type="text"
-                                    disabled
-                                    defaultValue={
-                                        isDisable ? "Other: " : "Others..."
-                                    }
-                                />
+                            <li
+                                key="others"
+                                className="rowCenter justify-between"
+                            >
+                                <div>
+                                    <Radio disabled={isDisable} />
+                                    <input
+                                        type="text"
+                                        disabled
+                                        defaultValue={
+                                            isDisable ? "Other: " : "Others..."
+                                        }
+                                    />
+                                </div>
+                                <div
+                                    className="cursor-pointer"
+                                    title="Cancel option"
+                                    onClick={() => {
+                                        if (optionDetails.length > 1) {
+                                            handleDeleteOptionDetail(
+                                                id,
+                                                optionDetail.id
+                                            );
+                                        }
+                                    }}
+                                >
+                                    <ImCross className="text-gray-500" />
+                                </div>
                             </li>
                         );
                     }
                     return (
-                        <li key={optionDetail.id}>
-                            <Radio disabled={isDisable} />
-                            <input
-                                disabled={!isDisable}
-                                defaultValue={optionDetail.text}
-                                onChange={(e) =>
-                                    handleEditOption(
-                                        id,
-                                        optionDetail.id,
-                                        e.target.value
-                                    )
-                                }
-                            />
+                        <li
+                            key={optionDetail.id}
+                            className="rowCenter justify-between"
+                        >
+                            <div>
+                                <Radio disabled={isDisable} />
+                                <input
+                                    disabled={!isDisable}
+                                    defaultValue={optionDetail.text}
+                                    onChange={(e) =>
+                                        handleEditOption(
+                                            id,
+                                            optionDetail.id,
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                            </div>
+                            <div
+                                className="cursor-pointer"
+                                title="Cancel option"
+                                onClick={() => {
+                                    if (optionDetails.length > 1) {
+                                        handleDeleteOptionDetail(
+                                            id,
+                                            optionDetail.id
+                                        );
+                                    }
+                                }}
+                            >
+                                <ImCross className="text-gray-500" />
+                            </div>
                         </li>
                     );
                 })}

@@ -1,4 +1,5 @@
 import Checkbox from "@material-ui/core/Checkbox";
+import { ImCross } from "react-icons/im";
 import {
     OptionDetailsType,
     useQuestions,
@@ -17,7 +18,11 @@ const Checkboxes = (props: Props) => {
         props;
 
     // Context
-    const { handleUpdateOptionsDetails, handleEditOption } = useQuestions();
+    const {
+        handleUpdateOptionsDetails,
+        handleEditOption,
+        handleDeleteOptionDetail,
+    } = useQuestions();
 
     // Handlers
     const handleAddCheckbox = (e: any) => {
@@ -47,32 +52,70 @@ const Checkboxes = (props: Props) => {
                 {optionDetails.map((checkbox) => {
                     if (checkbox.text === "others") {
                         return (
-                            <li key="others">
-                                <Checkbox disabled={isDisable} />
-                                <input
-                                    type="text"
-                                    disabled
-                                    defaultValue={
-                                        isDisable ? "Other: " : "Others..."
-                                    }
-                                />
+                            <li
+                                key="others"
+                                className="rowCenter justify-between"
+                            >
+                                <div>
+                                    <Checkbox disabled={isDisable} />
+                                    <input
+                                        type="text"
+                                        disabled
+                                        defaultValue={
+                                            isDisable ? "Other: " : "Others..."
+                                        }
+                                    />
+                                </div>
+                                <div
+                                    className="cursor-pointer"
+                                    title="Cancel option"
+                                    onClick={() => {
+                                        if (optionDetails.length > 1) {
+                                            handleDeleteOptionDetail(
+                                                id,
+                                                checkbox.id
+                                            );
+                                        }
+                                    }}
+                                >
+                                    <ImCross className="text-gray-500" />
+                                </div>
                             </li>
                         );
                     }
                     return (
-                        <li key={checkbox.id}>
-                            <Checkbox disabled={isDisable} />
-                            <input
-                                disabled={!isDisable}
-                                defaultValue={checkbox.text}
-                                onChange={(e) =>
-                                    handleEditOption(
-                                        id,
-                                        checkbox.id,
-                                        e.target.value
-                                    )
-                                }
-                            />
+                        <li
+                            key={checkbox.id}
+                            className="rowCenter justify-between"
+                        >
+                            <div>
+                                <Checkbox disabled={isDisable} />
+                                <input
+                                    disabled={!isDisable}
+                                    defaultValue={checkbox.text}
+                                    onChange={(e) =>
+                                        handleEditOption(
+                                            id,
+                                            checkbox.id,
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                            </div>
+                            <div
+                                className="cursor-pointer"
+                                title="Cancel option"
+                                onClick={() => {
+                                    if (optionDetails.length > 1) {
+                                        handleDeleteOptionDetail(
+                                            id,
+                                            checkbox.id
+                                        );
+                                    }
+                                }}
+                            >
+                                <ImCross className="text-gray-500" />
+                            </div>
                         </li>
                     );
                 })}
