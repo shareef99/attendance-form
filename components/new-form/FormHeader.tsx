@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { HiPencil, HiLink, HiCheck, HiChevronDown } from "react-icons/hi";
 import FileName from "./FileName";
 
@@ -7,7 +6,7 @@ interface Props {
     preview?: boolean;
 }
 
-const NewFormHeader = ({ preview }: Props) => {
+const FormHeader = ({ preview }: Props) => {
     return (
         <header
             className="colCenter sm:flex-row sm:justify-between md:justify-around space-y-4 sm:space-y-0 
@@ -42,4 +41,4 @@ const NewFormHeader = ({ preview }: Props) => {
     );
 };
 
-export default NewFormHeader;
+export default FormHeader;

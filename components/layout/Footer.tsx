@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import NewFormFooter from "../new-form/NewFormFooter";
+import FormFooter from "../new-form/FormFooter";
 interface Props {
     PageName: string;
 }
@@ -8,7 +8,7 @@ const Footer = ({ PageName }: Props) => {
     if (PageName === "NewForm") {
         return (
             <Fragment>
-                <NewFormFooter />
+                <FormFooter />
             </Fragment>
         );
     }

@@ -7,7 +7,7 @@ import classes from "../../styles/components/new-form/new-form-footer.module.scs
 
 interface Props {}
 
-const NewFormFooter = ({}: Props) => {
+const FormFooter = ({}: Props) => {
     const { handleAddQuestions, handleAddTitleAndDescription } = useQuestions();
 
     return (
@@ -30,4 +30,4 @@ const NewFormFooter = ({}: Props) => {
     );
 };
 
-export default NewFormFooter;
+export default FormFooter;

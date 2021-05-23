@@ -1,6 +1,5 @@
-import React, { Fragment, ReactElement } from "react";
-import NewFormHeader from "../new-form/NewFormHeader";
-import PreviewHeader from "../preview/PreviewHeader";
+import React, { Fragment } from "react";
+import FormHeader from "../new-form/FormHeader";
 
 interface Props {
     PageName: string;
@@ -8,11 +7,11 @@ interface Props {
 
 const Header = ({ PageName }: Props) => {
     if (PageName === "NewForm") {
-        return <NewFormHeader />;
+        return <FormHeader />;
     }
 
     if (PageName === "Preview") {
-        return <PreviewHeader />;
+        return <FormHeader preview />;
     }
 
     return <Fragment></Fragment>;
