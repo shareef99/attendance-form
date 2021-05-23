@@ -18,14 +18,9 @@ interface Props {
 
 const AddQuestion = ({ id, option, preview, Icon }: Props) => {
     return (
-        <div className="p-8 space-y-8">
-            <div className="rowCenter justify-around">
-                <Question
-                    id={id}
-                    option={option}
-                    optionIcon={Icon}
-                    preview={preview}
-                />
+        <div className="space-y-8">
+            <div className="rowCenter justify-between">
+                <Question id={id} preview={preview} />
                 <RiImageAddFill width="30px" height="50px" />
                 <Options
                     preview={preview}

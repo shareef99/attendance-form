@@ -8,7 +8,7 @@ import classes from "../../styles/components/new-form/new-form-footer.module.scs
 interface Props {}
 
 const NewFormFooter = ({}: Props) => {
-    const { handleAddQuestions } = useQuestions();
+    const { handleAddQuestions, handleAddTitleAndDescription } = useQuestions();
 
     return (
         <footer className="rowCenter sticky bottom-0">
@@ -17,9 +17,12 @@ const NewFormFooter = ({}: Props) => {
             >
                 <HiOutlinePlusCircle
                     title="Add Question"
-                    onClick={() => handleAddQuestions()}
+                    onClick={handleAddQuestions}
                 />
-                <MdTextFields title="Add title and description" />
+                <MdTextFields
+                    title="Add title and description"
+                    onClick={handleAddTitleAndDescription}
+                />
                 <RiImageAddFill title="Add Image" />
                 <RiVideoAddFill title="Add YouTube Video" />
             </div>

@@ -18,21 +18,18 @@ export interface OptionDetailsType {
 }
 export interface QuestionType {
     id: number;
-    option: string;
-    optionIcon: IconType;
-    question: string;
-    optionDetails: Array<OptionDetailsType>;
+    option?: string;
+    optionIcon?: IconType;
+    question?: string;
+    optionDetails?: Array<OptionDetailsType>;
+    title?: string;
+    description?: string;
 }
 
 interface questionsContextType {
     questions: Array<QuestionType>;
-    handleAddQuestions: Function;
-    updateQuestion: (
-        id: number,
-        option: string,
-        optionIcon: IconType,
-        question?: string
-    ) => void;
+    handleAddQuestions: () => void;
+    updateQuestion: (id: number, question?: string) => void;
     options: Array<OptionType>;
     handleUpdateOptionsDetails: (
         id: number,
@@ -44,16 +41,22 @@ interface questionsContextType {
         optionId: number,
         editedOptionValue: string
     ) => void;
+    handleAddTitleAndDescription: () => void;
+    handleUpdateDescription: (id: number, description: string) => void;
+    handleUpdateTitle: (id: number, title: string) => void;
 }
 
 const questionsContextDefaultValues: questionsContextType = {
     questions: [],
-    handleAddQuestions: function () {},
+    handleAddQuestions: () => {},
     updateQuestion: () => {},
     options: [],
     handleUpdateOptionsDetails: () => {},
     updateQuestionOption: () => {},
     handleEditOption: () => {},
+    handleAddTitleAndDescription: () => {},
+    handleUpdateDescription: () => {},
+    handleUpdateTitle: () => {},
 };
 
 const questionsContext = createContext<questionsContextType>(
@@ -105,7 +108,7 @@ export default function QuestionsProvider({ children }: Props) {
     ]);
 
     // Handler functions
-    function handleAddQuestions() {
+    const handleAddQuestions = () => {
         const lastIndex = questions.length - 1;
         setQuestions((prevQuestions) => [
             ...prevQuestions,
@@ -117,7 +120,19 @@ export default function QuestionsProvider({ children }: Props) {
                 optionDetails: [{ id: 1, text: "option 1" }],
             },
         ]);
-    }
+    };
+
+    const handleAddTitleAndDescription = () => {
+        const lastIndex = questions.length - 1;
+        setQuestions((prevQuestions) => [
+            ...prevQuestions,
+            {
+                id: prevQuestions[lastIndex].id + 1,
+                title: "Untitled Title",
+                description: null,
+            },
+        ]);
+    };
 
     const updateQuestionOption = (id: number, option: string) => {
         setQuestions(
@@ -127,19 +142,12 @@ export default function QuestionsProvider({ children }: Props) {
         );
     };
 
-    const updateQuestion = (
-        id: number,
-        option: string,
-        optionIcon: IconType,
-        questionText: string
-    ) => {
+    const updateQuestion = (id: number, questionText: string) => {
         setQuestions(
             questions.map((question) =>
                 question.id === id
                     ? {
                           ...question,
-                          option,
-                          optionIcon,
                           question: questionText,
                       }
                     : { ...question }
@@ -187,6 +195,24 @@ export default function QuestionsProvider({ children }: Props) {
         );
     };
 
+    const handleUpdateDescription = (id: number, description: string) => {
+        setQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? { ...question, description }
+                    : { ...question }
+            )
+        );
+    };
+
+    const handleUpdateTitle = (id: number, title: string) => {
+        setQuestions(
+            questions.map((question) =>
+                question.id === id ? { ...question, title } : { ...question }
+            )
+        );
+    };
+
     // Others
     const value: questionsContextType = {
         questions,
@@ -196,6 +222,9 @@ export default function QuestionsProvider({ children }: Props) {
         handleUpdateOptionsDetails,
         updateQuestionOption,
         handleEditOption,
+        handleAddTitleAndDescription,
+        handleUpdateDescription,
+        handleUpdateTitle,
     };
 
     return (

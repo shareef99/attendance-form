@@ -7,12 +7,15 @@ interface Props {
 }
 
 const OptionItem = ({ Icon, option }: Props) => {
-    return (
-        <div className="rowCenter space-x-4">
-            <Icon />
-            <p>{option}</p>
-        </div>
-    );
+    if (option && Icon) {
+        return (
+            <div className="rowCenter space-x-4">
+                <Icon />
+                <p>{option}</p>
+            </div>
+        );
+    }
+    return <></>;
 };
 
 export default OptionItem;

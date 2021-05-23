@@ -12,7 +12,7 @@ interface Props {
 const ShortAnswer = ({ selectedOption, isDisable }: Props) => {
     return (
         <form>
-            <TextField
+            <input
                 placeholder={selectedOption.option + " text"}
                 disabled={isDisable}
             />

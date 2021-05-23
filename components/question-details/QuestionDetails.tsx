@@ -1,6 +1,3 @@
-// Types
-
-// React Option Components
 import ShortAnswer from "./option-details/ShortAnswer";
 import Paragraph from "./option-details/Paragraph";
 import MultipleChoice from "./option-details/MultipleChoice";
@@ -25,6 +22,10 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     const { optionDetails } = questions[id];
 
     // States
+    // let shareef: boolean = null;
+    // if (optionDetails) {
+    //     shareef = optionDetails.some((x) => x.text === "others");
+    // }
     const [hasOthers, setHasOthers] = useState<boolean>(
         optionDetails.some((x) => x.text === "others")
     );

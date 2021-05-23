@@ -1,5 +1,6 @@
 import { QuestionType } from "../../context/questionsContext";
 import AddQuestion from "./AddQuestion";
+import TitleNDescription from "./TitleNDescription";
 
 interface Props {
     questions: Array<QuestionType>;
@@ -10,8 +11,20 @@ const QuestionsList = ({ questions, preview }: Props) => {
     return (
         <ul>
             {questions.map((question) => {
+                if (question.title || question.description) {
+                    return (
+                        <li className="container p-8 colCenter items-start space-y-8">
+                            <TitleNDescription
+                                id={question.id}
+                                preview={preview}
+                                title={question.title}
+                                description={question.description}
+                            />
+                        </li>
+                    );
+                }
                 return (
-                    <li className="container" key={question.id}>
+                    <li className="container p-8" key={question.id}>
                         <AddQuestion
                             preview={preview}
                             id={question.id}
