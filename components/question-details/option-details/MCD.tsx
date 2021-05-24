@@ -56,7 +56,7 @@ const MCD = (props: Props) => {
 
     return (
         <form>
-            <ul>
+            <ul className={`${option === "Dropdown" ? "space-y-4" : ""}`}>
                 {optionDetails.map((optionDetail, index) => {
                     if (optionDetail.text === "others") {
                         return (
@@ -66,7 +66,10 @@ const MCD = (props: Props) => {
                             >
                                 <div>
                                     {option === "Checkboxes" && (
-                                        <Checkbox disabled={isDisable} />
+                                        <>
+                                            <Checkbox disabled={isDisable} />
+                                            {console.log("Checkbox")}
+                                        </>
                                     )}
                                     {option === "Multiple choice" && (
                                         <Radio disabled={isDisable} />
@@ -104,13 +107,7 @@ const MCD = (props: Props) => {
                             key={optionDetail.id}
                             className="rowCenter justify-between"
                         >
-                            <div
-                                style={
-                                    option === "Dropdown" && {
-                                        padding: ".5rem 0px",
-                                    }
-                                }
-                            >
+                            <div>
                                 {option === "Checkboxes" && (
                                     <Checkbox disabled={isDisable} />
                                 )}

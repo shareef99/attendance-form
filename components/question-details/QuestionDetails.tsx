@@ -42,6 +42,7 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
         return <Paragraph option={{ option, Icon }} isDisable={isDisable} />;
     }
 
+    let dash = option;
     if (
         option === "Multiple choice" ||
         option === "Checkboxes" ||
@@ -52,7 +53,7 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
             <MCD
                 id={id}
                 isDisable={isDisable}
-                option={option}
+                option={dash}
                 optionDetails={optionDetails}
                 hasOthers={hasOthers}
                 handleSetHasOthers={handleSetHasOthers}
