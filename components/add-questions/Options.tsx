@@ -42,7 +42,6 @@ const Options = (props: Props) => {
 
     const handleClose = (option: string, Icon: IconType, id: number) => {
         setOpen(false);
-        console.log(id);
         updateQuestionOption(id, option);
     };
 

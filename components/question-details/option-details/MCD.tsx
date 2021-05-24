@@ -63,7 +63,7 @@ const MCD = (props: Props) => {
                     option === "Dropdown" ? "space-y-4" : "space-y-0"
                 }`}
             >
-                {optionDetails.map((optionDetail, index) => {
+                {optionDetails?.map((optionDetail, index) => {
                     if (optionDetail.text === "others") {
                         return (
                             <li
@@ -72,10 +72,7 @@ const MCD = (props: Props) => {
                             >
                                 <div>
                                     {option === "Checkboxes" && (
-                                        <>
-                                            <Checkbox disabled={isDisable} />
-                                            {console.log("Checkbox")}
-                                        </>
+                                        <Checkbox disabled={isDisable} />
                                     )}
                                     {option === "Multiple choice" && (
                                         <Radio disabled={isDisable} />

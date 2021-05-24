@@ -11,6 +11,7 @@ import {
 import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
 import { CgRadioChecked } from "react-icons/cg";
 import { IconType } from "react-icons/lib";
+import { addNewItemAtId } from "../helpers/question-utils";
 
 export interface OptionDetailsType {
     id: number;
@@ -149,14 +150,9 @@ export default function QuestionsProvider({ children }: Props) {
     };
 
     const handleCopyQuestion = (id: number) => {
-        const lastIndex = questions.length - 1;
-        questions.splice(id + 1, 0, {
-            ...questions[id],
-            id: questions[lastIndex].id + 1,
-            optionDetails: questions[id].optionDetails,
-        });
-        console.log(questions);
-        setQuestions(questions);
+        const questionToCopy = questions[id];
+        const newQuestions = addNewItemAtId(questions, id, questionToCopy);
+        setQuestions(newQuestions);
     };
 
     const updateQuestionOption = (id: number, option: string) => {
