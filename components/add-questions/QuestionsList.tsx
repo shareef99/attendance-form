@@ -1,7 +1,7 @@
 import { MouseEvent, useState } from "react";
 import { QuestionType } from "../../context/questionsContext";
 import AddQuestion from "./AddQuestion";
-import TitleNDescription from "./TitleNDescription";
+import TitleNDescription from "./TitleNDescription/TitleNDescription";
 
 interface Props {
     questions: Array<QuestionType>;
@@ -34,7 +34,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
             aria-label="list"
             onClick={handleRemoveSelected}
         >
-            {questions.map((question, index) => {
+            {questions.map((question) => {
                 const { id, option, optionIcon, title, description } = question;
                 if (title || description || title === "") {
                     return (

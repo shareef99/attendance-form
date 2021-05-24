@@ -60,6 +60,8 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
             />
         );
     }
+
+    return <></>;
 };
 
 export default QuestionDetails;
