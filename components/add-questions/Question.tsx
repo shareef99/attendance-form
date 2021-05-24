@@ -18,7 +18,7 @@ const Question = ({ id, preview }: Props) => {
             placeholder="Questions"
             variant="filled"
             defaultValue={
-                questions.find((x) => x.id === id).question || undefined
+                questions.find((x) => x.id === id)?.question || undefined
             }
             onChange={(e) => updateQuestion(id, e.target.value)}
         />

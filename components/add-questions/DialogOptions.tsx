@@ -23,9 +23,9 @@ const DialogOptions = ({ id, onClose, open }: Props) => {
     };
 
     const handleListItemClick = (
+        id: number,
         option: string,
-        Icon: IconType,
-        id: number
+        Icon: IconType
     ) => {
         onClose(option, Icon, id);
     };
@@ -46,7 +46,7 @@ const DialogOptions = ({ id, onClose, open }: Props) => {
                     <ListItem
                         button
                         onClick={() =>
-                            handleListItemClick(option.option, option.Icon, id)
+                            handleListItemClick(id, option.option, option.Icon)
                         }
                         key={option.option}
                     >

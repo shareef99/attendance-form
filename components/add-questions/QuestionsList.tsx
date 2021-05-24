@@ -31,17 +31,22 @@ const QuestionsList = ({ questions, preview }: Props) => {
     return (
         <ul
             className="space-y-8 my-8"
-            title="list"
             aria-label="list"
             onClick={handleRemoveSelected}
         >
-            {questions.map((question) => {
+            {questions.map((question, index) => {
                 const { id, option, optionIcon, title, description } = question;
                 if (title || description || title === "") {
                     return (
                         <li
+                            key="others"
                             onClick={() => handleAddSelected(id, true)}
-                            className="container p-8 colCenter items-start space-y-8"
+                            className={`container p-8 bg-white rounded-lg shadow-md md:max-w-[60%] 
+                            transition transform duration-200 ease-in border-l-4  ${
+                                id === selected.id && selected.state
+                                    ? "border-blue-500"
+                                    : "border-transparent"
+                            }`}
                         >
                             <TitleNDescription
                                 id={id}
@@ -54,6 +59,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
                 }
                 return (
                     <li
+                        key={id}
                         onClick={() => handleAddSelected(id, true)}
                         className={`container p-8 bg-white rounded-lg shadow-md md:max-w-[60%] 
                             transition transform duration-200 ease-in border-l-4  ${
@@ -61,7 +67,6 @@ const QuestionsList = ({ questions, preview }: Props) => {
                                     ? "border-blue-500"
                                     : "border-transparent"
                             }`}
-                        key={id}
                     >
                         <AddQuestion
                             preview={preview}

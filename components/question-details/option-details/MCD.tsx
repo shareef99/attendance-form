@@ -36,10 +36,12 @@ const MCD = (props: Props) => {
     const handleAddChoice = (e: any) => {
         e.preventDefault();
 
-        const lastIndex: number = optionDetails.length - 1;
+        const largestId = optionDetails.sort((a, b) => a.id - b.id)[
+            optionDetails.length - 1
+        ].id;
         handleUpdateOptionsDetails(id, {
-            id: optionDetails[lastIndex]?.id + 1,
-            text: "option " + (optionDetails[lastIndex]?.id + 1),
+            id: largestId + 1,
+            text: "option " + (largestId + 1),
         });
     };
 
@@ -56,7 +58,11 @@ const MCD = (props: Props) => {
 
     return (
         <form>
-            <ul className={`${option === "Dropdown" ? "space-y-4" : ""}`}>
+            <ul
+                className={`${
+                    option === "Dropdown" ? "space-y-4" : "space-y-0"
+                }`}
+            >
                 {optionDetails.map((optionDetail, index) => {
                     if (optionDetail.text === "others") {
                         return (
