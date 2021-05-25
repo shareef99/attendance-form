@@ -11,6 +11,8 @@ module.exports = {
         extend: {
             colors: {
                 bg: "var(--bg)",
+                borderColor: "var(--border-color)",
+                blueText: "var(--blue-text)",
             },
         },
         screens: {

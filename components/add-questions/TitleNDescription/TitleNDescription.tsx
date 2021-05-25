@@ -1,4 +1,5 @@
-import TextField from "@material-ui/core/TextField";
+import Input from "@material-ui/core/Input";
+import withStyles from "@material-ui/core/styles/withStyles";
 import { useQuestions } from "../../../context/questionsContext";
 import QuestionFooter from "../QuestionFooter";
 
@@ -9,29 +10,56 @@ interface Props {
     title: string;
 }
 
+const TitleInput = withStyles({
+    root: {
+        fontSize: "2rem",
+    },
+})(Input);
+
+const DescriptionInput = withStyles({
+    root: {
+        fontSize: "1.2rem",
+    },
+})(Input);
+
 const TitleNDescription = ({ preview, id, title, description }: Props) => {
     const { handleUpdateDescription, handleUpdateTitle } = useQuestions();
 
     return (
-        <div className="space-y-8">
-            <div className="space-y-8 colCenter items-start">
-                <TextField
-                    variant="filled"
-                    disabled={preview}
+        <div className="space-y-8 w-full">
+            <div className="space-y-8 colCenter items-start w-full ">
+                <TitleInput
                     defaultValue={title || "Untitled title"}
+                    placeholder={id === 0 ? "Form title" : "Title"}
+                    // disabled={preview}
+                    readOnly={preview}
+                    fullWidth={true}
+                    multiline={true}
                     onChange={(e) => handleUpdateTitle(id, e.target.value)}
+                    required={true}
                 />
-                <TextField
-                    placeholder="Description (optional)"
-                    disabled={preview}
+                <DescriptionInput
+                    // className="lgText bg-purple-600"
+                    placeholder={
+                        id === 0 ? "From Description" : "Description (optional)"
+                    }
+                    // disabled={preview}
+                    readOnly={preview}
                     defaultValue={description || ""}
+                    fullWidth={true}
+                    multiline={true}
                     onChange={(e) =>
                         handleUpdateDescription(id, e.target.value)
                     }
+                    required={true}
                 />
             </div>
-            <div className="border-b-[3px]" />
-            <QuestionFooter id={id} />
+            {id !== 0 && (
+                <>
+                    <div className="border-b-[3px]" />
+                    <QuestionFooter id={id} />
+                </>
+            )}
         </div>
     );
 };

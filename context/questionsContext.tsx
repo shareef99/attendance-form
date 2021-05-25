@@ -107,10 +107,11 @@ export default function QuestionsProvider({ children }: Props) {
     const [questions, setQuestions] = useState<Array<QuestionType>>([
         {
             id: 0,
-            option: "Short answer",
-            optionIcon: MdShortText,
-            question: null,
-            optionDetails: [{ id: 1, text: "option 1" }],
+            // option: "Short answer",
+            // optionIcon: MdShortText,
+            // question: null,
+            // optionDetails: [{ id: 1, text: "option 1" }],
+            title: "Form Title",
         },
     ]);
 
@@ -156,8 +157,6 @@ export default function QuestionsProvider({ children }: Props) {
     };
 
     const updateQuestionOption = (id: number, option: string) => {
-        console.log("para ID: ", id, " Deleting ID: ", questions[id].id);
-
         setQuestions(
             questions.map((question) =>
                 question.id === id ? { ...question, option } : { ...question }

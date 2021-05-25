@@ -150,10 +150,20 @@ const MCD = (props: Props) => {
                     );
                 })}
                 {!hasOthers && isDisable && (
-                    <li>
-                        <button onClick={handleAddChoice}>Add option</button>{" "}
+                    <li className="font-medium mt-1 ml-3">
+                        <button
+                            onClick={handleAddChoice}
+                            className="opacity-95"
+                        >
+                            Add option
+                        </button>{" "}
                         <span>or</span>{" "}
-                        <button onClick={handleAddOther}>add "Other"</button>
+                        <button
+                            onClick={handleAddOther}
+                            className="text-blueText font-medium"
+                        >
+                            add "Other"
+                        </button>
                     </li>
                 )}
             </ul>

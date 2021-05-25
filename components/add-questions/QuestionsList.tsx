@@ -20,7 +20,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
         // @ts-ignore, ignoring this warning as I know aria-label exists on this element
         if (e.target.ariaLabel !== "list") return;
         if (preview) return;
-        setSelected({ id: -1, state: false });
+        setSelected({ id: 0, state: true });
     };
 
     const handleAddSelected = (id: number, state: boolean) => {
@@ -41,12 +41,22 @@ const QuestionsList = ({ questions, preview }: Props) => {
                         <li
                             key="others"
                             onClick={() => handleAddSelected(id, true)}
-                            className={`container p-8 bg-white rounded-lg shadow-md md:max-w-[60%] 
-                            transition transform duration-200 ease-in border-l-4  ${
-                                id === selected.id && selected.state
-                                    ? "border-blue-500"
-                                    : "border-transparent"
-                            }`}
+                            className={`container p-8 bg-white rounded-lg shadow-md xl:max-w-[80%] 
+                            transition transform duration-200 ease-in border-l-[8px] 2xl:max-w-[70%]
+                             ${
+                                 id === selected.id && selected.state
+                                     ? "border-blue-500"
+                                     : "border-transparent"
+                             }`}
+                            style={
+                                id === 0
+                                    ? {
+                                          borderTopWidth: "8px",
+                                          borderTopColor:
+                                              "rgba(109, 40, 217, 1)",
+                                      }
+                                    : {}
+                            }
                         >
                             <TitleNDescription
                                 id={id}
@@ -61,8 +71,8 @@ const QuestionsList = ({ questions, preview }: Props) => {
                     <li
                         key={id}
                         onClick={() => handleAddSelected(id, true)}
-                        className={`container p-8 bg-white rounded-lg shadow-md md:max-w-[60%] 
-                            transition transform duration-200 ease-in border-l-4  ${
+                        className={`container p-8 bg-white rounded-lg shadow-md xl:max-w-[75%]
+                            transition transform duration-200 ease-in border-l-[8px] 2xl:max-w-[70%] ${
                                 id === selected.id && selected.state
                                     ? "border-blue-500"
                                     : "border-transparent"
