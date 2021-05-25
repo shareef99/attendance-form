@@ -31,15 +31,18 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
 
     if (option === "Short answer") {
         return (
-            <ShortAnswer
-                selectedOption={{ option, Icon }}
-                isDisable={isDisable}
-            />
+            <div className="sm:w-[70%] md:w-[60%]">
+                <ShortAnswer isDisable={isDisable} />
+            </div>
         );
     }
 
     if (option === "Paragraph") {
-        return <Paragraph isDisable={isDisable} />;
+        return (
+            <div>
+                <Paragraph isDisable={isDisable} />
+            </div>
+        );
     }
 
     let dash = option;
@@ -55,8 +58,6 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
                 isDisable={isDisable}
                 option={dash}
                 optionDetails={optionDetails}
-                hasOthers={hasOthers}
-                handleSetHasOthers={handleSetHasOthers}
             />
         );
     }

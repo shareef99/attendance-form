@@ -12,20 +12,9 @@ interface Props {
     isDisable: boolean;
     option: string;
     optionDetails: Array<OptionDetailsType>;
-    hasOthers: boolean;
-    handleSetHasOthers: (value: boolean) => void;
 }
 
-const MCD = (props: Props) => {
-    const {
-        id,
-        isDisable,
-        optionDetails,
-        hasOthers,
-        handleSetHasOthers,
-        option,
-    } = props;
-
+const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
     // Context
     const {
         handleUpdateOptionsDetails,
@@ -51,7 +40,6 @@ const MCD = (props: Props) => {
         e.preventDefault();
 
         const lastIndex: number = optionDetails.length - 1;
-        handleSetHasOthers(true);
         handleUpdateOptionsDetails(id, {
             id: optionDetails[lastIndex]?.id + 1,
             text: "others",
@@ -72,6 +60,7 @@ const MCD = (props: Props) => {
                                 key="others"
                                 className="rowCenter justify-between"
                             >
+                                {/* Others option */}
                                 <div>
                                     {option === "Checkboxes" && (
                                         <Checkbox disabled={isDisable} />
@@ -90,6 +79,7 @@ const MCD = (props: Props) => {
                                         }
                                     />
                                 </div>
+                                {/* Others Cancel/Delete button */}
                                 {isSelected(selectedQuestion.id, id) && (
                                     <div
                                         className="cursor-pointer"
@@ -114,6 +104,7 @@ const MCD = (props: Props) => {
                             key={optionDetail.id}
                             className="rowCenter justify-between"
                         >
+                            {/* Main list of options */}
                             <div>
                                 {option === "Checkboxes" && (
                                     <Checkbox disabled={isDisable} />
@@ -136,26 +127,29 @@ const MCD = (props: Props) => {
                                     }
                                 />
                             </div>
-                            {selectedQuestion.id === id && (
-                                <div
-                                    className="cursor-pointer"
-                                    title="Cancel option"
-                                    onClick={() => {
-                                        if (optionDetails.length > 1) {
-                                            handleDeleteOptionDetail(
-                                                id,
-                                                optionDetail.id
-                                            );
-                                        }
-                                    }}
-                                >
-                                    <ImCross className="text-gray-500" />
-                                </div>
-                            )}
+                            {/* Cancel/Delete option button */}
+                            {selectedQuestion.id === id &&
+                                optionDetails.length > 1 && (
+                                    <div
+                                        className="cursor-pointer"
+                                        title="Cancel option"
+                                        onClick={() => {
+                                            if (optionDetails.length > 1) {
+                                                handleDeleteOptionDetail(
+                                                    id,
+                                                    optionDetail.id
+                                                );
+                                            }
+                                        }}
+                                    >
+                                        <ImCross className="text-gray-500" />
+                                    </div>
+                                )}
                         </li>
                     );
                 })}
-                {!hasOthers &&
+                {/* Add Option and Add others button */}
+                {!optionDetails.find((x) => x.text === "others") &&
                     isDisable &&
                     isSelected(selectedQuestion.id, id) && (
                         <li className="font-medium mt-1 ml-3">

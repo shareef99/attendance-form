@@ -1,21 +1,21 @@
 // Material-Ui Imports
 import { Input } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
+// import Input from "@material-tailwind/react/Input";
 
 // Types
 import { OptionType } from "../../add-questions/Options";
 
 interface Props {
-    selectedOption: OptionType;
     isDisable: boolean;
 }
 
-const ShortAnswer = ({ selectedOption, isDisable }: Props) => {
+const ShortAnswer = ({ isDisable }: Props) => {
     return (
         <Input
-            placeholder={selectedOption.option + " text"}
+            type="text"
+            placeholder="Short answer text"
+            className="w-full"
             disabled={isDisable}
-            style={{ width: "50%" }}
         />
     );
 };

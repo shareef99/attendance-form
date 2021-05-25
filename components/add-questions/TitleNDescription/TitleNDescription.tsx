@@ -31,7 +31,6 @@ const TitleNDescription = ({ preview, id, title, description }: Props) => {
                 <TitleInput
                     defaultValue={title || "Untitled title"}
                     placeholder={id === 0 ? "Form title" : "Title"}
-                    // disabled={preview}
                     readOnly={preview}
                     fullWidth={true}
                     multiline={true}
@@ -39,11 +38,9 @@ const TitleNDescription = ({ preview, id, title, description }: Props) => {
                     required={true}
                 />
                 <DescriptionInput
-                    // className="lgText bg-purple-600"
                     placeholder={
                         id === 0 ? "From Description" : "Description (optional)"
                     }
-                    // disabled={preview}
                     readOnly={preview}
                     defaultValue={description || ""}
                     fullWidth={true}

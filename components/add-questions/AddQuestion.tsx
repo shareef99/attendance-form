@@ -27,13 +27,17 @@ const AddQuestion = ({ id, option, preview, Icon }: Props) => {
                 isSelected(selectedQuestion.id, id) ? "space-y-8" : "space-y-4"
             }`}
         >
-            <div className="rowCenter justify-between flex-wrap space-x-4 space-y-4 sm:space-y-0">
+            <div
+                className="rowCenter justify-between items-baseline flex-wrap space-x-4 space-y-4 
+                    sm:space-y-0"
+            >
                 <Question id={id} preview={preview} />
                 {isSelected(selectedQuestion.id, id) && (
                     <>
                         <RiImageAddFill
                             style={{ width: "1.5rem", height: "2rem" }}
                             title="Insert Image"
+                            className="self-center"
                         />
                         <Options
                             preview={preview}
