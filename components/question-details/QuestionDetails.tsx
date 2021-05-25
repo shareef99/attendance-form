@@ -39,7 +39,7 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     }
 
     if (option === "Paragraph") {
-        return <Paragraph option={{ option, Icon }} isDisable={isDisable} />;
+        return <Paragraph isDisable={isDisable} />;
     }
 
     let dash = option;

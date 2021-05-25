@@ -10,7 +10,7 @@ const OptionItem = ({ Icon, option }: Props) => {
     if (option && Icon) {
         return (
             <div className="rowCenter space-x-4">
-                <Icon />
+                <Icon style={{ width: "18px", height: "18px" }} />
                 <p>{option}</p>
             </div>
         );

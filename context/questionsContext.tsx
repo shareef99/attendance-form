@@ -13,10 +13,6 @@ import { CgRadioChecked } from "react-icons/cg";
 import { IconType } from "react-icons/lib";
 import { addNewItemAtId } from "../helpers/question-utils";
 
-export interface OptionDetailsType {
-    id: number;
-    text: string;
-}
 export interface QuestionType {
     id?: number;
     option?: string;
@@ -27,18 +23,28 @@ export interface QuestionType {
     description?: string;
 }
 
+export interface OptionDetailsType {
+    id: number;
+    text: string;
+}
+
+export interface selectedQuestionType {
+    id: number;
+    state: boolean;
+}
 interface questionsContextType {
+    options: Array<OptionType>;
     questions: Array<QuestionType>;
+    selectedQuestion: selectedQuestionType;
     handleAddQuestions: () => void;
     updateQuestion: (id: number, question?: string) => void;
     handleDeleteQuestion: (id: number) => void;
     handleCopyQuestion: (id: number) => void;
-    options: Array<OptionType>;
+    updateQuestionOption: (id: number, option: string, Icon: IconType) => void;
     handleUpdateOptionsDetails: (
         id: number,
         optionDetails: OptionDetailsType
     ) => void;
-    updateQuestionOption: (id: number, option: string) => void;
     handleEditOption: (
         id: number,
         optionId: number,
@@ -48,15 +54,17 @@ interface questionsContextType {
     handleUpdateDescription: (id: number, description: string) => void;
     handleUpdateTitle: (id: number, title: string) => void;
     handleDeleteOptionDetail: (id: number, optionId: number) => void;
+    handleSetSelectedQuestion: (id: number, state: boolean) => void;
 }
 
 const questionsContextDefaultValues: questionsContextType = {
+    options: [],
     questions: [],
+    selectedQuestion: { id: 0, state: true },
     handleAddQuestions: () => {},
     updateQuestion: () => {},
     handleDeleteQuestion: () => {},
     handleCopyQuestion: () => {},
-    options: [],
     handleUpdateOptionsDetails: () => {},
     updateQuestionOption: () => {},
     handleEditOption: () => {},
@@ -64,6 +72,7 @@ const questionsContextDefaultValues: questionsContextType = {
     handleUpdateDescription: () => {},
     handleUpdateTitle: () => {},
     handleDeleteOptionDetail: () => {},
+    handleSetSelectedQuestion: () => {},
 };
 
 const questionsContext = createContext<questionsContextType>(
@@ -115,6 +124,9 @@ export default function QuestionsProvider({ children }: Props) {
         },
     ]);
 
+    const [selectedQuestion, setSelectedQuestion] =
+        useState<selectedQuestionType>({ id: 0, state: true });
+
     // Handler functions
     const handleAddQuestions = () => {
         const lastIndex = questions.length - 1;
@@ -128,6 +140,7 @@ export default function QuestionsProvider({ children }: Props) {
                 optionDetails: [{ id: 1, text: "option 1" }],
             },
         ]);
+        setSelectedQuestion({ id: questions[lastIndex].id + 1, state: true });
     };
 
     const updateQuestion = (id: number, questionText: string) => {
@@ -156,10 +169,16 @@ export default function QuestionsProvider({ children }: Props) {
         setQuestions(newQuestions);
     };
 
-    const updateQuestionOption = (id: number, option: string) => {
+    const updateQuestionOption = (
+        id: number,
+        option: string,
+        Icon: IconType
+    ) => {
         setQuestions(
             questions.map((question) =>
-                question.id === id ? { ...question, option } : { ...question }
+                question.id === id
+                    ? { ...question, option, optionIcon: Icon }
+                    : { ...question }
             )
         );
     };
@@ -251,10 +270,15 @@ export default function QuestionsProvider({ children }: Props) {
         );
     };
 
+    const handleSetSelectedQuestion = (id: number, state: boolean) => {
+        setSelectedQuestion({ id, state });
+    };
+
     // Others
     const value: questionsContextType = {
-        questions,
         options,
+        questions,
+        selectedQuestion,
         handleAddQuestions,
         updateQuestion,
         handleDeleteQuestion,
@@ -266,6 +290,7 @@ export default function QuestionsProvider({ children }: Props) {
         handleAddTitleAndDescription,
         handleUpdateTitle,
         handleUpdateDescription,
+        handleSetSelectedQuestion,
     };
 
     return (

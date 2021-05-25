@@ -5,6 +5,7 @@ import {
     OptionDetailsType,
     useQuestions,
 } from "../../../context/questionsContext";
+import { isSelected } from "../../../helpers/question-utils";
 
 interface Props {
     id: number;
@@ -30,6 +31,7 @@ const MCD = (props: Props) => {
         handleUpdateOptionsDetails,
         handleEditOption,
         handleDeleteOptionDetail,
+        selectedQuestion,
     } = useQuestions();
 
     // Handlers
@@ -88,20 +90,22 @@ const MCD = (props: Props) => {
                                         }
                                     />
                                 </div>
-                                <div
-                                    className="cursor-pointer"
-                                    title="Cancel option"
-                                    onClick={() => {
-                                        if (optionDetails.length > 1) {
-                                            handleDeleteOptionDetail(
-                                                id,
-                                                optionDetail.id
-                                            );
-                                        }
-                                    }}
-                                >
-                                    <ImCross className="text-gray-500" />
-                                </div>
+                                {isSelected(selectedQuestion.id, id) && (
+                                    <div
+                                        className="cursor-pointer"
+                                        title="Cancel option"
+                                        onClick={() => {
+                                            if (optionDetails.length > 1) {
+                                                handleDeleteOptionDetail(
+                                                    id,
+                                                    optionDetail.id
+                                                );
+                                            }
+                                        }}
+                                    >
+                                        <ImCross className="text-gray-500" />
+                                    </div>
+                                )}
                             </li>
                         );
                     }
@@ -132,40 +136,44 @@ const MCD = (props: Props) => {
                                     }
                                 />
                             </div>
-                            <div
-                                className="cursor-pointer"
-                                title="Cancel option"
-                                onClick={() => {
-                                    if (optionDetails.length > 1) {
-                                        handleDeleteOptionDetail(
-                                            id,
-                                            optionDetail.id
-                                        );
-                                    }
-                                }}
-                            >
-                                <ImCross className="text-gray-500" />
-                            </div>
+                            {selectedQuestion.id === id && (
+                                <div
+                                    className="cursor-pointer"
+                                    title="Cancel option"
+                                    onClick={() => {
+                                        if (optionDetails.length > 1) {
+                                            handleDeleteOptionDetail(
+                                                id,
+                                                optionDetail.id
+                                            );
+                                        }
+                                    }}
+                                >
+                                    <ImCross className="text-gray-500" />
+                                </div>
+                            )}
                         </li>
                     );
                 })}
-                {!hasOthers && isDisable && (
-                    <li className="font-medium mt-1 ml-3">
-                        <button
-                            onClick={handleAddChoice}
-                            className="opacity-95"
-                        >
-                            Add option
-                        </button>{" "}
-                        <span>or</span>{" "}
-                        <button
-                            onClick={handleAddOther}
-                            className="text-blueText font-medium"
-                        >
-                            add "Other"
-                        </button>
-                    </li>
-                )}
+                {!hasOthers &&
+                    isDisable &&
+                    isSelected(selectedQuestion.id, id) && (
+                        <li className="font-medium mt-1 ml-3">
+                            <button
+                                onClick={handleAddChoice}
+                                className="opacity-95"
+                            >
+                                Add option
+                            </button>{" "}
+                            <span>or</span>{" "}
+                            <button
+                                onClick={handleAddOther}
+                                className="text-blueText font-medium"
+                            >
+                                add "Other"
+                            </button>
+                        </li>
+                    )}
             </ul>
         </form>
     );

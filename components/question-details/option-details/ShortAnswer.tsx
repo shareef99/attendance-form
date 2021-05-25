@@ -1,4 +1,5 @@
 // Material-Ui Imports
+import { Input } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 
 // Types
@@ -11,12 +12,11 @@ interface Props {
 
 const ShortAnswer = ({ selectedOption, isDisable }: Props) => {
     return (
-        <form>
-            <input
-                placeholder={selectedOption.option + " text"}
-                disabled={isDisable}
-            />
-        </form>
+        <Input
+            placeholder={selectedOption.option + " text"}
+            disabled={isDisable}
+            style={{ width: "50%" }}
+        />
     );
 };
 

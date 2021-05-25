@@ -14,3 +14,7 @@ export const addNewItemAtId = (
 
     return newQuestions;
 };
+
+export const isSelected = (selectedQuestionId: number, questionId: number) => {
+    return selectedQuestionId === questionId;
+};

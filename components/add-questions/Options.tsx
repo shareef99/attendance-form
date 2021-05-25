@@ -42,7 +42,7 @@ const Options = (props: Props) => {
 
     const handleClose = (option: string, Icon: IconType, id: number) => {
         setOpen(false);
-        updateQuestionOption(id, option);
+        updateQuestionOption(id, option, Icon);
     };
 
     return (
@@ -52,6 +52,7 @@ const Options = (props: Props) => {
                 color="primary"
                 disabled={preview}
                 onClick={handleClickOpen}
+                style={{ width: "200px", padding: "10px 0px" }}
             >
                 <OptionItem Icon={Icon} option={option} />
             </Button>
