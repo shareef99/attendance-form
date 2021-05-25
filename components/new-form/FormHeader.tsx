@@ -2,12 +2,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { HiPencil, HiLink, HiCheck, HiChevronDown } from "react-icons/hi";
 import FileName from "./FileName";
+import { useQuestions } from "../../context/questionsContext";
 
 interface Props {
     preview?: boolean;
 }
 
 const FormHeader = ({ preview }: Props) => {
+    const { handleSetSelectedQuestion } = useQuestions();
+
     return (
         <header
             className="colCenter sm:flex-row sm:justify-between md:justify-around space-y-4 sm:space-y-0 
@@ -33,7 +36,10 @@ const FormHeader = ({ preview }: Props) => {
                 </Link>
                 <Link href="/form/preview">
                     <a>
-                        <div className="rowCenter cursor-pointer">
+                        <div
+                            className="rowCenter cursor-pointer"
+                            onClick={() => handleSetSelectedQuestion(0, true)}
+                        >
                             <HiLink className="-ml-1 mr-1 h-5 w-5 text-gray-500" />{" "}
                             Preview
                         </div>
