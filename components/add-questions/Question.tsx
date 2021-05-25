@@ -28,7 +28,7 @@ const Question = ({ id, preview }: Props) => {
                 className="flex-auto"
                 type="text"
                 disabled={preview ? true : false}
-                placeholder="Questions"
+                placeholder="Question"
                 defaultValue={
                     questions.find((x) => x.id === id)?.question || undefined
                 }
@@ -38,7 +38,7 @@ const Question = ({ id, preview }: Props) => {
     } else {
         return (
             <h3 className="flex-auto font-medium text-xl">
-                {questions[id].question || "Question"}
+                {questions[id]?.question || "Question"}
             </h3>
         );
     }

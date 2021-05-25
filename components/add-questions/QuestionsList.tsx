@@ -2,6 +2,7 @@ import { MouseEvent, useState } from "react";
 import { QuestionType, useQuestions } from "../../context/questionsContext";
 import { isSelected } from "../../helpers/question-utils";
 import AddQuestion from "./AddQuestion";
+import FormTitle from "./TitleNDescription/FormTitle";
 import TitleNDescription from "./TitleNDescription/TitleNDescription";
 
 interface Props {
@@ -56,12 +57,23 @@ const QuestionsList = ({ questions, preview }: Props) => {
                                     : {}
                             }
                         >
-                            <TitleNDescription
-                                id={id}
-                                preview={preview}
-                                title={title}
-                                description={description}
-                            />
+                            {id === 0 ? (
+                                <FormTitle
+                                    id={id}
+                                    preview={preview}
+                                    title={title}
+                                    description={description}
+                                />
+                            ) : (
+                                <>
+                                    <TitleNDescription
+                                        id={id}
+                                        preview={preview}
+                                        title={title}
+                                        description={description}
+                                    />
+                                </>
+                            )}
                         </li>
                     );
                 }

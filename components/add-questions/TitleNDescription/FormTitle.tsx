@@ -1,8 +1,6 @@
 import Input from "@material-ui/core/Input";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { useQuestions } from "../../../context/questionsContext";
-import { isSelected } from "../../../helpers/question-utils";
-import QuestionFooter from "../QuestionFooter";
 
 interface Props {
     preview: boolean;
@@ -13,19 +11,18 @@ interface Props {
 
 const TitleInput = withStyles({
     root: {
-        fontSize: "1.5rem",
+        fontSize: "2rem",
     },
 })(Input);
 
 const DescriptionInput = withStyles({
     root: {
-        fontSize: "1.12rem",
+        fontSize: "1.2rem",
     },
 })(Input);
 
-const TitleNDescription = ({ preview, id, title, description }: Props) => {
-    const { handleUpdateDescription, handleUpdateTitle, selectedQuestion } =
-        useQuestions();
+const FormTitle = ({ preview, id, title, description }: Props) => {
+    const { handleUpdateDescription, handleUpdateTitle } = useQuestions();
 
     return (
         <div className="space-y-8 w-full">
@@ -33,7 +30,7 @@ const TitleNDescription = ({ preview, id, title, description }: Props) => {
                 <TitleInput
                     defaultValue={title || "Untitled title"}
                     placeholder={id === 0 ? "Form title" : "Title"}
-                    readOnly={preview || !isSelected(selectedQuestion.id, id)}
+                    readOnly={preview}
                     fullWidth={true}
                     multiline={true}
                     onChange={(e) => handleUpdateTitle(id, e.target.value)}
@@ -43,7 +40,7 @@ const TitleNDescription = ({ preview, id, title, description }: Props) => {
                     placeholder={
                         id === 0 ? "From Description" : "Description (optional)"
                     }
-                    readOnly={preview || !isSelected(selectedQuestion.id, id)}
+                    readOnly={preview}
                     defaultValue={description || ""}
                     fullWidth={true}
                     multiline={true}
@@ -53,14 +50,8 @@ const TitleNDescription = ({ preview, id, title, description }: Props) => {
                     required={true}
                 />
             </div>
-            {isSelected(selectedQuestion.id, id) && (
-                <>
-                    <div className="border-b-[3px]" />
-                    <QuestionFooter id={id} />
-                </>
-            )}
         </div>
     );
 };
 
-export default TitleNDescription;
+export default FormTitle;
