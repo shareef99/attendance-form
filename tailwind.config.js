@@ -12,6 +12,7 @@ module.exports = {
             colors: {
                 bg: "var(--bg)",
                 borderColor: "var(--border-color)",
+                purpleColor: "var(--purple)",
                 blueText: "var(--blue-text)",
             },
         },

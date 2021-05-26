@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useState, Fragment } from "react";
 import { QuestionType, useQuestions } from "../../context/questionsContext";
 import { isSelected } from "../../helpers/question-utils";
 import AddQuestion from "./AddQuestion";
@@ -27,76 +27,85 @@ const QuestionsList = ({ questions, preview }: Props) => {
         handleSetSelectedQuestion(id, state);
     };
 
+    const handleFormSubmit = () => {
+        console.log("Form Submitted");
+    };
+
     return (
-        <ul
-            className={` space-y-8 my-8`}
-            aria-label="list"
-            onClick={handleRemoveSelected}
-        >
-            {questions.map((question) => {
-                const { id, option, optionIcon, title, description } = question;
-                if (title || title === "") {
+        <Fragment>
+            <ul
+                className={` space-y-8 my-8`}
+                aria-label="list"
+                onClick={handleRemoveSelected}
+            >
+                {questions.map((question) => {
+                    const { id, option, optionIcon, title, description } =
+                        question;
+                    if (title || title === "") {
+                        return (
+                            <li
+                                key="others"
+                                onClick={() => handleAddSelected(id, true)}
+                                className={`container p-8 bg-white rounded-lg shadow-md xl:max-w-[70%] 
+                            transition transform duration-200 ease-in border-l-[8px] 2xl:max-w-[70%]
+                            ${
+                                id === selectedQuestion.id
+                                    ? "border-blue-500"
+                                    : "border-transparent"
+                            }`}
+                                style={
+                                    id === 0
+                                        ? {
+                                              borderTopWidth: "12px",
+                                              borderTopColor:
+                                                  "rgba(109, 40, 217, 1)",
+                                              zIndex: 2,
+                                          }
+                                        : {}
+                                }
+                            >
+                                {id === 0 ? (
+                                    <FormTitle
+                                        id={id}
+                                        preview={preview}
+                                        title={title}
+                                        description={description}
+                                    />
+                                ) : (
+                                    <TitleNDescription
+                                        id={id}
+                                        preview={preview}
+                                        title={title}
+                                        description={description}
+                                    />
+                                )}
+                            </li>
+                        );
+                    }
                     return (
                         <li
-                            key="others"
+                            key={id}
                             onClick={() => handleAddSelected(id, true)}
-                            className={`container p-8 bg-white rounded-lg shadow-md xl:max-w-[75%] 
-                            transition transform duration-200 ease-in border-l-[8px] 2xl:max-w-[70%]
-                             ${
-                                 id === selectedQuestion.id
-                                     ? "border-blue-500"
-                                     : "border-transparent"
-                             }`}
-                            style={
-                                id === 0
-                                    ? {
-                                          borderTopWidth: "8px",
-                                          borderTopColor:
-                                              "rgba(109, 40, 217, 1)",
-                                      }
-                                    : {}
-                            }
-                        >
-                            {id === 0 ? (
-                                <FormTitle
-                                    id={id}
-                                    preview={preview}
-                                    title={title}
-                                    description={description}
-                                />
-                            ) : (
-                                <TitleNDescription
-                                    id={id}
-                                    preview={preview}
-                                    title={title}
-                                    description={description}
-                                />
-                            )}
-                        </li>
-                    );
-                }
-                return (
-                    <li
-                        key={id}
-                        onClick={() => handleAddSelected(id, true)}
-                        className={`container p-8 bg-white rounded-lg shadow-md xl:max-w-[75%]
+                            className={`container p-8 bg-white rounded-lg shadow-md xl:max-w-[70%]
                             transition transform duration-200 ease-in border-l-[8px] 2xl:max-w-[70%] ${
                                 id === selectedQuestion.id
                                     ? "border-blue-500"
                                     : "border-transparent"
                             }`}
-                    >
-                        <AddQuestion
-                            preview={preview}
-                            id={id}
-                            option={option}
-                            Icon={optionIcon}
-                            description={description}
-                        />
-                    </li>
-                );
-            })}
-        </ul>
+                        >
+                            <AddQuestion
+                                preview={preview}
+                                id={id}
+                                option={option}
+                                Icon={optionIcon}
+                                description={description}
+                            />
+                        </li>
+                    );
+                })}
+                {preview && <button onClick={handleFormSubmit}>submit</button>}
+            </ul>
+        </Fragment>
     );
 };
 

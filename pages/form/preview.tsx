@@ -11,9 +11,9 @@ const Preview = (props: Props) => {
     console.log(questions);
 
     return (
-        <div className="">
+        <section>
             <QuestionsList questions={questions} preview />
-        </div>
+        </section>
     );
 };
 
