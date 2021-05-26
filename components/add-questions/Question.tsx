@@ -2,7 +2,7 @@ import TextField from "@material-ui/core/TextField";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { useQuestions } from "../../context/questionsContext";
 import { Input } from "@material-ui/core";
-import { isSelected } from "../../helpers/question-utils";
+import { isSelected, questionWithId } from "../../helpers/question-utils";
 
 interface Props {
     id: number;
@@ -38,7 +38,7 @@ const Question = ({ id, preview }: Props) => {
     } else {
         return (
             <h3 className="flex-auto font-medium text-xl">
-                {questions[id]?.question || "Question"}
+                {questionWithId(questions, id)?.question || "Question"}
             </h3>
         );
     }

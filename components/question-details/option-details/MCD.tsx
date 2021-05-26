@@ -27,19 +27,17 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
     const handleAddChoice = (e: any) => {
         e.preventDefault();
 
-        const largestId = optionDetails.sort((a, b) => a.id - b.id)[
-            optionDetails.length - 1
-        ].id;
+        const lastIndex: number = optionDetails?.length - 1;
         handleUpdateOptionsDetails(id, {
-            id: largestId + 1,
-            text: "option " + (largestId + 1),
+            id: optionDetails[lastIndex]?.id + 1,
+            text: "option " + (optionDetails[lastIndex]?.id + 1),
         });
     };
 
     const handleAddOther = (e: any) => {
         e.preventDefault();
 
-        const lastIndex: number = optionDetails.length - 1;
+        const lastIndex: number = optionDetails?.length - 1;
         handleUpdateOptionsDetails(id, {
             id: optionDetails[lastIndex]?.id + 1,
             text: "others",
@@ -149,7 +147,7 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
                     );
                 })}
                 {/* Add Option and Add others button */}
-                {!optionDetails.find((x) => x.text === "others") &&
+                {!optionDetails?.find((x) => x.text === "others") &&
                     isDisable &&
                     isSelected(selectedQuestion.id, id) && (
                         <li className="font-medium mt-1 ml-3">

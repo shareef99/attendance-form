@@ -11,7 +11,7 @@ import {
 import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
 import { CgRadioChecked } from "react-icons/cg";
 import { IconType } from "react-icons/lib";
-import { addNewItemAtId } from "../helpers/question-utils";
+import { addNewItemAtId, questionWithId } from "../helpers/question-utils";
 
 export interface QuestionType {
     id?: number;
@@ -54,6 +54,8 @@ interface questionsContextType {
     handleUpdateDescription: (id: number, description: string) => void;
     handleUpdateTitle: (id: number, title: string) => void;
     handleDeleteOptionDetail: (id: number, optionId: number) => void;
+    handleAddDescription: (id: number) => void;
+    handleRemoveDescription: (id: number) => void;
     handleSetSelectedQuestion: (id: number, state: boolean) => void;
 }
 
@@ -72,6 +74,8 @@ const questionsContextDefaultValues: questionsContextType = {
     handleUpdateDescription: () => {},
     handleUpdateTitle: () => {},
     handleDeleteOptionDetail: () => {},
+    handleAddDescription: () => {},
+    handleRemoveDescription: () => {},
     handleSetSelectedQuestion: () => {},
 };
 
@@ -157,15 +161,14 @@ export default function QuestionsProvider({ children }: Props) {
     };
 
     const handleDeleteQuestion = (id: number) => {
-        if (questions.length <= 1) {
-            return;
-        }
+        if (questions.length <= 1) return;
         setQuestions(questions.filter((question) => question.id !== id));
     };
 
     const handleCopyQuestion = (id: number) => {
-        const questionToCopy = questions[id];
-        const newQuestions = addNewItemAtId(questions, id, questionToCopy);
+        const questionToCopy = questionWithId(questions, id);
+        const index = questions?.indexOf(questionToCopy);
+        const newQuestions = addNewItemAtId(questions, index, questionToCopy);
         setQuestions(newQuestions);
     };
 
@@ -178,6 +181,27 @@ export default function QuestionsProvider({ children }: Props) {
             questions.map((question) =>
                 question.id === id
                     ? { ...question, option, optionIcon: Icon }
+                    : { ...question }
+            )
+        );
+    };
+
+    const handleEditOption = (
+        id: number,
+        optionId: number,
+        optionText: string
+    ) => {
+        setQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? {
+                          ...question,
+                          optionDetails: question.optionDetails.map((x) =>
+                              x.id === optionId
+                                  ? { ...x, text: optionText }
+                                  : { ...x }
+                          ),
+                      }
                     : { ...question }
             )
         );
@@ -217,27 +241,6 @@ export default function QuestionsProvider({ children }: Props) {
         );
     };
 
-    const handleEditOption = (
-        id: number,
-        optionId: number,
-        optionText: string
-    ) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? {
-                          ...question,
-                          optionDetails: question.optionDetails.map((x) =>
-                              x.id === optionId
-                                  ? { ...x, text: optionText }
-                                  : { ...x }
-                          ),
-                      }
-                    : { ...question }
-            )
-        );
-    };
-
     const handleAddTitleAndDescription = () => {
         const largestId = questions.sort((a, b) => a.id - b.id)[
             questions.length - 1
@@ -270,6 +273,26 @@ export default function QuestionsProvider({ children }: Props) {
         );
     };
 
+    const handleAddDescription = (id: number) => {
+        setQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? { ...question, description: null }
+                    : { ...question }
+            )
+        );
+    };
+
+    const handleRemoveDescription = (id: number) => {
+        setQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? { ...question, description: undefined }
+                    : { ...question }
+            )
+        );
+    };
+
     const handleSetSelectedQuestion = (id: number, state: boolean) => {
         setSelectedQuestion({ id, state });
     };
@@ -290,6 +313,8 @@ export default function QuestionsProvider({ children }: Props) {
         handleAddTitleAndDescription,
         handleUpdateTitle,
         handleUpdateDescription,
+        handleAddDescription,
+        handleRemoveDescription,
         handleSetSelectedQuestion,
     };
 

@@ -2,13 +2,13 @@ import { QuestionType } from "../context/questionsContext";
 
 export const addNewItemAtId = (
     questions: Array<QuestionType>,
-    id: number,
+    index: number,
     newQuestion: QuestionType
 ) => {
-    const startingQuestions = questions.slice(0, id);
+    const startingQuestions = questions.slice(0, index);
     startingQuestions.push({ ...newQuestion });
     const endingQuestions = questions
-        .slice(id)
+        .slice(index)
         .map((x) => ({ ...x, id: ++x.id }));
     const newQuestions = startingQuestions.concat(endingQuestions);
 
@@ -17,4 +17,8 @@ export const addNewItemAtId = (
 
 export const isSelected = (selectedQuestionId: number, questionId: number) => {
     return selectedQuestionId === questionId;
+};
+
+export const questionWithId = (questions: Array<QuestionType>, id: number) => {
+    return questions?.find((question) => question.id === id);
 };

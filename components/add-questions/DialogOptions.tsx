@@ -7,6 +7,7 @@ import Dialog from "@material-ui/core/Dialog";
 import OptionItem from "./OptionItem";
 import { useQuestions } from "../../context/questionsContext";
 import { IconType } from "react-icons/lib";
+import { questionWithId } from "../../helpers/question-utils";
 
 interface Props {
     id: number;
@@ -33,7 +34,11 @@ const DialogOptions = ({ id, onClose, open }: Props) => {
     return (
         <Dialog
             onClose={() =>
-                handleClose(questions[id].option, questions[id].optionIcon, id)
+                handleClose(
+                    questionWithId(questions, id).option,
+                    questionWithId(questions, id).optionIcon,
+                    id
+                )
             }
             aria-labelledby="options-dialog"
             open={open}

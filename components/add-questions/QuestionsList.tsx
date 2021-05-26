@@ -35,7 +35,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
         >
             {questions.map((question) => {
                 const { id, option, optionIcon, title, description } = question;
-                if (title || description || title === "") {
+                if (title || title === "") {
                     return (
                         <li
                             key="others"
@@ -65,14 +65,12 @@ const QuestionsList = ({ questions, preview }: Props) => {
                                     description={description}
                                 />
                             ) : (
-                                <>
-                                    <TitleNDescription
-                                        id={id}
-                                        preview={preview}
-                                        title={title}
-                                        description={description}
-                                    />
-                                </>
+                                <TitleNDescription
+                                    id={id}
+                                    preview={preview}
+                                    title={title}
+                                    description={description}
+                                />
                             )}
                         </li>
                     );
@@ -93,6 +91,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
                             id={id}
                             option={option}
                             Icon={optionIcon}
+                            description={description}
                         />
                     </li>
                 );

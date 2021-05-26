@@ -4,6 +4,7 @@ import Paragraph from "./option-details/Paragraph";
 import MCD from "./option-details/MCD";
 import { useQuestions } from "../../context/questionsContext";
 import { IconType } from "react-icons";
+import { questionWithId } from "../../helpers/question-utils";
 
 interface Props {
     id: number;
@@ -17,17 +18,7 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
 
     // Constants
     const isDisable = preview ? false : true;
-    const optionDetails = questions[id]?.optionDetails;
-
-    // States
-    const [hasOthers, setHasOthers] = useState<boolean>(
-        optionDetails?.some((x) => x.text === "others")
-    );
-
-    // Handlers
-    const handleSetHasOthers = (value: boolean) => {
-        setHasOthers(value);
-    };
+    const optionDetails = questionWithId(questions, id)?.optionDetails;
 
     if (option === "Short answer") {
         return (
