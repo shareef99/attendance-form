@@ -23,6 +23,7 @@ export interface QuestionType {
     description?: string;
     shortAnswer?: string | number;
     paraAnswer?: string;
+    multiAnswer?: string;
 }
 
 export interface OptionDetailsType {

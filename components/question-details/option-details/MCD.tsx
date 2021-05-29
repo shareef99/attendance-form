@@ -1,6 +1,7 @@
 import { Checkbox, Radio } from "@material-ui/core";
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import { ImCross } from "react-icons/im";
+import { useOptions } from "../../../context/optionsContext";
 import {
     OptionDetailsType,
     useQuestions,
@@ -15,6 +16,9 @@ interface Props {
 }
 
 const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
+    // States
+    const [selectedMultiValue, setSelectedMultiValue] = useState<string>(null);
+
     // Context
     const {
         handleUpdateOptionsDetails,
@@ -22,6 +26,7 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
         handleDeleteOptionDetail,
         selectedQuestion,
     } = useQuestions();
+    const { handleMultiAnswer } = useOptions();
 
     // Handlers
     const handleAddChoice = (e: any) => {
@@ -44,6 +49,11 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
         });
     };
 
+    const handleMultiValue = (e: ChangeEvent<HTMLInputElement>) => {
+        setSelectedMultiValue(e.target.value);
+        handleMultiAnswer(id, e.target.value);
+    };
+
     return (
         <form>
             <ul
@@ -64,7 +74,17 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
                                         <Checkbox disabled={isDisable} />
                                     )}
                                     {option === "Multiple choice" && (
-                                        <Radio disabled={isDisable} />
+                                        <Radio
+                                            checked={
+                                                selectedMultiValue ===
+                                                optionDetail.text
+                                            }
+                                            onChange={(e) =>
+                                                handleMultiValue(e)
+                                            }
+                                            value={optionDetail.text}
+                                            disabled={isDisable}
+                                        />
                                     )}
                                     {option === "Dropdown" && (
                                         <span>{index + 1}. </span>
@@ -108,7 +128,15 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
                                     <Checkbox disabled={isDisable} />
                                 )}
                                 {option === "Multiple choice" && (
-                                    <Radio disabled={isDisable} />
+                                    <Radio
+                                        checked={
+                                            selectedMultiValue ===
+                                            optionDetail.text
+                                        }
+                                        onChange={(e) => handleMultiValue(e)}
+                                        value={optionDetail.text}
+                                        disabled={isDisable}
+                                    />
                                 )}
                                 {option === "Dropdown" && (
                                     <span>{index + 1}. </span>

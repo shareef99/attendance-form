@@ -4,11 +4,13 @@ import { useQuestions } from "./questionsContext";
 type optionsContextType = {
     handleShortAnswer: (id: number, answer: string | number) => void;
     handleParaAnswer: (id: number, answer: string) => void;
+    handleMultiAnswer: (id: number, answer: string) => void;
 };
 
 const optionsContextDefaultValues: optionsContextType = {
     handleShortAnswer: () => {},
     handleParaAnswer: () => {},
+    handleMultiAnswer: () => {},
 };
 
 const OptionContext = createContext<optionsContextType>(
@@ -50,10 +52,21 @@ export default function OptionProvider({ children }: Props) {
         );
     };
 
+    const handleMultiAnswer = (id: number, answer: string) => {
+        handleSetQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? { ...question, multiAnswer: answer }
+                    : { ...question }
+            )
+        );
+    };
+
     // Others
     const value: optionsContextType = {
         handleShortAnswer,
         handleParaAnswer,
+        handleMultiAnswer,
     };
 
     return (
