@@ -1,6 +1,8 @@
-import { Checkbox, Radio } from "@material-ui/core";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { Button, Checkbox, Menu, MenuItem, Radio } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { ChangeEvent, useEffect, useState, MouseEvent } from "react";
 import { ImCross } from "react-icons/im";
+import { MdArrowDropDown } from "react-icons/md";
 import { useOptions } from "../../../context/optionsContext";
 import {
     OptionDetailsType,
@@ -10,17 +12,32 @@ import { isSelected } from "../../../helpers/question-utils";
 
 interface Props {
     id: number;
-    isDisable: boolean;
+    preview: boolean;
     option: string;
     optionDetails: Array<OptionDetailsType>;
 }
 
-const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
+const DropdownButton = withStyles({
+    root: {
+        textTransform: "none",
+        fontSize: 16,
+        padding: "6px 12px",
+        width: "200px",
+        display: "flex",
+        justifyContent: "space-between",
+        "&:hover": {},
+        "&:active": {},
+        "&:focus": {},
+    },
+})(Button);
+
+const MCD = ({ id, preview, optionDetails, option }: Props) => {
     // States
     const [selectedMultiValue, setSelectedMultiValue] = useState<string>(null);
     const [selectedCheckboxesValue, setSelectedCheckboxesValue] = useState<
         Array<string>
     >([]);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     // Context
     const {
@@ -29,7 +46,8 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
         handleDeleteOptionDetail,
         selectedQuestion,
     } = useQuestions();
-    const { handleMultiAnswer, handleCheckboxesAnswer } = useOptions();
+    const { handleMultiAnswer, handleCheckboxesAnswer, handleDropdownAnswer } =
+        useOptions();
 
     // Handlers
     const handleAddChoice = (e: any) => {
@@ -72,19 +90,63 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
         }
     };
 
+    const handleDropdownOpen = (e: MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(e.currentTarget);
+    };
+
+    const handleDropdownClose = (e: any) => {
+        setAnchorEl(null);
+        if (!e.target.firstChild) return;
+        handleDropdownAnswer(id, e.target.firstChild.wholeText);
+        console.log(e.target.firstChild.wholeText, e.target);
+    };
+
     // Effects
     useEffect(() => {
+        // This effect update the checkbox value after state is updated successfully
+        // The if exception prevent assigning initial value of state
+        if (selectedCheckboxesValue.length === 0) return;
         handleCheckboxesAnswer(id, selectedCheckboxesValue);
     }, [selectedCheckboxesValue]);
 
     return (
-        <form>
-            <ul
-                className={`${
-                    option === "Dropdown" ? "space-y-4" : "space-y-0"
-                }`}
-            >
-                {optionDetails?.map((optionDetail, index) => {
+        <ul className={`${option === "Dropdown" ? "space-y-4" : "space-y-0"}`}>
+            {option === "Dropdown" && preview ? (
+                <>
+                    <DropdownButton
+                        aria-haspopup="true"
+                        variant="outlined"
+                        onClick={handleDropdownOpen}
+                    >
+                        Choose{" "}
+                        <MdArrowDropDown
+                            style={{
+                                width: "24px",
+                                height: "24px",
+                            }}
+                        />
+                    </DropdownButton>
+                    <Menu
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleDropdownClose}
+                        style={{ width: "100%", padding: "0px 15px" }}
+                    >
+                        <MenuItem disabled>Choose</MenuItem>
+                        <hr />
+                        {optionDetails?.map((optionDetail) => (
+                            <MenuItem
+                                onClick={(e) => handleDropdownClose(e)}
+                                value={optionDetail.text}
+                            >
+                                {optionDetail.text}
+                            </MenuItem>
+                        ))}
+                    </Menu>
+                </>
+            ) : (
+                optionDetails?.map((optionDetail, index) => {
                     if (optionDetail.text === "others") {
                         return (
                             <li
@@ -99,7 +161,7 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
                                                 handleCheckboxesValue(e)
                                             }
                                             value={optionDetail.text}
-                                            disabled={isDisable}
+                                            disabled={!preview}
                                         />
                                     )}
                                     {option === "Multiple choice" && (
@@ -112,17 +174,17 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
                                                 handleMultiValue(e)
                                             }
                                             value={optionDetail.text}
-                                            disabled={isDisable}
+                                            disabled={!preview}
                                         />
                                     )}
-                                    {option === "Dropdown" && (
+                                    {option === "Dropdown" && !preview && (
                                         <span>{index + 1}. </span>
                                     )}
                                     <input
                                         type="text"
                                         disabled
                                         defaultValue={
-                                            isDisable ? "Other: " : "Others..."
+                                            preview ? "Others..." : "Other: "
                                         }
                                     />
                                 </div>
@@ -155,11 +217,9 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
                             <div>
                                 {option === "Checkboxes" && (
                                     <Checkbox
-                                        onChange={(e) =>
-                                            handleCheckboxesValue(e)
-                                        }
+                                        onChange={handleCheckboxesValue}
                                         value={optionDetail.text}
-                                        disabled={isDisable}
+                                        disabled={!preview}
                                     />
                                 )}
                                 {option === "Multiple choice" && (
@@ -168,16 +228,16 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
                                             selectedMultiValue ===
                                             optionDetail.text
                                         }
-                                        onChange={(e) => handleMultiValue(e)}
+                                        onChange={handleMultiValue}
                                         value={optionDetail.text}
-                                        disabled={isDisable}
+                                        disabled={!preview}
                                     />
                                 )}
-                                {option === "Dropdown" && (
+                                {option === "Dropdown" && !preview && (
                                     <span>{index + 1}. </span>
                                 )}
                                 <input
-                                    disabled={!isDisable}
+                                    disabled={preview}
                                     defaultValue={optionDetail.text}
                                     onChange={(e) =>
                                         handleEditOption(
@@ -208,29 +268,30 @@ const MCD = ({ id, isDisable, optionDetails, option }: Props) => {
                                 )}
                         </li>
                     );
-                })}
-                {/* Add Option and Add others button */}
-                {!optionDetails?.find((x) => x.text === "others") &&
-                    isDisable &&
-                    isSelected(selectedQuestion.id, id) && (
-                        <li className="font-medium mt-1 ml-3">
-                            <button
-                                onClick={handleAddChoice}
-                                className="opacity-95"
-                            >
-                                Add option
-                            </button>{" "}
-                            <span>or</span>{" "}
-                            <button
-                                onClick={handleAddOther}
-                                className="text-blueText font-medium"
-                            >
-                                add "Other"
-                            </button>
-                        </li>
-                    )}
-            </ul>
-        </form>
+                })
+            )}
+
+            {/* Add Option and Add others button */}
+            {!optionDetails?.find((x) => x.text === "others") &&
+                !preview &&
+                isSelected(selectedQuestion.id, id) && (
+                    <li className="font-medium mt-1 ml-3">
+                        <button
+                            onClick={handleAddChoice}
+                            className="opacity-95"
+                        >
+                            Add option
+                        </button>{" "}
+                        <span>or</span>{" "}
+                        <button
+                            onClick={handleAddOther}
+                            className="text-blueText font-medium"
+                        >
+                            add "Other"
+                        </button>
+                    </li>
+                )}
+        </ul>
     );
 };
 

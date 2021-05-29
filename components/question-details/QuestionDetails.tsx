@@ -45,7 +45,7 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
         return (
             <MCD
                 id={id}
-                isDisable={isDisable}
+                preview={preview}
                 option={option}
                 optionDetails={optionDetails}
             />

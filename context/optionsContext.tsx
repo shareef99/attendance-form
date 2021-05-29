@@ -6,6 +6,7 @@ type optionsContextType = {
     handleParaAnswer: (id: number, answer: string) => void;
     handleMultiAnswer: (id: number, answer: string) => void;
     handleCheckboxesAnswer: (id: number, answers: Array<string>) => void;
+    handleDropdownAnswer: (id: number, answer: string) => void;
 };
 
 const optionsContextDefaultValues: optionsContextType = {
@@ -13,6 +14,7 @@ const optionsContextDefaultValues: optionsContextType = {
     handleParaAnswer: () => {},
     handleMultiAnswer: () => {},
     handleCheckboxesAnswer: () => {},
+    handleDropdownAnswer: () => {},
 };
 
 const OptionContext = createContext<optionsContextType>(
@@ -74,12 +76,23 @@ export default function OptionProvider({ children }: Props) {
         );
     };
 
+    const handleDropdownAnswer = (id: number, answer: string) => {
+        handleSetQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? { ...question, dropdownAnswer: answer }
+                    : { ...question }
+            )
+        );
+    };
+
     // Others
     const value: optionsContextType = {
         handleShortAnswer,
         handleParaAnswer,
         handleMultiAnswer,
         handleCheckboxesAnswer,
+        handleDropdownAnswer,
     };
 
     return (

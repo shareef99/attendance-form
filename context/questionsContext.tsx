@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { OptionType } from "../components/add-questions/Options";
-
 // React-Icon imports
+import { IconType } from "react-icons/lib";
 import {
     MdShortText,
     MdArrowDropDownCircle,
@@ -10,7 +10,7 @@ import {
 } from "react-icons/md";
 import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
 import { CgRadioChecked } from "react-icons/cg";
-import { IconType } from "react-icons/lib";
+// Helpers
 import { addNewItemAtId, questionWithId } from "../helpers/question-utils";
 
 export interface QuestionType {
@@ -25,6 +25,7 @@ export interface QuestionType {
     paraAnswer?: string;
     multiAnswer?: string;
     checkboxesAnswer?: Array<string>;
+    dropdownAnswer?: string;
 }
 
 export interface OptionDetailsType {
