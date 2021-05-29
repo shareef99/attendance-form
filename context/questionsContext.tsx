@@ -21,6 +21,8 @@ export interface QuestionType {
     optionDetails?: Array<OptionDetailsType>;
     title?: string;
     description?: string;
+    shortAnswer?: string | number;
+    paraAnswer?: string;
 }
 
 export interface OptionDetailsType {
@@ -36,6 +38,7 @@ interface questionsContextType {
     options: Array<OptionType>;
     questions: Array<QuestionType>;
     selectedQuestion: selectedQuestionType;
+    handleSetQuestions: (questions: Array<QuestionType>) => void;
     handleAddQuestions: () => void;
     updateQuestion: (id: number, question?: string) => void;
     handleDeleteQuestion: (id: number) => void;
@@ -63,6 +66,7 @@ const questionsContextDefaultValues: questionsContextType = {
     options: [],
     questions: [],
     selectedQuestion: { id: 0, state: true },
+    handleSetQuestions: () => {},
     handleAddQuestions: () => {},
     updateQuestion: () => {},
     handleDeleteQuestion: () => {},
@@ -120,10 +124,6 @@ export default function QuestionsProvider({ children }: Props) {
     const [questions, setQuestions] = useState<Array<QuestionType>>([
         {
             id: 0,
-            // option: "Short answer",
-            // optionIcon: MdShortText,
-            // question: null,
-            // optionDetails: [{ id: 1, text: "option 1" }],
             title: "Form Title",
         },
     ]);
@@ -132,6 +132,10 @@ export default function QuestionsProvider({ children }: Props) {
         useState<selectedQuestionType>({ id: 0, state: true });
 
     // Handler functions
+    const handleSetQuestions = (questions: Array<QuestionType>) => {
+        setQuestions(questions);
+    };
+
     const handleAddQuestions = () => {
         const lastIndex = questions.length - 1;
         setQuestions((prevQuestions) => [
@@ -302,6 +306,7 @@ export default function QuestionsProvider({ children }: Props) {
         options,
         questions,
         selectedQuestion,
+        handleSetQuestions,
         handleAddQuestions,
         updateQuestion,
         handleDeleteQuestion,

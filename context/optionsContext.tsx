@@ -1,9 +1,15 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useQuestions } from "./questionsContext";
 
-type optionsContextType = {};
+type optionsContextType = {
+    handleShortAnswer: (id: number, answer: string | number) => void;
+    handleParaAnswer: (id: number, answer: string) => void;
+};
 
-const optionsContextDefaultValues: optionsContextType = {};
+const optionsContextDefaultValues: optionsContextType = {
+    handleShortAnswer: () => {},
+    handleParaAnswer: () => {},
+};
 
 const OptionContext = createContext<optionsContextType>(
     optionsContextDefaultValues
@@ -19,14 +25,36 @@ interface Props {
 
 export default function OptionProvider({ children }: Props) {
     // Context
-    const { questions, handleUpdateOptionsDetails } = useQuestions();
+    const { questions, handleSetQuestions } = useQuestions();
 
     // state
 
     // Handler functions
+    const handleShortAnswer = (id: number, answer: string | number) => {
+        handleSetQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? { ...question, shortAnswer: answer }
+                    : { ...question }
+            )
+        );
+    };
+
+    const handleParaAnswer = (id: number, answer: string) => {
+        handleSetQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? { ...question, paraAnswer: answer }
+                    : { ...question }
+            )
+        );
+    };
 
     // Others
-    const value: optionsContextType = {};
+    const value: optionsContextType = {
+        handleShortAnswer,
+        handleParaAnswer,
+    };
 
     return (
         <OptionContext.Provider value={value}>

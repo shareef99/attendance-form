@@ -27,10 +27,6 @@ const QuestionsList = ({ questions, preview }: Props) => {
         handleSetSelectedQuestion(id, state);
     };
 
-    const handleFormSubmit = () => {
-        console.log("Form Submitted");
-    };
-
     return (
         <Fragment>
             <ul
@@ -46,13 +42,13 @@ const QuestionsList = ({ questions, preview }: Props) => {
                             <li
                                 key="others"
                                 onClick={() => handleAddSelected(id, true)}
-                                className={`container p-8 bg-white rounded-lg shadow-md xl:max-w-[70%] 
-                            transition transform duration-200 ease-in border-l-[8px] 2xl:max-w-[70%]
-                            ${
-                                id === selectedQuestion.id
-                                    ? "border-blue-500"
-                                    : "border-transparent"
-                            }`}
+                                className={`container p-8 bg-white rounded-lg shadow-md xl:max-w-[70%]
+                                    transition transform duration-200 ease-in border-l-[8px]
+                                    ${preview && "md:max-w-[60%]"} ${
+                                    id === selectedQuestion.id
+                                        ? "border-blue-500"
+                                        : "border-transparent"
+                                }`}
                                 style={
                                     id === 0
                                         ? {
@@ -87,7 +83,8 @@ const QuestionsList = ({ questions, preview }: Props) => {
                             key={id}
                             onClick={() => handleAddSelected(id, true)}
                             className={`container p-8 bg-white rounded-lg shadow-md xl:max-w-[70%]
-                            transition transform duration-200 ease-in border-l-[8px] 2xl:max-w-[70%] ${
+                            transition transform duration-200 ease-in border-l-[8px] 
+                            ${preview && "md:max-w-[60%]"} ${
                                 id === selectedQuestion.id
                                     ? "border-blue-500"
                                     : "border-transparent"
@@ -103,7 +100,6 @@ const QuestionsList = ({ questions, preview }: Props) => {
                         </li>
                     );
                 })}
-                {preview && <button onClick={handleFormSubmit}>submit</button>}
             </ul>
         </Fragment>
     );

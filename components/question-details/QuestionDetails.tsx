@@ -23,7 +23,7 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     if (option === "Short answer") {
         return (
             <div className="sm:w-[70%] md:w-[60%]">
-                <ShortAnswer isDisable={isDisable} />
+                <ShortAnswer id={id} isDisable={isDisable} />
             </div>
         );
     }
@@ -31,12 +31,11 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     if (option === "Paragraph") {
         return (
             <div>
-                <Paragraph isDisable={isDisable} />
+                <Paragraph id={id} isDisable={isDisable} />
             </div>
         );
     }
 
-    let dash = option;
     if (
         option === "Multiple choice" ||
         option === "Checkboxes" ||
@@ -47,7 +46,7 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
             <MCD
                 id={id}
                 isDisable={isDisable}
-                option={dash}
+                option={option}
                 optionDetails={optionDetails}
             />
         );

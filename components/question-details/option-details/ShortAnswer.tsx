@@ -1,21 +1,21 @@
-// Material-Ui Imports
-import { Input } from "@material-ui/core";
-// import Input from "@material-tailwind/react/Input";
-
-// Types
-import { OptionType } from "../../add-questions/Options";
+import Input from "@material-ui/core/Input";
+import { useOptions } from "../../../context/optionsContext";
 
 interface Props {
+    id: number;
     isDisable: boolean;
 }
 
-const ShortAnswer = ({ isDisable }: Props) => {
+const ShortAnswer = ({ id, isDisable }: Props) => {
+    const { handleShortAnswer } = useOptions();
+
     return (
         <Input
             type="text"
             placeholder="Short answer text"
-            className="w-full"
             disabled={isDisable}
+            className="w-full"
+            onChange={(e) => handleShortAnswer(id, e.target.value)}
         />
     );
 };
