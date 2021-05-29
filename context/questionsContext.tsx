@@ -24,6 +24,7 @@ export interface QuestionType {
     shortAnswer?: string | number;
     paraAnswer?: string;
     multiAnswer?: string;
+    checkboxesAnswer?: Array<string>;
 }
 
 export interface OptionDetailsType {
