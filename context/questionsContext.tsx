@@ -26,6 +26,7 @@ export interface QuestionType {
     multiAnswer?: string;
     checkboxesAnswer?: Array<string>;
     dropdownAnswer?: string;
+    isRequired?: boolean;
 }
 
 export interface OptionDetailsType {

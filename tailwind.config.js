@@ -14,6 +14,7 @@ module.exports = {
                 borderColor: "var(--border-color)",
                 purpleColor: "var(--purple)",
                 blueText: "var(--blue-text)",
+                lightBlack: "var(--light-black)",
             },
         },
         screens: {
