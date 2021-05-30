@@ -1,20 +1,29 @@
-import { Button, Checkbox, Menu, MenuItem, Radio } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import { ChangeEvent, useEffect, useState, MouseEvent } from "react";
+// React-Icons
 import { ImCross } from "react-icons/im";
 import { MdArrowDropDown } from "react-icons/md";
+// Context
 import { useOptions } from "../../../context/optionsContext";
 import {
     OptionDetailsType,
     useQuestions,
 } from "../../../context/questionsContext";
+// helpers
 import { isSelected } from "../../../helpers/question-utils";
+// Material-UI imports
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Radio from "@material-ui/core/Radio";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 interface Props {
     id: number;
     preview: boolean;
     option: string;
     optionDetails: Array<OptionDetailsType>;
+    answer: string | Array<string>;
 }
 
 const DropdownButton = withStyles({
@@ -31,12 +40,18 @@ const DropdownButton = withStyles({
     },
 })(Button);
 
-const MCD = ({ id, preview, optionDetails, option }: Props) => {
+const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
     // States
-    const [selectedMultiValue, setSelectedMultiValue] = useState<string>(null);
+    const [selectedMultiValue, setSelectedMultiValue] = useState<string>(
+        typeof answer === typeof "" ? (answer as string) : null
+    );
     const [selectedCheckboxesValue, setSelectedCheckboxesValue] = useState<
         Array<string>
-    >([]);
+    >(
+        typeof answer === typeof []
+            ? (answer as Array<string>).map((x) => x)
+            : []
+    );
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     // Context
@@ -104,7 +119,6 @@ const MCD = ({ id, preview, optionDetails, option }: Props) => {
         if (!e.target.firstChild) return;
         handleSubmitAnswer(id, e.target.firstChild.wholeText);
         // handleDropdownAnswer(id, e.target.firstChild.wholeText);
-        console.log(e.target.firstChild.wholeText, e.target);
     };
 
     // Effects
@@ -125,7 +139,7 @@ const MCD = ({ id, preview, optionDetails, option }: Props) => {
                         variant="outlined"
                         onClick={handleDropdownOpen}
                     >
-                        Choose{" "}
+                        {answer ? (answer as string) : "Choose"}
                         <MdArrowDropDown
                             style={{
                                 width: "24px",
@@ -174,14 +188,12 @@ const MCD = ({ id, preview, optionDetails, option }: Props) => {
                                     {option === "Multiple choice" && (
                                         <Radio
                                             checked={
+                                                preview &&
                                                 selectedMultiValue ===
-                                                optionDetail.text
+                                                    optionDetail.text
                                             }
-                                            onChange={(e) =>
-                                                handleMultiValue(e)
-                                            }
+                                            onChange={handleMultiValue}
                                             value={optionDetail.text}
-                                            disabled={!preview}
                                         />
                                     )}
                                     {option === "Dropdown" && !preview && (
@@ -224,6 +236,12 @@ const MCD = ({ id, preview, optionDetails, option }: Props) => {
                             <div>
                                 {option === "Checkboxes" && (
                                     <Checkbox
+                                        checked={
+                                            preview &&
+                                            selectedCheckboxesValue.includes(
+                                                optionDetail.text
+                                            )
+                                        }
                                         onChange={handleCheckboxesValue}
                                         value={optionDetail.text}
                                         disabled={!preview}
@@ -232,8 +250,9 @@ const MCD = ({ id, preview, optionDetails, option }: Props) => {
                                 {option === "Multiple choice" && (
                                     <Radio
                                         checked={
+                                            preview &&
                                             selectedMultiValue ===
-                                            optionDetail.text
+                                                optionDetail.text
                                         }
                                         onChange={handleMultiValue}
                                         value={optionDetail.text}

@@ -17,13 +17,17 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     const { questions } = useQuestions();
 
     // Constants
-    const isDisable = preview ? false : true;
     const optionDetails = questionWithId(questions, id)?.optionDetails;
+    const answer = questionWithId(questions, id).answer;
 
     if (option === "Short answer") {
         return (
             <div className="sm:w-[70%] md:w-[60%]">
-                <ShortAnswer id={id} isDisable={isDisable} />
+                <ShortAnswer
+                    id={id}
+                    preview={preview}
+                    answer={answer as string | number}
+                />
             </div>
         );
     }
@@ -31,7 +35,11 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     if (option === "Paragraph") {
         return (
             <div>
-                <Paragraph id={id} isDisable={isDisable} />
+                <Paragraph
+                    id={id}
+                    preview={preview}
+                    answer={answer as string}
+                />
             </div>
         );
     }
@@ -48,6 +56,7 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
                 preview={preview}
                 option={option}
                 optionDetails={optionDetails}
+                answer={answer as string | Array<string>}
             />
         );
     }
