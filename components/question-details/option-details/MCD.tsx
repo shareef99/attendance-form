@@ -46,8 +46,12 @@ const MCD = ({ id, preview, optionDetails, option }: Props) => {
         handleDeleteOptionDetail,
         selectedQuestion,
     } = useQuestions();
-    const { handleMultiAnswer, handleCheckboxesAnswer, handleDropdownAnswer } =
-        useOptions();
+    const {
+        handleMultiAnswer,
+        handleCheckboxesAnswer,
+        handleDropdownAnswer,
+        handleSubmitAnswer,
+    } = useOptions();
 
     // Handlers
     const handleAddChoice = (e: any) => {
@@ -72,7 +76,8 @@ const MCD = ({ id, preview, optionDetails, option }: Props) => {
 
     const handleMultiValue = (e: ChangeEvent<HTMLInputElement>) => {
         setSelectedMultiValue(e.target.value);
-        handleMultiAnswer(id, e.target.value);
+        handleSubmitAnswer(id, e.target.value);
+        // handleMultiAnswer(id, e.target.value);
     };
 
     const handleCheckboxesValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +102,8 @@ const MCD = ({ id, preview, optionDetails, option }: Props) => {
     const handleDropdownClose = (e: any) => {
         setAnchorEl(null);
         if (!e.target.firstChild) return;
-        handleDropdownAnswer(id, e.target.firstChild.wholeText);
+        handleSubmitAnswer(id, e.target.firstChild.wholeText);
+        // handleDropdownAnswer(id, e.target.firstChild.wholeText);
         console.log(e.target.firstChild.wholeText, e.target);
     };
 
@@ -106,7 +112,8 @@ const MCD = ({ id, preview, optionDetails, option }: Props) => {
         // This effect update the checkbox value after state is updated successfully
         // The if exception prevent assigning initial value of state
         if (selectedCheckboxesValue.length === 0) return;
-        handleCheckboxesAnswer(id, selectedCheckboxesValue);
+        handleSubmitAnswer(id, selectedCheckboxesValue);
+        // handleCheckboxesAnswer(id, selectedCheckboxesValue);
     }, [selectedCheckboxesValue]);
 
     return (

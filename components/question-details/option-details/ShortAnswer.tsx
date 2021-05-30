@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ShortAnswer = ({ id, isDisable }: Props) => {
-    const { handleShortAnswer } = useOptions();
+    const { handleSubmitAnswer } = useOptions();
 
     return (
         <Input
@@ -15,7 +15,7 @@ const ShortAnswer = ({ id, isDisable }: Props) => {
             placeholder="Short answer text"
             disabled={isDisable}
             className="w-full"
-            onChange={(e) => handleShortAnswer(id, e.target.value)}
+            onChange={(e) => handleSubmitAnswer(id, e.target.value)}
         />
     );
 };

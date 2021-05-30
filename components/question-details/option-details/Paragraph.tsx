@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Paragraph = ({ id, isDisable }: Props) => {
-    const { handleParaAnswer } = useOptions();
+    const { handleSubmitAnswer } = useOptions();
 
     return (
         <Input
@@ -15,7 +15,7 @@ const Paragraph = ({ id, isDisable }: Props) => {
             placeholder="Long answer text"
             disabled={isDisable}
             className="w-full"
-            onChange={(e) => handleParaAnswer(id, e.target.value)}
+            onChange={(e) => handleSubmitAnswer(id, e.target.value)}
             multiline={true}
         />
     );

@@ -19,14 +19,11 @@ export interface QuestionType {
     optionIcon?: IconType;
     question?: string;
     optionDetails?: Array<OptionDetailsType>;
+    isRequired?: boolean;
+    answer?: string | number | Array<string>;
+    errorMessage?: string;
     title?: string;
     description?: string;
-    shortAnswer?: string | number;
-    paraAnswer?: string;
-    multiAnswer?: string;
-    checkboxesAnswer?: Array<string>;
-    dropdownAnswer?: string;
-    isRequired?: boolean;
 }
 
 export interface OptionDetailsType {
@@ -38,6 +35,7 @@ export interface selectedQuestionType {
     id: number;
     state: boolean;
 }
+
 interface questionsContextType {
     options: Array<OptionType>;
     questions: Array<QuestionType>;
