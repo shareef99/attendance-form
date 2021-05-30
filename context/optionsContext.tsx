@@ -2,11 +2,6 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import { useQuestions } from "./questionsContext";
 
 type optionsContextType = {
-    handleShortAnswer: (id: number, answer: string | number) => void;
-    handleParaAnswer: (id: number, answer: string) => void;
-    handleMultiAnswer: (id: number, answer: string) => void;
-    handleCheckboxesAnswer: (id: number, answers: Array<string>) => void;
-    handleDropdownAnswer: (id: number, answer: string) => void;
     handleSubmitAnswer: (
         id: number,
         answer: string | number | Array<string>
@@ -14,11 +9,6 @@ type optionsContextType = {
 };
 
 const optionsContextDefaultValues: optionsContextType = {
-    handleShortAnswer: () => {},
-    handleParaAnswer: () => {},
-    handleMultiAnswer: () => {},
-    handleCheckboxesAnswer: () => {},
-    handleDropdownAnswer: () => {},
     handleSubmitAnswer: () => {},
 };
 
@@ -41,56 +31,6 @@ export default function OptionProvider({ children }: Props) {
     // state
 
     // Handler functions
-    const handleShortAnswer = (id: number, answer: string | number) => {
-        handleSetQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, shortAnswer: answer }
-                    : { ...question }
-            )
-        );
-    };
-
-    const handleParaAnswer = (id: number, answer: string) => {
-        handleSetQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, paraAnswer: answer }
-                    : { ...question }
-            )
-        );
-    };
-
-    const handleMultiAnswer = (id: number, answer: string) => {
-        handleSetQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, multiAnswer: answer }
-                    : { ...question }
-            )
-        );
-    };
-
-    const handleCheckboxesAnswer = (id: number, answers: Array<string>) => {
-        handleSetQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, checkboxesAnswer: answers }
-                    : { ...question }
-            )
-        );
-    };
-
-    const handleDropdownAnswer = (id: number, answer: string) => {
-        handleSetQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, dropdownAnswer: answer }
-                    : { ...question }
-            )
-        );
-    };
-
     const handleSubmitAnswer = (
         id: number,
         answer: string | number | Array<string>
@@ -104,11 +44,6 @@ export default function OptionProvider({ children }: Props) {
 
     // Others
     const value: optionsContextType = {
-        handleShortAnswer,
-        handleParaAnswer,
-        handleMultiAnswer,
-        handleCheckboxesAnswer,
-        handleDropdownAnswer,
         handleSubmitAnswer,
     };
 
