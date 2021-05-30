@@ -11,12 +11,12 @@ import {
 // helpers
 import { isSelected } from "../../../helpers/question-utils";
 // Material-UI imports
-import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import Fade from "@material-ui/core/Fade";
 import Radio from "@material-ui/core/Radio";
-import withStyles from "@material-ui/core/styles/withStyles";
+import { DropdownMenu } from "../../material-ui/DropdownMenu";
+import { DropdownMenuItem } from "../../material-ui/DropdownMenuItem";
+import { DropdownButton } from "../../material-ui/DropdownButton";
 
 interface Props {
     id: number;
@@ -25,20 +25,6 @@ interface Props {
     optionDetails: Array<OptionDetailsType>;
     answer: string | Array<string>;
 }
-
-const DropdownButton = withStyles({
-    root: {
-        textTransform: "none",
-        fontSize: 16,
-        padding: "6px 12px",
-        width: "200px",
-        display: "flex",
-        justifyContent: "space-between",
-        "&:hover": {},
-        "&:active": {},
-        "&:focus": {},
-    },
-})(Button);
 
 const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
     // States
@@ -118,7 +104,6 @@ const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
         setAnchorEl(null);
         if (!e.target.firstChild) return;
         handleSubmitAnswer(id, e.target.firstChild.wholeText);
-        // handleDropdownAnswer(id, e.target.firstChild.wholeText);
     };
 
     // Effects
@@ -127,7 +112,6 @@ const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
         // The if exception prevent assigning initial value of state
         if (selectedCheckboxesValue.length === 0) return;
         handleSubmitAnswer(id, selectedCheckboxesValue);
-        // handleCheckboxesAnswer(id, selectedCheckboxesValue);
     }, [selectedCheckboxesValue]);
 
     return (
@@ -147,24 +131,24 @@ const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
                             }}
                         />
                     </DropdownButton>
-                    <Menu
+                    <DropdownMenu
                         anchorEl={anchorEl}
                         keepMounted
                         open={Boolean(anchorEl)}
                         onClose={handleDropdownClose}
-                        style={{ width: "100%", padding: "0px 15px" }}
+                        TransitionComponent={Fade}
                     >
-                        <MenuItem disabled>Choose</MenuItem>
+                        <DropdownMenuItem disabled>Choose</DropdownMenuItem>
                         <hr />
                         {optionDetails?.map((optionDetail) => (
-                            <MenuItem
+                            <DropdownMenuItem
                                 onClick={(e) => handleDropdownClose(e)}
                                 value={optionDetail.text}
                             >
                                 {optionDetail.text}
-                            </MenuItem>
+                            </DropdownMenuItem>
                         ))}
-                    </Menu>
+                    </DropdownMenu>
                 </>
             ) : (
                 optionDetails?.map((optionDetail, index) => {
