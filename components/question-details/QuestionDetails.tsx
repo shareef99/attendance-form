@@ -56,8 +56,13 @@ const QuestionDetails = ({ id, preview, option }: Props) => {
                     optionDetails={optionDetails}
                     answer={answer as string | Array<string>}
                 />
-                {preview && (
-                    <button onClick={() => handleClearAnswer(id)}>Clear</button>
+                {preview && Boolean(questionWithId(questions, id).answer) && (
+                    <button
+                        className="text-lg font-medium transform transition duration-500 ease-in"
+                        onClick={() => handleClearAnswer(id)}
+                    >
+                        Clear
+                    </button>
                 )}
             </>
         );

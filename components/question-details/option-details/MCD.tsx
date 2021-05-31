@@ -38,7 +38,7 @@ const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
                             key={optionDetail.id}
                             className="rowCenter justify-between"
                         >
-                            <div>
+                            <div className="rowCenter w-full">
                                 <CheckboxInput
                                     id={id}
                                     preview={preview}
@@ -62,12 +62,12 @@ const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
                                     optionDetail={optionDetail}
                                     other={optionDetail.text === "others"}
                                 />
+                                <DeleteButton
+                                    id={id}
+                                    optionCount={optionDetails.length}
+                                    optionId={optionDetail.id}
+                                />
                             </div>
-                            <DeleteButton
-                                id={id}
-                                optionCount={optionDetails.length}
-                                optionId={optionDetail.id}
-                            />
                         </li>
                     );
                 })

@@ -1,3 +1,4 @@
+import { InputBase, InputBaseProps, withStyles } from "@material-ui/core";
 import {
     OptionDetailsType,
     useQuestions,
@@ -10,14 +11,21 @@ interface Props {
     other?: boolean;
 }
 
+const TextInput = withStyles({
+    "& .MuiInputBase-input .Mui-disabled": {
+        color: "rgba(0, 0, 0, 1)",
+    },
+    // @ts-ignore
+})(InputBase);
+
 const Input = ({ id, preview, optionDetail, other }: Props) => {
     // Context
     const { handleEditOption } = useQuestions();
 
     return (
-        <input
+        <TextInput
             type="text"
-            disabled={preview || other}
+            disabled={preview}
             defaultValue={
                 optionDetail?.text ||
                 (other && preview ? "Others..." : "Other: ")
@@ -25,6 +33,8 @@ const Input = ({ id, preview, optionDetail, other }: Props) => {
             onChange={(e) =>
                 handleEditOption(id, optionDetail.id, e.target.value)
             }
+            fullWidth={true}
+            multiline={true}
         />
     );
 };
