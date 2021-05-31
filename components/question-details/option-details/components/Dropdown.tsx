@@ -1,6 +1,6 @@
 import { useState, MouseEvent } from "react";
 import { MdArrowDropDown } from "react-icons/md";
-import { useOptions } from "../../../../context/optionsContext";
+import { useAnswer } from "../../../../context/answerContext";
 import { OptionDetailsType } from "../../../../context/questionsContext";
 import { DropdownButton } from "../../../material-ui/DropdownButton";
 import { DropdownMenu } from "../../../material-ui/DropdownMenu";
@@ -15,7 +15,7 @@ interface Props {
 
 const Dropdown = ({ id, answer, optionDetails }: Props) => {
     // Context
-    const { handleSubmitAnswer } = useOptions();
+    const { handleSubmitAnswer } = useAnswer();
 
     // State
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

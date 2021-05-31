@@ -1,34 +1,32 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { useQuestions } from "./questionsContext";
 
-type optionsContextType = {
+type answerContextType = {
     handleSubmitAnswer: (
         id: number,
         answer: string | number | Array<string>
     ) => void;
 };
 
-const optionsContextDefaultValues: optionsContextType = {
+const answerContextDefaultValues: answerContextType = {
     handleSubmitAnswer: () => {},
 };
 
-const OptionContext = createContext<optionsContextType>(
-    optionsContextDefaultValues
+const answerContext = createContext<answerContextType>(
+    answerContextDefaultValues
 );
 
-export function useOptions() {
-    return useContext(OptionContext);
+export function useAnswer() {
+    return useContext(answerContext);
 }
 
 interface Props {
     children: ReactNode;
 }
 
-export default function OptionProvider({ children }: Props) {
+export default function AnswerProvider({ children }: Props) {
     // Context
     const { questions, handleSetQuestions } = useQuestions();
-
-    // state
 
     // Handler functions
     const handleSubmitAnswer = (
@@ -43,13 +41,13 @@ export default function OptionProvider({ children }: Props) {
     };
 
     // Others
-    const value: optionsContextType = {
+    const value: answerContextType = {
         handleSubmitAnswer,
     };
 
     return (
-        <OptionContext.Provider value={value}>
+        <answerContext.Provider value={value}>
             {children}
-        </OptionContext.Provider>
+        </answerContext.Provider>
     );
 }

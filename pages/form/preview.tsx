@@ -31,10 +31,10 @@ const Preview = (props: Props) => {
 
         const addingErrorMessages = () => {
             handleSetQuestions(
-                questions.map((q) =>
-                    idsOfIncorrectAnswers.includes(q.id)
-                        ? { ...q, errorMessage: "Error" }
-                        : { ...q }
+                questions.map((question) =>
+                    idsOfIncorrectAnswers.includes(question.id)
+                        ? { ...question, errorMessage: "Error" }
+                        : { ...question }
                 )
             );
         };

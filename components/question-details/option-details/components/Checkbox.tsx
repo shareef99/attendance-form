@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { useOptions } from "../../../../context/optionsContext";
+import { useAnswer } from "../../../../context/answerContext";
 import Checkbox from "@material-ui/core/Checkbox";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 const CheckboxInput = ({ id, option, optionText, preview, answer }: Props) => {
     // Context
-    const { handleSubmitAnswer } = useOptions();
+    const { handleSubmitAnswer } = useAnswer();
 
     // State
     const [selectedCheckboxesValue, setSelectedCheckboxesValue] = useState<

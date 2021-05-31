@@ -1,5 +1,5 @@
 import Input from "@material-ui/core/Input";
-import { useOptions } from "../../../context/optionsContext";
+import { useAnswer } from "../../../context/answerContext";
 
 interface Props {
     id: number;
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ShortAnswer = ({ id, preview, answer }: Props) => {
-    const { handleSubmitAnswer } = useOptions();
+    const { handleSubmitAnswer } = useAnswer();
 
     return (
         <Input

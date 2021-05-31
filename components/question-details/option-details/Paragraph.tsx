@@ -1,6 +1,6 @@
 // Material-Ui Imports
 import Input from "@material-ui/core/Input";
-import { useOptions } from "../../../context/optionsContext";
+import { useAnswer } from "../../../context/answerContext";
 interface Props {
     id: number;
     preview: boolean;
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Paragraph = ({ id, preview }: Props) => {
-    const { handleSubmitAnswer } = useOptions();
+    const { handleSubmitAnswer } = useAnswer();
 
     return (
         <Input
