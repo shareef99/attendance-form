@@ -10,6 +10,7 @@ import Input from "./components/Input";
 import DeleteButton from "./components/DeleteButton";
 import CheckboxInput from "./components/Checkbox";
 import MultiChoice from "./components/MultiChoice";
+import AddButton from "./components/AddButton";
 
 interface Props {
     id: number;
@@ -20,29 +21,7 @@ interface Props {
 }
 
 const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
-    // Context
-    const { handleUpdateOptionsDetails, selectedQuestion } = useQuestions();
-
-    // Handlers
-    const handleAddChoice = (e: any) => {
-        e.preventDefault();
-
-        const lastIndex: number = optionDetails?.length - 1;
-        handleUpdateOptionsDetails(id, {
-            id: optionDetails[lastIndex]?.id + 1,
-            text: "option " + (optionDetails[lastIndex]?.id + 1),
-        });
-    };
-
-    const handleAddOther = (e: any) => {
-        e.preventDefault();
-
-        const lastIndex: number = optionDetails?.length - 1;
-        handleUpdateOptionsDetails(id, {
-            id: optionDetails[lastIndex]?.id + 1,
-            text: "others",
-        });
-    };
+    const { selectedQuestion } = useQuestions();
 
     return (
         <ul className={`${option === "Dropdown" ? "space-y-4" : "space-y-0"}`}>
@@ -97,21 +76,7 @@ const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
             {!optionDetails?.find((x) => x.text === "others") &&
                 !preview &&
                 isSelected(selectedQuestion.id, id) && (
-                    <li className="font-medium mt-1 ml-3">
-                        <button
-                            onClick={handleAddChoice}
-                            className="opacity-95"
-                        >
-                            Add option
-                        </button>{" "}
-                        <span>or</span>{" "}
-                        <button
-                            onClick={handleAddOther}
-                            className="text-blueText font-medium"
-                        >
-                            add "Other"
-                        </button>
-                    </li>
+                    <AddButton id={id} optionDetails={optionDetails} />
                 )}
         </ul>
     );

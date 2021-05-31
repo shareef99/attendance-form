@@ -1,20 +1,17 @@
-import { useState } from "react";
 import ShortAnswer from "./option-details/ShortAnswer";
 import Paragraph from "./option-details/Paragraph";
 import MCD from "./option-details/MCD";
 import { useQuestions } from "../../context/questionsContext";
-import { IconType } from "react-icons";
 import { questionWithId } from "../../helpers/question-utils";
 
 interface Props {
     id: number;
     option: string;
-    Icon: IconType;
     preview: boolean;
 }
 
-const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
-    const { questions } = useQuestions();
+const QuestionDetails = ({ id, preview, option }: Props) => {
+    const { questions, handleClearAnswer } = useQuestions();
 
     // Constants
     const optionDetails = questionWithId(questions, id)?.optionDetails;
@@ -51,13 +48,18 @@ const QuestionDetails = ({ id, Icon, preview, option }: Props) => {
     ) {
         // MCD stands for multi choice, Checkboxes, DropDown
         return (
-            <MCD
-                id={id}
-                preview={preview}
-                option={option}
-                optionDetails={optionDetails}
-                answer={answer as string | Array<string>}
-            />
+            <>
+                <MCD
+                    id={id}
+                    preview={preview}
+                    option={option}
+                    optionDetails={optionDetails}
+                    answer={answer as string | Array<string>}
+                />
+                {preview && (
+                    <button onClick={() => handleClearAnswer(id)}>Clear</button>
+                )}
+            </>
         );
     }
 

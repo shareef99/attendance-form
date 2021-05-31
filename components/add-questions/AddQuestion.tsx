@@ -70,12 +70,7 @@ const AddQuestion = ({ id, option, preview, Icon, description }: Props) => {
                     }}
                 />
             )}
-            <QuestionDetails
-                id={id}
-                option={option}
-                Icon={Icon}
-                preview={preview}
-            />
+            <QuestionDetails id={id} option={option} preview={preview} />
             {isSelected(selectedQuestion.id, id) && (
                 <>
                     <div className="border-b-[3px]" />

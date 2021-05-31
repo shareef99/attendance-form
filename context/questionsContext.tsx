@@ -62,6 +62,7 @@ interface questionsContextType {
     handleAddDescription: (id: number) => void;
     handleRemoveDescription: (id: number) => void;
     handleSetSelectedQuestion: (id: number, state: boolean) => void;
+    handleClearAnswer: (id: number) => void;
 }
 
 const questionsContextDefaultValues: questionsContextType = {
@@ -83,6 +84,7 @@ const questionsContextDefaultValues: questionsContextType = {
     handleAddDescription: () => {},
     handleRemoveDescription: () => {},
     handleSetSelectedQuestion: () => {},
+    handleClearAnswer: () => {},
 };
 
 const questionsContext = createContext<questionsContextType>(
@@ -303,6 +305,16 @@ export default function QuestionsProvider({ children }: Props) {
         setSelectedQuestion({ id, state });
     };
 
+    const handleClearAnswer = (id: number) => {
+        setQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? { ...question, answer: undefined }
+                    : { ...question }
+            )
+        );
+    };
+
     // Others
     const value: questionsContextType = {
         options,
@@ -323,6 +335,7 @@ export default function QuestionsProvider({ children }: Props) {
         handleAddDescription,
         handleRemoveDescription,
         handleSetSelectedQuestion,
+        handleClearAnswer,
     };
 
     return (

@@ -15,7 +15,7 @@ const MultiChoice = ({ answer, id, option, optionText, preview }: Props) => {
     return (
         option === "Multiple choice" && (
             <Radio
-                checked={answer === optionText}
+                checked={preview && answer === optionText}
                 onChange={(e) => handleSubmitAnswer(id, e.target.value)}
                 value={optionText}
                 disabled={!preview}
