@@ -35,8 +35,14 @@ const QuestionsList = ({ questions, preview }: Props) => {
                 onClick={handleRemoveSelected}
             >
                 {questions.map((question) => {
-                    const { id, option, optionIcon, title, description } =
-                        question;
+                    const {
+                        id,
+                        option,
+                        optionIcon,
+                        title,
+                        description,
+                        isDescription,
+                    } = question;
                     if (title || title === "") {
                         return (
                             <li
@@ -96,6 +102,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
                                 option={option}
                                 Icon={optionIcon}
                                 description={description}
+                                isDescription={isDescription}
                             />
                         </li>
                     );

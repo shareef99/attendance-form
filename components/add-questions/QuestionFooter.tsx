@@ -41,11 +41,6 @@ const QuestionFooter = ({ id }: Props) => {
     const [isRequired, setIsRequired] = useState<boolean>(false);
 
     // Handler functions
-    const handleDescription = () => {
-        setIsDescriptionAdded(!isDescriptionAdded);
-        // handleClose();
-    };
-
     const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
@@ -54,19 +49,24 @@ const QuestionFooter = ({ id }: Props) => {
         setAnchorEl(null);
     };
 
+    const handleDescription = () => {
+        if (isDescriptionAdded) {
+            handleRemoveDescription(id);
+            setIsDescriptionAdded(false);
+            handleClose();
+            return;
+        }
+
+        handleAddDescription(id);
+        setIsDescriptionAdded(true);
+        handleClose();
+    };
+
     const handleRequiredToggle = () => {
         setIsRequired(!isRequired);
     };
 
     // Effects
-    useEffect(() => {
-        if (isDescriptionAdded) {
-            handleRemoveDescription(id);
-            return;
-        }
-        handleAddDescription(id);
-    }, [isDescriptionAdded]);
-
     useEffect(() => {
         handleSetQuestions(
             questions.map((question) =>

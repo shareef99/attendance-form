@@ -23,6 +23,7 @@ export interface QuestionType {
     answer?: string | number | Array<string>;
     errorMessage?: string;
     title?: string;
+    isDescription?: boolean;
     description?: string;
 }
 
@@ -150,6 +151,7 @@ export default function QuestionsProvider({ children }: Props) {
                 optionIcon: MdShortText,
                 question: null,
                 optionDetails: [{ id: 1, text: "option 1" }],
+                isDescription: false,
             },
         ]);
         setSelectedQuestion({ id: questions[lastIndex].id + 1, state: true });
@@ -285,7 +287,7 @@ export default function QuestionsProvider({ children }: Props) {
         setQuestions(
             questions.map((question) =>
                 question.id === id
-                    ? { ...question, description: null }
+                    ? { ...question, isDescription: true }
                     : { ...question }
             )
         );
@@ -295,7 +297,7 @@ export default function QuestionsProvider({ children }: Props) {
         setQuestions(
             questions.map((question) =>
                 question.id === id
-                    ? { ...question, description: undefined }
+                    ? { ...question, isDescription: false }
                     : { ...question }
             )
         );

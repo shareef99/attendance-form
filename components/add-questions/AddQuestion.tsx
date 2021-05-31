@@ -7,29 +7,24 @@ import Options from "./Options";
 import QuestionDetails from "../question-details/QuestionDetails";
 import Question from "./Question";
 import QuestionFooter from "./QuestionFooter";
+import Description from "./Description";
 // Helper functions
 import { isSelected } from "../../helpers/question-utils";
 // Context
 import { useQuestions } from "../../context/questionsContext";
-// Material UI
-import Input from "@material-ui/core/Input";
-import { useEffect, useState } from "react";
 
 interface Props {
     id?: number;
     option?: string;
     preview?: boolean;
     Icon?: IconType;
+    isDescription?: boolean;
     description: string;
 }
 
-const AddQuestion = ({ id, option, preview, Icon, description }: Props) => {
-    const {
-        selectedQuestion,
-        handleUpdateDescription,
-        handleAddDescription,
-        handleRemoveDescription,
-    } = useQuestions();
+const AddQuestion = (props: Props) => {
+    const { id, option, preview, Icon, description, isDescription } = props;
+    const { selectedQuestion } = useQuestions();
 
     return (
         <div
@@ -58,18 +53,15 @@ const AddQuestion = ({ id, option, preview, Icon, description }: Props) => {
                     </>
                 )}
             </div>
-            {description !== undefined && (
-                <Input
-                    type="text"
-                    placeholder="Description (optional)"
-                    fullWidth={true}
-                    readOnly={preview || !isSelected(selectedQuestion.id, id)}
-                    defaultValue={description}
-                    onChange={(e) => {
-                        handleUpdateDescription(id, e.target.value);
-                    }}
-                />
-            )}
+            {preview
+                ? Boolean(description) && <h3>{description}</h3>
+                : isDescription && (
+                      <Description
+                          id={id}
+                          preview={preview}
+                          description={description}
+                      />
+                  )}
             <QuestionDetails id={id} option={option} preview={preview} />
             {isSelected(selectedQuestion.id, id) && (
                 <>
