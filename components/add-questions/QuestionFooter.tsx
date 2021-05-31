@@ -38,7 +38,9 @@ const QuestionFooter = ({ id }: Props) => {
     // State
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [isDescriptionAdded, setIsDescriptionAdded] = useState<boolean>(null);
-    const [isRequired, setIsRequired] = useState<boolean>(false);
+    const [isRequired, setIsRequired] = useState<boolean>(
+        questionWithId(questions, id).isRequired
+    );
 
     // Handler functions
     const handleClick = (event: any) => {
