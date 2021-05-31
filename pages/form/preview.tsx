@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import QuestionsList from "../../components/add-questions/QuestionsList";
 import { useQuestions } from "../../context/questionsContext";
 import classes from "../../styles/preview/preview.module.scss";
@@ -17,13 +16,13 @@ const Preview = (props: Props) => {
             (question) => question.isRequired
         );
 
-        const isAllAnswerExits = questionsWithRequired.every(
-            (x) => Boolean(x.answer) === true
-        );
+        // const isAllAnswerExits = questionsWithRequired.every(
+        //     (x) => Boolean(x.answer) === true
+        // );
 
-        const whichAnswersAreEmpty = questionsWithRequired.filter(
-            (x) => Boolean(x.answer) === false
-        );
+        // const whichAnswersAreEmpty = questionsWithRequired.filter(
+        //     (x) => Boolean(x.answer) === false
+        // );
 
         const idsOfIncorrectAnswers = questionsWithRequired
             .filter((x) => Boolean(x.answer) === false)
@@ -33,7 +32,10 @@ const Preview = (props: Props) => {
             handleSetQuestions(
                 questions.map((question) =>
                     idsOfIncorrectAnswers.includes(question.id)
-                        ? { ...question, errorMessage: "Error" }
+                        ? {
+                              ...question,
+                              errorMessage: "This is a required question",
+                          }
                         : { ...question }
                 )
             );
@@ -41,12 +43,12 @@ const Preview = (props: Props) => {
 
         addingErrorMessages();
 
-        console.log(
-            questionsWithRequired,
-            isAllAnswerExits,
-            whichAnswersAreEmpty,
-            idsOfIncorrectAnswers
-        );
+        // console.log(
+        //     questionsWithRequired,
+        //     isAllAnswerExits,
+        //     whichAnswersAreEmpty,
+        //     idsOfIncorrectAnswers
+        // );
     };
 
     return (

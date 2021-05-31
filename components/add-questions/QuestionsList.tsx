@@ -42,6 +42,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
                         title,
                         description,
                         isDescription,
+                        errorMessage,
                     } = question;
                     if (title || title === "") {
                         return (
@@ -103,6 +104,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
                                 Icon={optionIcon}
                                 description={description}
                                 isDescription={isDescription}
+                                errorMessage={errorMessage}
                             />
                         </li>
                     );

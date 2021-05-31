@@ -37,7 +37,7 @@ const Question = ({ id, preview }: Props) => {
         );
     } else {
         return (
-            <h3 className="flex-auto font-medium text-xl">
+            <h3 className="font-medium text-xl">
                 {questionWithId(questions, id)?.question || "Question"}
             </h3>
         );

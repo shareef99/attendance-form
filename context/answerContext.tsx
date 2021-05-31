@@ -35,7 +35,9 @@ export default function AnswerProvider({ children }: Props) {
     ) => {
         handleSetQuestions(
             questions.map((question) =>
-                question.id === id ? { ...question, answer } : { ...question }
+                question.id === id
+                    ? { ...question, answer, errorMessage: undefined }
+                    : { ...question }
             )
         );
     };

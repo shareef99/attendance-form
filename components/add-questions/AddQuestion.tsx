@@ -14,16 +14,25 @@ import { isSelected } from "../../helpers/question-utils";
 import { useQuestions } from "../../context/questionsContext";
 
 interface Props {
-    id?: number;
-    option?: string;
-    preview?: boolean;
-    Icon?: IconType;
-    isDescription?: boolean;
+    id: number;
+    option: string;
+    preview: boolean;
+    Icon: IconType;
+    isDescription: boolean;
     description: string;
+    errorMessage: string;
 }
 
 const AddQuestion = (props: Props) => {
-    const { id, option, preview, Icon, description, isDescription } = props;
+    const {
+        id,
+        option,
+        preview,
+        Icon,
+        description,
+        isDescription,
+        errorMessage,
+    } = props;
     const { selectedQuestion } = useQuestions();
 
     return (
@@ -33,10 +42,11 @@ const AddQuestion = (props: Props) => {
             }`}
         >
             <div
-                className="rowCenter justify-between items-baseline flex-wrap space-x-4 space-y-4 
-                    sm:space-y-0"
+                className={`rowCenter justify-between items-baseline flex-wrap space-x-4 space-y-4 
+                    sm:space-y-0`}
             >
                 <Question id={id} preview={preview} />
+
                 {isSelected(selectedQuestion.id, id) && (
                     <>
                         <RiImageAddFill
@@ -63,6 +73,11 @@ const AddQuestion = (props: Props) => {
                       />
                   )}
             <QuestionDetails id={id} option={option} preview={preview} />
+            {preview && Boolean(errorMessage) && (
+                <h3 className="my-4 text-red-500 font-normal text">
+                    {errorMessage}
+                </h3>
+            )}
             {isSelected(selectedQuestion.id, id) && (
                 <>
                     <div className="border-b-[3px]" />
