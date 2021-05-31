@@ -129,7 +129,7 @@ export default function QuestionsProvider({ children }: Props) {
     const [questions, setQuestions] = useState<Array<QuestionType>>([
         {
             id: 0,
-            title: "Form Title",
+            title: "Zaade loves you a lot",
         },
     ]);
 
@@ -152,6 +152,7 @@ export default function QuestionsProvider({ children }: Props) {
                 question: null,
                 optionDetails: [{ id: 1, text: "option 1" }],
                 isDescription: false,
+                isRequired: false,
             },
         ]);
         setSelectedQuestion({ id: questions[lastIndex].id + 1, state: true });
@@ -178,7 +179,12 @@ export default function QuestionsProvider({ children }: Props) {
     const handleCopyQuestion = (id: number) => {
         const questionToCopy = questionWithId(questions, id);
         const index = questions?.indexOf(questionToCopy);
-        const newQuestions = addNewItemAtId(questions, index, questionToCopy);
+        const { newQuestions, newQuestionId } = addNewItemAtId(
+            questions,
+            index,
+            questionToCopy
+        );
+        setSelectedQuestion({ id: newQuestionId, state: true });
         setQuestions(newQuestions);
     };
 

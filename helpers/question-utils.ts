@@ -11,8 +11,8 @@ export const addNewItemAtId = (
         .slice(index)
         .map((x) => ({ ...x, id: ++x.id }));
     const newQuestions = startingQuestions.concat(endingQuestions);
-
-    return newQuestions;
+    const newQuestionId = newQuestions[index + 1].id;
+    return { newQuestions, newQuestionId };
 };
 
 export const isSelected = (selectedQuestionId: number, questionId: number) => {
