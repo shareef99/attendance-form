@@ -6,12 +6,9 @@ interface Props {
 
 const Footer = ({ PageName }: Props) => {
     if (PageName === "new") {
-        return (
-            <Fragment>
-                <FormFooter />
-            </Fragment>
-        );
+        return <FormFooter />;
     }
+
     return (
         <div>
             <h1>Footer</h1>
