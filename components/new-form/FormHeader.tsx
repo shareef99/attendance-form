@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HiPencil, HiLink, HiCheck } from "react-icons/hi";
-import FileName from "./FileName";
+import FormName from "./FormName";
 import { useQuestions } from "../../context/questionsContext";
 
 interface Props {
@@ -23,7 +23,7 @@ const FormHeader = ({ preview }: Props) => {
                     src="/images/forms.png"
                     alt="Form Logo by Freepik from flaticon"
                 />
-                <FileName preview={preview} />{" "}
+                <FormName preview={preview} />{" "}
             </div>
             <div className="rowCenter space-x-8 ">
                 <Link href="/form/new">
