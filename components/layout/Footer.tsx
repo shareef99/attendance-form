@@ -5,7 +5,7 @@ interface Props {
 }
 
 const Footer = ({ PageName }: Props) => {
-    if (PageName === "NewForm") {
+    if (PageName === "new") {
         return (
             <Fragment>
                 <FormFooter />
