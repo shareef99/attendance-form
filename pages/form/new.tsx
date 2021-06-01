@@ -6,10 +6,10 @@ interface Props {}
 
 const NewForm = ({}: Props) => {
     // Context
-    const { questions, selectedQuestion } = useQuestions();
+    const { questions } = useQuestions();
 
     // Others
-    console.log(questions, selectedQuestion);
+    console.log(questions);
 
     return (
         <section>

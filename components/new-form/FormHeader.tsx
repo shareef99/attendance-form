@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { HiPencil, HiLink, HiCheck, HiChevronDown } from "react-icons/hi";
+import { HiPencil, HiLink, HiCheck } from "react-icons/hi";
 import FileName from "./FileName";
 import { useQuestions } from "../../context/questionsContext";
 

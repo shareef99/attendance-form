@@ -6,11 +6,11 @@ interface Props {
 }
 
 const Header = ({ PageName }: Props) => {
-    if (PageName === "NewForm") {
+    if (PageName === "new") {
         return <FormHeader />;
     }
 
-    if (PageName === "Preview") {
+    if (PageName === "preview") {
         return <FormHeader preview />;
     }
 

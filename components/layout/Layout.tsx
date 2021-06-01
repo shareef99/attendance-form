@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { useRouter } from "next/router";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -7,9 +8,8 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-    // type.name exist but I don't know why TS is not getting it, so I am using TS ignore comment
-    // @ts-ignore
-    const PageName = children.type.name;
+    const PageName = useRouter().asPath.slice(6);
+
     return (
         <div>
             <Header PageName={PageName} />
