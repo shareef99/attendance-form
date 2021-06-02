@@ -1,16 +1,59 @@
 import Link from "next/link";
+import { GetStaticProps } from "next";
+import { getTemplates } from "../helpers/firebase";
+import { useQuestions } from "../context/questionsContext";
 
-export default function Home() {
+interface props {
+    templates: any;
+}
+
+export default function Home({ templates }: props) {
+    console.log(templates);
+
+    const { questions } = useQuestions();
+    console.log(questions);
+
     return (
         <section>
-            <h2 className="text-3xl font-[100] text-red-900">
-                Hello master shareef
-            </h2>
-            <button>
-                <Link href="/form/new">
-                    <a>Create a new form</a>
-                </Link>
-            </button>
+            <section>
+                <div>
+                    <span>Start a new form</span>
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <Link href="/form/new">
+                                <a>Create a new form</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/form/new">
+                                <a>Create a new form</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/form/new">
+                                <a>Create a new form</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/form/new">
+                                <a>Create a new form</a>
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+            </section>
         </section>
     );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+    const templates = await getTemplates();
+
+    return {
+        props: {
+            templates,
+        },
+    };
+};
