@@ -15,33 +15,68 @@ export default function Home({ templates }: props) {
 
     return (
         <section>
-            <section>
+            <section className="my-12 container colCenter">
                 <div>
-                    <span>Start a new form</span>
-                </div>
-                <div>
-                    <ul>
-                        <li>
-                            <Link href="/form/new">
-                                <a>Create a new form</a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/form/new">
-                                <a>Create a new form</a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/form/new">
-                                <a>Create a new form</a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/form/new">
-                                <a>Create a new form</a>
-                            </Link>
-                        </li>
-                    </ul>
+                    <div className="font-medium pb-4 text-lg ">
+                        <span>Start a new form</span>
+                    </div>
+                    <div>
+                        <ul
+                            className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4
+                                lg:grid-cols-5 gap-4"
+                        >
+                            <li className="space-y-4">
+                                <Link href="/">
+                                    <a>
+                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
+                                    </a>
+                                </Link>
+                                <span className="inline-block">
+                                    Create a new form
+                                </span>
+                            </li>
+                            <li className="space-y-4">
+                                <Link href="/">
+                                    <a>
+                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
+                                    </a>
+                                </Link>
+                                <span className="inline-block">
+                                    Create a new form
+                                </span>
+                            </li>
+                            <li className="space-y-4">
+                                <Link href="/">
+                                    <a>
+                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
+                                    </a>
+                                </Link>
+                                <span className="inline-block">
+                                    Create a new form
+                                </span>
+                            </li>
+                            <li className="space-y-4">
+                                <Link href="/">
+                                    <a>
+                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
+                                    </a>
+                                </Link>
+                                <span className="inline-block">
+                                    Create a new form
+                                </span>
+                            </li>
+                            <li className="space-y-4">
+                                <Link href="/">
+                                    <a>
+                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
+                                    </a>
+                                </Link>
+                                <span className="inline-block">
+                                    Create a new form
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </section>
         </section>
