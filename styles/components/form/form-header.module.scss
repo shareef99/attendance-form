@@ -1,0 +1,5 @@
+// @use '../../tailwind.scss';
+
+.header {
+    @apply bg-white h-16 border-b-2 shadow;
+}

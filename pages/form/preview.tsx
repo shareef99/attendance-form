@@ -52,7 +52,7 @@ const Preview = (props: Props) => {
     };
 
     return (
-        <section>
+        <section className="my-14">
             <QuestionsList questions={questions} preview />
             <div className="container flex md:max-w-[60%]">
                 <button

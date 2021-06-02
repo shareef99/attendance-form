@@ -3,7 +3,7 @@ import Image from "next/image";
 import { HiPencil, HiLink, HiCheck } from "react-icons/hi";
 import FormName from "./FormName";
 import { useQuestions } from "../../context/questionsContext";
-
+import classes from "../../styles/components/form/form-header.module.scss";
 interface Props {
     preview?: boolean;
 }
@@ -13,17 +13,17 @@ const FormHeader = ({ preview }: Props) => {
 
     return (
         <header
-            className="colCenter sm:flex-row sm:justify-between md:justify-around space-y-4 sm:space-y-0 
-                py-16 px-8 h-16 mx-auto bg-white border-b-2 shadow"
+            className={`colCenter sm:flex-row sm:justify-between md:justify-around space-y-4 sm:space-y-0 
+                py-16 px-8 mx-auto ${classes.header}`}
         >
-            <div className="rowCenter">
+            <div className="rowCenter m-4">
                 <Image
                     width="48"
                     height="48"
                     src="/images/forms.png"
                     alt="Form Logo by Freepik from flaticon"
                 />
-                <FormName preview={preview} />{" "}
+                <FormName preview={preview} className="w-min" />{" "}
             </div>
             <div className="rowCenter space-x-8 ">
                 <Link href="/form/new">

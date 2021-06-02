@@ -6,6 +6,7 @@ module.exports = {
         "./components/**/*.{js,ts,jsx,tsx}",
     ],
     mode: "jit",
+    important: true,
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {

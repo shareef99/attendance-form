@@ -1,21 +1,15 @@
-import { ChangeEvent, useState } from "react";
-import { HiPencil } from "react-icons/hi";
 import { useFormContext } from "../../context/formContext";
 
 interface Props {
     preview?: boolean;
+    className?: string;
 }
 
-const FormName = ({ preview }: Props) => {
+const FormName = ({ preview, className }: Props) => {
     // Context
     const { formTitle, handleFormTitle } = useFormContext();
 
-    // State
-    const [isEditingFileName, setIsEditingFileName] = useState<boolean>(false);
-
     // Handler Functions
-    // console.log(isEditingFileName);
-
     function handleEditFileName(e: any) {
         handleFormTitle(e.target.value);
         console.log(e.target.key);
@@ -23,26 +17,25 @@ const FormName = ({ preview }: Props) => {
         if (preview) {
             return;
         }
-        // setIsEditingFileName(true);
     }
 
     return (
         <div
-            className="rowCenter ml-4 cursor-pointer"
+            className={`rowCenter ml-4 cursor-pointer ${className}`}
             onClick={handleEditFileName}
         >
             {preview ? (
                 formTitle ? (
-                    formTitle
+                    <span className="w-min">{formTitle}</span>
                 ) : (
-                    "Untitled"
+                    <span className="w-min">Untitled</span>
                 )
             ) : (
                 <input
                     type="text"
                     name="fileName"
                     id="fileName"
-                    className="focus:border-b-4 focus:border-purpleColor "
+                    className="focus:border-b-4 focus:border-purpleColor w-min"
                     defaultValue={formTitle || "Untitled"}
                     onChange={handleEditFileName}
                 />

@@ -3,7 +3,7 @@ import { HiOutlinePlusCircle } from "react-icons/hi";
 import { MdTextFields } from "react-icons/md";
 import { RiImageAddFill, RiVideoAddFill } from "react-icons/ri";
 import { useQuestions } from "../../context/questionsContext";
-import classes from "../../styles/components/new-form/new-form-footer.module.scss";
+import classes from "../../styles/components/form/form-footer.module.scss";
 
 interface Props {}
 
@@ -13,7 +13,7 @@ const FormFooter = ({}: Props) => {
     return (
         <footer className="rowCenter sticky bottom-0">
             <div
-                className={`rowCenter space-x-8 h-14 container ${classes.newFormFooterIcons}`}
+                className={`rowCenter space-x-8 h-14 container ${classes.FormFooterIcons}`}
             >
                 <HiOutlinePlusCircle
                     title="Add Question"
