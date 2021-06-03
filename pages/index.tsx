@@ -5,13 +5,14 @@ import { useQuestions } from "../context/questionsContext";
 
 interface props {
     templates: any;
+    // data: any;
 }
 
 export default function Home({ templates }: props) {
-    console.log(templates);
+    // console.log(events);
 
     const { questions } = useQuestions();
-    console.log(questions);
+    console.log(templates);
 
     return (
         <section>
@@ -26,47 +27,7 @@ export default function Home({ templates }: props) {
                                 lg:grid-cols-5 gap-4"
                         >
                             <li className="space-y-4">
-                                <Link href="/">
-                                    <a>
-                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
-                                    </a>
-                                </Link>
-                                <span className="inline-block">
-                                    Create a new form
-                                </span>
-                            </li>
-                            <li className="space-y-4">
-                                <Link href="/">
-                                    <a>
-                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
-                                    </a>
-                                </Link>
-                                <span className="inline-block">
-                                    Create a new form
-                                </span>
-                            </li>
-                            <li className="space-y-4">
-                                <Link href="/">
-                                    <a>
-                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
-                                    </a>
-                                </Link>
-                                <span className="inline-block">
-                                    Create a new form
-                                </span>
-                            </li>
-                            <li className="space-y-4">
-                                <Link href="/">
-                                    <a>
-                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
-                                    </a>
-                                </Link>
-                                <span className="inline-block">
-                                    Create a new form
-                                </span>
-                            </li>
-                            <li className="space-y-4">
-                                <Link href="/">
+                                <Link href="/form/new">
                                     <a>
                                         <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
                                     </a>

@@ -15,7 +15,7 @@ const QuestionDetails = ({ id, preview, option }: Props) => {
 
     // Constants
     const optionDetails = questionWithId(questions, id)?.optionDetails;
-    const answer = questionWithId(questions, id).answer;
+    const answer = questionWithId(questions, id)?.answer;
 
     if (option === "Short answer") {
         return (
