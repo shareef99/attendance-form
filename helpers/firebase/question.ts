@@ -1,3 +1,4 @@
+import { IconType } from "react-icons";
 import { db } from "../../firebase/firebase";
 import { questionWithId } from "../question-utils";
 
@@ -57,4 +58,20 @@ export const updateQuestion = (docId: string, questionText: string) => {
         .child(`users/shareef/forms/Name Form/${docId}`);
 
     questionToUpdateRef.update({ question: questionText });
+};
+
+export const updateQuestionOption = (docId: string, option: string) => {
+    const questionToUpdateRef = db
+        .ref()
+        .child(`users/shareef/forms/Name Form/${docId}`);
+
+    questionToUpdateRef.update({ option });
+
+    // setQuestions(
+    // questions.map((question) =>
+    // question.id === id
+    // ? { ...question, option, optionIcon: Icon }
+    // : { ...question }
+    // )
+    // );
 };

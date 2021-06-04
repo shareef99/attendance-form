@@ -8,6 +8,7 @@ import OptionItem from "./OptionItem";
 import { useQuestions } from "../../context/questionsContext";
 import { IconType } from "react-icons/lib";
 import { questionWithId } from "../../helpers/question-utils";
+import { options } from "../../helpers/question-utils";
 
 interface Props {
     id: number;
@@ -16,7 +17,7 @@ interface Props {
 }
 
 const DialogOptions = ({ id, onClose, open }: Props) => {
-    const { options, questions } = useQuestions();
+    const { questions } = useQuestions();
 
     // Handlers
     const handleClose = (option: string, Icon: IconType, id: number) => {

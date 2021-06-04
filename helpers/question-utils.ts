@@ -11,7 +11,7 @@ import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
 import { CgRadioChecked } from "react-icons/cg";
 import { OptionType } from "../components/add-questions/Options";
 
-const options: Array<OptionType> = [
+export const options: Array<OptionType> = [
     {
         Icon: MdShortText,
         option: "Short answer",

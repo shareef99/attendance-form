@@ -57,6 +57,7 @@ const AddQuestion = (props: Props) => {
                             className="self-center"
                         />
                         <Options
+                            docId={docId}
                             preview={preview}
                             id={id}
                             option={option}

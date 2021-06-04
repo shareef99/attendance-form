@@ -1,20 +1,18 @@
 import { Fragment, useState } from "react";
-
 // Material-Ui import(s)
 import Button from "@material-ui/core/Button";
-
 // React Components imports
 import DialogOptions from "./DialogOptions";
 import OptionItem from "./OptionItem";
-
 // ...others
-import { useQuestions } from "../../context/questionsContext";
 import { IconType } from "react-icons/lib";
+import { updateQuestionOption } from "../../helpers/firebase/question";
 
 interface Props {
-    id?: number;
-    option?: string;
-    preview?: boolean;
+    docId: string;
+    id: number;
+    option: string;
+    preview: boolean;
     Icon: IconType;
 }
 
@@ -23,12 +21,7 @@ export interface OptionType {
     option: string;
 }
 
-const Options = (props: Props) => {
-    const { id, option, preview, Icon } = props;
-
-    // Context
-    const { updateQuestionOption } = useQuestions();
-
+const Options = ({ docId, id, option, preview, Icon }: Props) => {
     // State
     const [open, setOpen] = useState(false);
 
@@ -42,7 +35,7 @@ const Options = (props: Props) => {
 
     const handleClose = (option: string, Icon: IconType, id: number) => {
         setOpen(false);
-        updateQuestionOption(id, option, Icon);
+        updateQuestionOption(docId, option);
     };
 
     return (
