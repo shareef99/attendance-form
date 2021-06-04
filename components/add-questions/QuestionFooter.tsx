@@ -7,28 +7,17 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Switch from "@material-ui/core/Switch";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { questionWithId } from "../../helpers/question-utils";
+import { deleteQuestion } from "../../helpers/firebase/question";
+import { RequiredToggle } from "../material-ui/PurpleSwitch";
 
 interface Props {
+    docId: string;
     id: number;
 }
 
-const PurpleSwitch = withStyles({
-    switchBase: {
-        "&$checked": {
-            color: "rgb(103, 58, 183)",
-        },
-        "&$checked + $track": {
-            backgroundColor: "#b9b9b9",
-        },
-    },
-    checked: {},
-    track: {},
-})(Switch);
-
-const QuestionFooter = ({ id }: Props) => {
+const QuestionFooter = ({ docId, id }: Props) => {
     const {
         questions,
-        handleDeleteQuestion,
         handleCopyQuestion,
         handleAddDescription,
         handleRemoveDescription,
@@ -91,7 +80,7 @@ const QuestionFooter = ({ id }: Props) => {
                 style={{ width: "1.5rem", height: "2rem", cursor: "pointer" }}
                 className="text-gray-500"
                 title="Delete Question"
-                onClick={() => handleDeleteQuestion(id)}
+                onClick={() => deleteQuestion(docId)}
             />
             {!questionWithId(questions, id).title && (
                 // Item with title should not have required field
@@ -99,7 +88,7 @@ const QuestionFooter = ({ id }: Props) => {
                     <div className="w-px h-6 bg-gray-500" />
                     <div className="text-lightBlack font-median text-lg">
                         <span>Required</span>
-                        <PurpleSwitch
+                        <RequiredToggle
                             checked={isRequired}
                             onChange={handleRequiredToggle}
                             color="primary"

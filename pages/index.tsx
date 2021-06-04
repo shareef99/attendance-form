@@ -5,15 +5,9 @@ import { useQuestions } from "../context/questionsContext";
 
 interface props {
     templates: any;
-    // data: any;
 }
 
 export default function Home({ templates }: props) {
-    // console.log(events);
-
-    const { questions } = useQuestions();
-    console.log(templates);
-
     return (
         <section>
             <section className="my-12 container colCenter">

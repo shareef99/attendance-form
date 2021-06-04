@@ -16,7 +16,7 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
-const db = firebase.firestore();
-const realDb = firebase.database();
+const firestore = firebase.firestore();
+const db = firebase.database();
 
-export { db, realDb };
+export { firestore, db };

@@ -1,11 +1,14 @@
 import { MouseEvent } from "react";
 import { QuestionType, useQuestions } from "../../context/questionsContext";
+import { getQuestions } from "../../helpers/firebase/question";
+import { getIcon } from "../../helpers/question-utils";
 import AddQuestion from "./AddQuestion";
 import FormTitle from "./TitleNDescription/FormTitle";
 import TitleNDescription from "./TitleNDescription/TitleNDescription";
 
 interface Props {
-    questions: Array<QuestionType>;
+    // questions: Array<QuestionType>;
+    questions?: any;
     preview?: boolean;
 }
 
@@ -34,14 +37,17 @@ const QuestionsList = ({ questions, preview }: Props) => {
         >
             {questions.map((question) => {
                 const {
+                    docId,
                     id,
                     option,
-                    optionIcon,
                     title,
                     description,
                     isDescription,
                     errorMessage,
                 } = question;
+
+                const optionIcon = getIcon(option);
+
                 if (title || title === "") {
                     return (
                         <li
@@ -49,11 +55,14 @@ const QuestionsList = ({ questions, preview }: Props) => {
                             onClick={() => handleAddSelected(id, true)}
                             className={`container p-8 bg-white rounded-lg shadow-md md:max-w-[70%]
                                     transition transform duration-200 ease-in border-l-[8px]
-                                    ${preview && "md:max-w-[60%]"} ${
-                                id === selectedQuestion.id
-                                    ? "border-blue-500"
-                                    : "border-transparent"
-                            }`}
+                                    ${preview && "md:max-w-[60%]"} 
+                                    
+                                    ${
+                                        id === selectedQuestion.id
+                                            ? "border-blue-500"
+                                            : "border-transparent"
+                                    }
+                            `}
                             style={
                                 id === 0
                                     ? {
@@ -89,13 +98,16 @@ const QuestionsList = ({ questions, preview }: Props) => {
                         onClick={() => handleAddSelected(id, true)}
                         className={`container p-8 bg-white rounded-lg shadow-md md:max-w-[70%]
                             transition transform duration-200 ease-in border-l-[8px] 
-                            ${preview && "md:max-w-[60%]"} ${
-                            id === selectedQuestion.id
-                                ? "border-blue-500"
-                                : "border-transparent"
-                        }`}
+                            ${preview && "md:max-w-[60%]"} 
+                            ${
+                                id === selectedQuestion.id
+                                    ? "border-blue-500"
+                                    : "border-transparent"
+                            }
+                            `}
                     >
                         <AddQuestion
+                            docId={docId}
                             preview={preview}
                             id={id}
                             option={option}

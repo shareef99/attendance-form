@@ -14,6 +14,7 @@ import { isSelected } from "../../helpers/question-utils";
 import { useQuestions } from "../../context/questionsContext";
 
 interface Props {
+    docId: string;
     id: number;
     option: string;
     preview: boolean;
@@ -25,6 +26,7 @@ interface Props {
 
 const AddQuestion = (props: Props) => {
     const {
+        docId,
         id,
         option,
         preview,
@@ -81,7 +83,7 @@ const AddQuestion = (props: Props) => {
             {isSelected(selectedQuestion.id, id) && (
                 <>
                     <div className="border-b-[3px]" />
-                    <QuestionFooter id={id} />
+                    <QuestionFooter docId={docId} id={id} />
                 </>
             )}
         </div>

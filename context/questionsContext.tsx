@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+    createContext,
+    ReactNode,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 import { OptionType } from "../components/add-questions/Options";
 // React-Icon imports
 import { IconType } from "react-icons/lib";
@@ -12,6 +18,7 @@ import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
 import { CgRadioChecked } from "react-icons/cg";
 // Helpers
 import { addNewItemAtId, questionWithId } from "../helpers/question-utils";
+import { db } from "../firebase/firebase";
 
 export interface QuestionType {
     id?: number;
@@ -44,7 +51,6 @@ interface questionsContextType {
     handleSetQuestions: (questions: Array<QuestionType>) => void;
     handleAddQuestions: () => void;
     updateQuestion: (id: number, question?: string) => void;
-    handleDeleteQuestion: (id: number) => void;
     handleCopyQuestion: (id: number) => void;
     updateQuestionOption: (id: number, option: string, Icon: IconType) => void;
     handleUpdateOptionsDetails: (
@@ -70,10 +76,10 @@ const questionsContextDefaultValues: questionsContextType = {
     options: [],
     questions: [],
     selectedQuestion: { id: 0, state: true },
+    handleSetSelectedQuestion: () => {},
     handleSetQuestions: () => {},
     handleAddQuestions: () => {},
     updateQuestion: () => {},
-    handleDeleteQuestion: () => {},
     handleCopyQuestion: () => {},
     handleUpdateOptionsDetails: () => {},
     updateQuestionOption: () => {},
@@ -84,7 +90,6 @@ const questionsContextDefaultValues: questionsContextType = {
     handleDeleteOptionDetail: () => {},
     handleAddDescription: () => {},
     handleRemoveDescription: () => {},
-    handleSetSelectedQuestion: () => {},
     handleClearAnswer: () => {},
 };
 
@@ -126,54 +131,79 @@ export default function QuestionsProvider({ children }: Props) {
     ];
 
     // States
-    const [questions, setQuestions] = useState<Array<QuestionType>>([
-        {
-            id: 0,
-            title: "Form Title",
-        },
-    ]);
+    const [questions, setQuestions] = useState<Array<QuestionType>>();
+    //  [
+    //     {
+    //         id: 0,
+    //         title: "Form Title",
+    //     },
+    // ]
+    // );
+
+    const getQuestions = () => {
+        let rawQuestions = [];
+        // let questions = [];
+
+        const questionsRef = db.ref().child(`users/shareef/forms/Name Form`);
+
+        questionsRef.on("value", (snap) => {
+            const questionsValue = snap.val();
+            // Converting Object to Array
+            rawQuestions = Object.entries(questionsValue);
+            // for (let id in questionsValue) {
+            // questions.push(questionsValue[id]);
+            // }
+            setQuestions(rawQuestions.map((x) => ({ docId: x[0], ...x[1] })));
+        });
+        console.log("From Helpers", questions);
+
+        return questions;
+    };
+
+    useEffect(() => {
+        getQuestions();
+    }, []);
 
     const [selectedQuestion, setSelectedQuestion] =
         useState<selectedQuestionType>({ id: 0, state: true });
 
     // Handler functions
+    const handleSetSelectedQuestion = (id: number, state: boolean) => {
+        setSelectedQuestion({ id, state });
+    };
+
     const handleSetQuestions = (questions: Array<QuestionType>) => {
-        setQuestions(questions);
+        // setQuestions(questions);
     };
 
     const handleAddQuestions = () => {
         const lastIndex = questions.length - 1;
-        setQuestions((prevQuestions) => [
-            ...prevQuestions,
-            {
-                id: questions[lastIndex].id + 1,
-                option: "Short answer",
-                optionIcon: MdShortText,
-                question: null,
-                optionDetails: [{ id: 1, text: "option 1" }],
-                isDescription: false,
-                isRequired: false,
-            },
-        ]);
+        // setQuestions((prevQuestions) => [
+        //     ...prevQuestions,
+        //     {
+        //         id: questions[lastIndex].id + 1,
+        //         option: "Short answer",
+        //         optionIcon: MdShortText,
+        //         question: null,
+        //         optionDetails: [{ id: 1, text: "option 1" }],
+        //         isDescription: false,
+        //         isRequired: false,
+        //     },
+        // ]);
         setSelectedQuestion({ id: questions[lastIndex].id + 1, state: true });
     };
 
     const updateQuestion = (id: number, questionText: string) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? {
-                          ...question,
-                          question: questionText,
-                      }
-                    : { ...question }
-            )
-        );
-    };
-
-    const handleDeleteQuestion = (id: number) => {
-        if (questions.length <= 1) return;
-        setQuestions(questions.filter((question) => question.id !== id));
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id
+        //             ? {
+        //                   ...question,
+        //                   question: questionText,
+        //               }
+        //             : { ...question }
+        //     )
+        // );
     };
 
     const handleCopyQuestion = (id: number) => {
@@ -185,7 +215,7 @@ export default function QuestionsProvider({ children }: Props) {
             questionToCopy
         );
         setSelectedQuestion({ id: newQuestionId, state: true });
-        setQuestions(newQuestions);
+        // setQuestions(newQuestions);
     };
 
     const updateQuestionOption = (
@@ -193,13 +223,13 @@ export default function QuestionsProvider({ children }: Props) {
         option: string,
         Icon: IconType
     ) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, option, optionIcon: Icon }
-                    : { ...question }
-            )
-        );
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id
+        //             ? { ...question, option, optionIcon: Icon }
+        //             : { ...question }
+        //     )
+        // );
     };
 
     const handleEditOption = (
@@ -207,120 +237,116 @@ export default function QuestionsProvider({ children }: Props) {
         optionId: number,
         optionText: string
     ) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? {
-                          ...question,
-                          optionDetails: question.optionDetails.map((x) =>
-                              x.id === optionId
-                                  ? { ...x, text: optionText }
-                                  : { ...x }
-                          ),
-                      }
-                    : { ...question }
-            )
-        );
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id
+        //             ? {
+        //                   ...question,
+        //                   optionDetails: question.optionDetails.map((x) =>
+        //                       x.id === optionId
+        //                           ? { ...x, text: optionText }
+        //                           : { ...x }
+        //                   ),
+        //               }
+        //             : { ...question }
+        //     )
+        // );
     };
 
     const handleUpdateOptionsDetails = (
         id: number,
         optionDetail: OptionDetailsType
     ) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? {
-                          ...question,
-                          optionDetails: [
-                              ...question.optionDetails,
-                              optionDetail,
-                          ],
-                      }
-                    : { ...question }
-            )
-        );
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id
+        //             ? {
+        //                   ...question,
+        //                   optionDetails: [
+        //                       ...question.optionDetails,
+        //                       optionDetail,
+        //                   ],
+        //               }
+        //             : { ...question }
+        //     )
+        // );
     };
 
     const handleDeleteOptionDetail = (id: number, optionId: number) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? {
-                          ...question,
-                          optionDetails: question.optionDetails.filter(
-                              (optionDetail) => optionDetail.id !== optionId
-                          ),
-                      }
-                    : { ...question }
-            )
-        );
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id
+        //             ? {
+        //                   ...question,
+        //                   optionDetails: question.optionDetails.filter(
+        //                       (optionDetail) => optionDetail.id !== optionId
+        //                   ),
+        //               }
+        //             : { ...question }
+        //     )
+        // );
     };
 
     const handleAddTitleAndDescription = () => {
         const largestId = questions.sort((a, b) => a.id - b.id)[
             questions.length - 1
         ].id;
-        setQuestions((prevQuestions) => [
-            ...prevQuestions,
-            {
-                id: largestId + 1,
-                title: "Untitled Title",
-                description: null,
-            },
-        ]);
+        // setQuestions((prevQuestions) => [
+        //     ...prevQuestions,
+        //     {
+        //         id: largestId + 1,
+        //         title: "Untitled Title",
+        //         description: null,
+        //     },
+        // ]);
     };
 
     const handleUpdateTitle = (id: number, title: string) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id ? { ...question, title } : { ...question }
-            )
-        );
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id ? { ...question, title } : { ...question }
+        //     )
+        // );
     };
 
     const handleUpdateDescription = (id: number, description: string) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, description }
-                    : { ...question }
-            )
-        );
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id
+        //             ? { ...question, description }
+        //             : { ...question }
+        //     )
+        // );
     };
 
     const handleAddDescription = (id: number) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, isDescription: true }
-                    : { ...question }
-            )
-        );
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id
+        //             ? { ...question, isDescription: true }
+        //             : { ...question }
+        //     )
+        // );
     };
 
     const handleRemoveDescription = (id: number) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, isDescription: false }
-                    : { ...question }
-            )
-        );
-    };
-
-    const handleSetSelectedQuestion = (id: number, state: boolean) => {
-        setSelectedQuestion({ id, state });
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id
+        //             ? { ...question, isDescription: false }
+        //             : { ...question }
+        //     )
+        // );
     };
 
     const handleClearAnswer = (id: number) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, answer: undefined }
-                    : { ...question }
-            )
-        );
+        // setQuestions(
+        //     questions.map((question) =>
+        //         question.id === id
+        //             ? { ...question, answer: undefined }
+        //             : { ...question }
+        //     )
+        // );
     };
 
     // Others
@@ -328,10 +354,10 @@ export default function QuestionsProvider({ children }: Props) {
         options,
         questions,
         selectedQuestion,
+        handleSetSelectedQuestion,
         handleSetQuestions,
         handleAddQuestions,
         updateQuestion,
-        handleDeleteQuestion,
         handleCopyQuestion,
         handleUpdateOptionsDetails,
         updateQuestionOption,
@@ -342,7 +368,6 @@ export default function QuestionsProvider({ children }: Props) {
         handleUpdateDescription,
         handleAddDescription,
         handleRemoveDescription,
-        handleSetSelectedQuestion,
         handleClearAnswer,
     };
 

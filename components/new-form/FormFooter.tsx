@@ -3,6 +3,7 @@ import { HiOutlinePlusCircle } from "react-icons/hi";
 import { MdTextFields } from "react-icons/md";
 import { RiImageAddFill, RiVideoAddFill } from "react-icons/ri";
 import { useQuestions } from "../../context/questionsContext";
+import { addNewQuestion } from "../../helpers/firebase/question";
 import classes from "../../styles/components/form/form-footer.module.scss";
 
 interface Props {}
@@ -17,7 +18,7 @@ const FormFooter = ({}: Props) => {
             >
                 <HiOutlinePlusCircle
                     title="Add Question"
-                    onClick={handleAddQuestions}
+                    onClick={addNewQuestion}
                 />
                 <MdTextFields
                     title="Add title and description"

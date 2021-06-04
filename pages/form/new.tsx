@@ -1,21 +1,27 @@
-import Link from "next/link";
+// import Link from "next/link";
+import { GetServerSideProps } from "next";
+import { useEffect, useState } from "react";
 import QuestionsList from "../../components/add-questions/QuestionsList";
 import { useQuestions } from "../../context/questionsContext";
 
 interface Props {}
 
 const NewForm = ({}: Props) => {
-    // Context
     const { questions } = useQuestions();
 
-    // Others
-    console.log(questions);
+    console.log("From New", questions);
 
     return (
         <section>
-            <QuestionsList questions={questions} />
+            {questions ? <QuestionsList questions={questions} /> : ""}
         </section>
     );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    return {
+        props: {},
+    };
 };
 
 export default NewForm;
