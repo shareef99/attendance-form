@@ -1,5 +1,5 @@
 import { OptionDetailsType } from "../../../../interface/questions";
-import { addOption } from "../../../../helpers/firebase/question";
+import { updateOptions } from "../../../../helpers/firebase/question";
 
 interface Props {
     docId: string;
@@ -9,7 +9,7 @@ interface Props {
 const AddButton = ({ docId, optionDetails }: Props) => {
     const handleAddChoice = () => {
         const lastIndex: number = optionDetails?.length - 1;
-        addOption(docId, [
+        updateOptions(docId, [
             ...optionDetails,
             {
                 id: optionDetails[lastIndex]?.id + 1,
@@ -20,7 +20,7 @@ const AddButton = ({ docId, optionDetails }: Props) => {
 
     const handleAddOther = () => {
         const lastIndex: number = optionDetails?.length - 1;
-        addOption(docId, [
+        updateOptions(docId, [
             ...optionDetails,
             {
                 id: optionDetails[lastIndex]?.id + 1,

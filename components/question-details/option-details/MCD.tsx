@@ -62,9 +62,11 @@ const MCD = ({ docId, id, preview, optionDetails, option, answer }: Props) => {
                                     other={optionDetail.text === "others"}
                                 />
                                 <DeleteButton
+                                    docId={docId}
                                     id={id}
                                     optionCount={optionDetails.length}
                                     optionId={optionDetail.id}
+                                    allOptions={optionDetails}
                                 />
                             </div>
                         </li>

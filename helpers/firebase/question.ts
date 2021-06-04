@@ -74,11 +74,11 @@ export const requiredToggleHandler = (docId: string, isRequired: boolean) => {
     questionToAddRequiredRef.update({ isRequired });
 };
 
-export const addOption = (
+export const updateOptions = (
     docId: string,
     optionDetails: Array<OptionDetailsType>
 ) => {
+    // updateOptions is used to delete or add new option to the list
     const questionToAddOption = getQuestionRef(docId);
-
     questionToAddOption.update({ optionDetails });
 };

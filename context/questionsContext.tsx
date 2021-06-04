@@ -44,7 +44,6 @@ interface questionsContextType {
     handleAddTitleAndDescription: () => void;
     handleUpdateDescription: (id: number, description: string) => void;
     handleUpdateTitle: (id: number, title: string) => void;
-    handleDeleteOptionDetail: (id: number, optionId: number) => void;
     handleAddDescription: (id: number) => void;
     handleRemoveDescription: (id: number) => void;
     handleSetSelectedQuestion: (id: number, state: boolean) => void;
@@ -61,7 +60,6 @@ const questionsContextDefaultValues: questionsContextType = {
     handleAddTitleAndDescription: () => {},
     handleUpdateDescription: () => {},
     handleUpdateTitle: () => {},
-    handleDeleteOptionDetail: () => {},
     handleAddDescription: () => {},
     handleRemoveDescription: () => {},
     handleClearAnswer: () => {},
@@ -151,21 +149,6 @@ export default function QuestionsProvider({ children }: Props) {
         // );
     };
 
-    const handleDeleteOptionDetail = (id: number, optionId: number) => {
-        // setQuestions(
-        //     questions.map((question) =>
-        //         question.id === id
-        //             ? {
-        //                   ...question,
-        //                   optionDetails: question.optionDetails.filter(
-        //                       (optionDetail) => optionDetail.id !== optionId
-        //                   ),
-        //               }
-        //             : { ...question }
-        //     )
-        // );
-    };
-
     const handleAddTitleAndDescription = () => {
         const largestId = questions.sort((a, b) => a.id - b.id)[
             questions.length - 1
@@ -236,7 +219,6 @@ export default function QuestionsProvider({ children }: Props) {
         handleSetQuestions,
         handleCopyQuestion,
         handleEditOption,
-        handleDeleteOptionDetail,
         handleAddTitleAndDescription,
         handleUpdateTitle,
         handleUpdateDescription,
