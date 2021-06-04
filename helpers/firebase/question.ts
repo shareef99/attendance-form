@@ -66,12 +66,12 @@ export const updateQuestionOption = (docId: string, option: string) => {
         .child(`users/shareef/forms/Name Form/${docId}`);
 
     questionToUpdateRef.update({ option });
+};
 
-    // setQuestions(
-    // questions.map((question) =>
-    // question.id === id
-    // ? { ...question, option, optionIcon: Icon }
-    // : { ...question }
-    // )
-    // );
+export const requiredToggleHandler = (docId: string, isRequired: boolean) => {
+    const questionToAddRequiredRef = db
+        .ref()
+        .child(`users/shareef/forms/Name Form/${docId}`);
+
+    questionToAddRequiredRef.update({ isRequired });
 };

@@ -6,41 +6,30 @@ import Dialog from "@material-ui/core/Dialog";
 
 import OptionItem from "./OptionItem";
 import { useQuestions } from "../../context/questionsContext";
-import { IconType } from "react-icons/lib";
 import { questionWithId } from "../../helpers/question-utils";
 import { options } from "../../helpers/question-utils";
 
 interface Props {
     id: number;
     open: boolean;
-    onClose: (option: string, Icon: IconType, id?: number) => void;
+    onClose: (option: string) => void;
 }
 
 const DialogOptions = ({ id, onClose, open }: Props) => {
     const { questions } = useQuestions();
 
     // Handlers
-    const handleClose = (option: string, Icon: IconType, id: number) => {
-        onClose(option, Icon, id);
+    const handleClose = (option: string) => {
+        onClose(option);
     };
 
-    const handleListItemClick = (
-        id: number,
-        option: string,
-        Icon: IconType
-    ) => {
-        onClose(option, Icon, id);
+    const handleListItemClick = (option: string) => {
+        onClose(option);
     };
 
     return (
         <Dialog
-            onClose={() =>
-                handleClose(
-                    questionWithId(questions, id).option,
-                    questionWithId(questions, id).optionIcon,
-                    id
-                )
-            }
+            onClose={() => handleClose(questionWithId(questions, id).option)}
             aria-labelledby="options-dialog"
             open={open}
         >
@@ -48,15 +37,13 @@ const DialogOptions = ({ id, onClose, open }: Props) => {
                 Choose question type
             </DialogTitle>
             <List>
-                {options.map((option) => (
+                {options.map((x) => (
                     <ListItem
                         button
-                        onClick={() =>
-                            handleListItemClick(id, option.option, option.Icon)
-                        }
-                        key={option.option}
+                        onClick={() => handleListItemClick(x.option)}
+                        key={x.option}
                     >
-                        <OptionItem option={option.option} Icon={option.Icon} />
+                        <OptionItem option={x.option} Icon={x.Icon} />
                     </ListItem>
                 ))}
             </List>

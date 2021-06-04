@@ -50,7 +50,6 @@ interface questionsContextType {
     selectedQuestion: selectedQuestionType;
     handleSetQuestions: (questions: Array<QuestionType>) => void;
     handleCopyQuestion: (id: number) => void;
-    updateQuestionOption: (id: number, option: string, Icon: IconType) => void;
     handleUpdateOptionsDetails: (
         id: number,
         optionDetails: OptionDetailsType
@@ -78,7 +77,6 @@ const questionsContextDefaultValues: questionsContextType = {
     handleSetQuestions: () => {},
     handleCopyQuestion: () => {},
     handleUpdateOptionsDetails: () => {},
-    updateQuestionOption: () => {},
     handleEditOption: () => {},
     handleAddTitleAndDescription: () => {},
     handleUpdateDescription: () => {},
@@ -174,20 +172,6 @@ export default function QuestionsProvider({ children }: Props) {
         );
         setSelectedQuestion({ id: newQuestionId, state: true });
         // setQuestions(newQuestions);
-    };
-
-    const updateQuestionOption = (
-        id: number,
-        option: string,
-        Icon: IconType
-    ) => {
-        setQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, option, optionIcon: Icon }
-                    : { ...question }
-            )
-        );
     };
 
     const handleEditOption = (
@@ -316,7 +300,6 @@ export default function QuestionsProvider({ children }: Props) {
         handleSetQuestions,
         handleCopyQuestion,
         handleUpdateOptionsDetails,
-        updateQuestionOption,
         handleEditOption,
         handleDeleteOptionDetail,
         handleAddTitleAndDescription,

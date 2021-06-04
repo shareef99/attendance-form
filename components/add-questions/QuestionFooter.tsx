@@ -4,11 +4,13 @@ import { MdDelete, MdContentCopy, MdMoreVert } from "react-icons/md";
 // Material UI imports
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import Switch from "@material-ui/core/Switch";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { questionWithId } from "../../helpers/question-utils";
-import { deleteQuestion } from "../../helpers/firebase/question";
 import { RequiredToggle } from "../material-ui/PurpleSwitch";
+// helpers
+import { questionWithId } from "../../helpers/question-utils";
+import {
+    deleteQuestion,
+    requiredToggleHandler,
+} from "../../helpers/firebase/question";
 
 interface Props {
     docId: string;
@@ -21,7 +23,6 @@ const QuestionFooter = ({ docId, id }: Props) => {
         handleCopyQuestion,
         handleAddDescription,
         handleRemoveDescription,
-        handleSetQuestions,
     } = useQuestions();
 
     // State
@@ -59,13 +60,7 @@ const QuestionFooter = ({ docId, id }: Props) => {
 
     // Effects
     useEffect(() => {
-        handleSetQuestions(
-            questions.map((question) =>
-                question.id === id
-                    ? { ...question, isRequired }
-                    : { ...question }
-            )
-        );
+        requiredToggleHandler(docId, isRequired);
     }, [isRequired]);
 
     return (

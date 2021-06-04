@@ -33,7 +33,7 @@ const Options = ({ docId, id, option, preview, Icon }: Props) => {
         setOpen(true);
     };
 
-    const handleClose = (option: string, Icon: IconType, id: number) => {
+    const handleClose = (option: string) => {
         setOpen(false);
         updateQuestionOption(docId, option);
     };
