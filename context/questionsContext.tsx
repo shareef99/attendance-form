@@ -5,17 +5,8 @@ import {
     useEffect,
     useState,
 } from "react";
-import { OptionType } from "../components/add-questions/Options";
 // React-Icon imports
 import { IconType } from "react-icons/lib";
-import {
-    MdShortText,
-    MdArrowDropDownCircle,
-    MdDateRange,
-    MdAccessTime,
-} from "react-icons/md";
-import { ImParagraphLeft, ImCheckboxChecked } from "react-icons/im";
-import { CgRadioChecked } from "react-icons/cg";
 // Helpers
 import { addNewItemAtId, questionWithId } from "../helpers/question-utils";
 import { db } from "../firebase/firebase";
@@ -45,7 +36,6 @@ export interface selectedQuestionType {
 }
 
 interface questionsContextType {
-    options: Array<OptionType>;
     questions: Array<QuestionType>;
     selectedQuestion: selectedQuestionType;
     handleSetQuestions: (questions: Array<QuestionType>) => void;
@@ -70,7 +60,6 @@ interface questionsContextType {
 }
 
 const questionsContextDefaultValues: questionsContextType = {
-    options: [],
     questions: [],
     selectedQuestion: { id: 0, state: true },
     handleSetSelectedQuestion: () => {},
@@ -100,30 +89,6 @@ interface Props {
 }
 
 export default function QuestionsProvider({ children }: Props) {
-    // Constants
-    const options: Array<OptionType> = [
-        {
-            Icon: MdShortText,
-            option: "Short answer",
-        },
-        {
-            Icon: ImParagraphLeft,
-            option: "Paragraph",
-        },
-        {
-            Icon: ImCheckboxChecked,
-            option: "Multiple choice",
-        },
-        {
-            Icon: CgRadioChecked,
-            option: "Checkboxes",
-        },
-        {
-            Icon: MdArrowDropDownCircle,
-            option: "Dropdown",
-        },
-    ];
-
     // States
     const [questions, setQuestions] = useState<Array<QuestionType>>();
 
@@ -293,7 +258,6 @@ export default function QuestionsProvider({ children }: Props) {
 
     // Others
     const value: questionsContextType = {
-        options,
         questions,
         selectedQuestion,
         handleSetSelectedQuestion,
