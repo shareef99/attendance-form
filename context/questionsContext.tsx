@@ -10,6 +10,7 @@ import { IconType } from "react-icons/lib";
 // Helpers
 import { addNewItemAtId, questionWithId } from "../helpers/question-utils";
 import { db } from "../firebase/firebase";
+import { OptionDetailsType } from "../interface/questions";
 
 export interface QuestionType {
     id?: number;
@@ -25,11 +26,6 @@ export interface QuestionType {
     description?: string;
 }
 
-export interface OptionDetailsType {
-    id: number;
-    text: string;
-}
-
 export interface selectedQuestionType {
     id: number;
     state: boolean;
@@ -40,10 +36,6 @@ interface questionsContextType {
     selectedQuestion: selectedQuestionType;
     handleSetQuestions: (questions: Array<QuestionType>) => void;
     handleCopyQuestion: (id: number) => void;
-    handleUpdateOptionsDetails: (
-        id: number,
-        optionDetails: OptionDetailsType
-    ) => void;
     handleEditOption: (
         id: number,
         optionId: number,
@@ -65,7 +57,6 @@ const questionsContextDefaultValues: questionsContextType = {
     handleSetSelectedQuestion: () => {},
     handleSetQuestions: () => {},
     handleCopyQuestion: () => {},
-    handleUpdateOptionsDetails: () => {},
     handleEditOption: () => {},
     handleAddTitleAndDescription: () => {},
     handleUpdateDescription: () => {},
@@ -160,25 +151,6 @@ export default function QuestionsProvider({ children }: Props) {
         // );
     };
 
-    const handleUpdateOptionsDetails = (
-        id: number,
-        optionDetail: OptionDetailsType
-    ) => {
-        // setQuestions(
-        //     questions.map((question) =>
-        //         question.id === id
-        //             ? {
-        //                   ...question,
-        //                   optionDetails: [
-        //                       ...question.optionDetails,
-        //                       optionDetail,
-        //                   ],
-        //               }
-        //             : { ...question }
-        //     )
-        // );
-    };
-
     const handleDeleteOptionDetail = (id: number, optionId: number) => {
         // setQuestions(
         //     questions.map((question) =>
@@ -263,7 +235,6 @@ export default function QuestionsProvider({ children }: Props) {
         handleSetSelectedQuestion,
         handleSetQuestions,
         handleCopyQuestion,
-        handleUpdateOptionsDetails,
         handleEditOption,
         handleDeleteOptionDetail,
         handleAddTitleAndDescription,

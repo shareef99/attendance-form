@@ -1,32 +1,32 @@
-import {
-    OptionDetailsType,
-    useQuestions,
-} from "../../../../context/questionsContext";
+import { OptionDetailsType } from "../../../../interface/questions";
+import { addOption } from "../../../../helpers/firebase/question";
 
 interface Props {
-    id: number;
+    docId: string;
     optionDetails: Array<OptionDetailsType>;
 }
 
-const AddButton = ({ id, optionDetails }: Props) => {
-    // Context
-    const { handleUpdateOptionsDetails } = useQuestions();
-
-    // Handlers
+const AddButton = ({ docId, optionDetails }: Props) => {
     const handleAddChoice = () => {
         const lastIndex: number = optionDetails?.length - 1;
-        handleUpdateOptionsDetails(id, {
-            id: optionDetails[lastIndex]?.id + 1,
-            text: "option " + (optionDetails[lastIndex]?.id + 1),
-        });
+        addOption(docId, [
+            ...optionDetails,
+            {
+                id: optionDetails[lastIndex]?.id + 1,
+                text: "option " + (optionDetails[lastIndex]?.id + 1),
+            },
+        ]);
     };
 
     const handleAddOther = () => {
         const lastIndex: number = optionDetails?.length - 1;
-        handleUpdateOptionsDetails(id, {
-            id: optionDetails[lastIndex]?.id + 1,
-            text: "others",
-        });
+        addOption(docId, [
+            ...optionDetails,
+            {
+                id: optionDetails[lastIndex]?.id + 1,
+                text: "others",
+            },
+        ]);
     };
 
     return (

@@ -5,12 +5,13 @@ import { useQuestions } from "../../context/questionsContext";
 import { questionWithId } from "../../helpers/question-utils";
 
 interface Props {
+    docId: string;
     id: number;
     option: string;
     preview: boolean;
 }
 
-const QuestionDetails = ({ id, preview, option }: Props) => {
+const QuestionDetails = ({ docId, id, preview, option }: Props) => {
     const { questions, handleClearAnswer } = useQuestions();
 
     // Constants
@@ -50,6 +51,7 @@ const QuestionDetails = ({ id, preview, option }: Props) => {
         return (
             <>
                 <MCD
+                    docId={docId}
                     id={id}
                     preview={preview}
                     option={option}

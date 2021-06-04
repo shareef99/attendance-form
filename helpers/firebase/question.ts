@@ -1,20 +1,23 @@
-import { IconType } from "react-icons";
 import { db } from "../../firebase/firebase";
-import { questionWithId } from "../question-utils";
+import { OptionDetailsType } from "../../interface/questions";
+
+export const getQuestionRef = (docId: string) => {
+    return db.ref().child(`users/shareef/forms/Name Form/${docId}`);
+};
+
+export const getQuestionsRef = () => {
+    return db.ref().child(`users/shareef/forms/Name Form`);
+};
 
 export const getQuestions = () => {
     let rawQuestions = [];
-    // let questions = [];
 
-    const questionsRef = db.ref().child(`users/shareef/forms/Name Form`);
+    const questionsRef = getQuestionsRef();
 
     questionsRef.on("value", (snap) => {
         const questionsValue = snap.val();
         // Converting Object to Array
         rawQuestions = Object.entries(questionsValue);
-        // for (let id in questionsValue) {
-        // questions.push(questionsValue[id]);
-        // }
     });
 
     const questions = rawQuestions.map((x) => ({ docId: x[0], ...x[1] }));
@@ -25,7 +28,7 @@ export const getQuestions = () => {
 
 export const addNewQuestion = () => {
     const questions = getQuestions();
-    const questionsRef = db.ref().child(`users/shareef/forms/Name Form`);
+    const questionsRef = getQuestionsRef();
 
     const lastIndex = questions.length - 1;
 
@@ -40,38 +43,42 @@ export const addNewQuestion = () => {
     };
 
     questionsRef.push(newQuestion);
+
+    // TODO
+    // Set selected question to the new question as a new question added
     // setSelectedQuestion({ id: questions[lastIndex].id + 1, state: true });
 };
 
 export const deleteQuestion = (docId: string) => {
     const questions = getQuestions();
     if (questions.length <= 1) return;
-    const questionToDeleteRef = db
-        .ref()
-        .child(`users/shareef/forms/Name Form/${docId}`);
+    const questionToDeleteRef = getQuestionRef(docId);
     questionToDeleteRef.remove();
 };
 
 export const updateQuestion = (docId: string, questionText: string) => {
-    const questionToUpdateRef = db
-        .ref()
-        .child(`users/shareef/forms/Name Form/${docId}`);
+    const questionToUpdateRef = getQuestionRef(docId);
 
     questionToUpdateRef.update({ question: questionText });
 };
 
 export const updateQuestionOption = (docId: string, option: string) => {
-    const questionToUpdateRef = db
-        .ref()
-        .child(`users/shareef/forms/Name Form/${docId}`);
+    const questionToUpdateRef = getQuestionRef(docId);
 
     questionToUpdateRef.update({ option });
 };
 
 export const requiredToggleHandler = (docId: string, isRequired: boolean) => {
-    const questionToAddRequiredRef = db
-        .ref()
-        .child(`users/shareef/forms/Name Form/${docId}`);
+    const questionToAddRequiredRef = getQuestionRef(docId);
 
     questionToAddRequiredRef.update({ isRequired });
+};
+
+export const addOption = (
+    docId: string,
+    optionDetails: Array<OptionDetailsType>
+) => {
+    const questionToAddOption = getQuestionRef(docId);
+
+    questionToAddOption.update({ optionDetails });
 };

@@ -75,7 +75,12 @@ const AddQuestion = (props: Props) => {
                           description={description}
                       />
                   )}
-            <QuestionDetails id={id} option={option} preview={preview} />
+            <QuestionDetails
+                docId={docId}
+                id={id}
+                option={option}
+                preview={preview}
+            />
             {preview && Boolean(errorMessage) && (
                 <h3 className="my-4 text-red-500 font-normal text">
                     {errorMessage}

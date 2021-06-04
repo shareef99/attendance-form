@@ -1,7 +1,4 @@
-import {
-    OptionDetailsType,
-    useQuestions,
-} from "../../../context/questionsContext";
+import { useQuestions } from "../../../context/questionsContext";
 // helpers
 import { isSelected } from "../../../helpers/question-utils";
 // Material-UI imports
@@ -11,8 +8,10 @@ import DeleteButton from "./components/DeleteButton";
 import CheckboxInput from "./components/Checkbox";
 import MultiChoice from "./components/MultiChoice";
 import AddButton from "./components/AddButton";
+import { OptionDetailsType } from "../../../interface/questions";
 
 interface Props {
+    docId: string;
     id: number;
     preview: boolean;
     option: string;
@@ -20,7 +19,7 @@ interface Props {
     answer: string | Array<string>;
 }
 
-const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
+const MCD = ({ docId, id, preview, optionDetails, option, answer }: Props) => {
     const { selectedQuestion } = useQuestions();
 
     return (
@@ -76,7 +75,7 @@ const MCD = ({ id, preview, optionDetails, option, answer }: Props) => {
             {!optionDetails?.find((x) => x.text === "others") &&
                 !preview &&
                 isSelected(selectedQuestion.id, id) && (
-                    <AddButton id={id} optionDetails={optionDetails} />
+                    <AddButton docId={docId} optionDetails={optionDetails} />
                 )}
         </ul>
     );
