@@ -1,4 +1,5 @@
-import { Switch, withStyles } from "@material-ui/core";
+import Switch from "@material-ui/core/Switch";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 export const RequiredToggle = withStyles({
     switchBase: {

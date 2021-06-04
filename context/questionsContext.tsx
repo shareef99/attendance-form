@@ -49,8 +49,6 @@ interface questionsContextType {
     questions: Array<QuestionType>;
     selectedQuestion: selectedQuestionType;
     handleSetQuestions: (questions: Array<QuestionType>) => void;
-    handleAddQuestions: () => void;
-    updateQuestion: (id: number, question?: string) => void;
     handleCopyQuestion: (id: number) => void;
     updateQuestionOption: (id: number, option: string, Icon: IconType) => void;
     handleUpdateOptionsDetails: (
@@ -78,8 +76,6 @@ const questionsContextDefaultValues: questionsContextType = {
     selectedQuestion: { id: 0, state: true },
     handleSetSelectedQuestion: () => {},
     handleSetQuestions: () => {},
-    handleAddQuestions: () => {},
-    updateQuestion: () => {},
     handleCopyQuestion: () => {},
     handleUpdateOptionsDetails: () => {},
     updateQuestionOption: () => {},
@@ -132,17 +128,9 @@ export default function QuestionsProvider({ children }: Props) {
 
     // States
     const [questions, setQuestions] = useState<Array<QuestionType>>();
-    //  [
-    //     {
-    //         id: 0,
-    //         title: "Form Title",
-    //     },
-    // ]
-    // );
 
     const getQuestions = () => {
         let rawQuestions = [];
-        // let questions = [];
 
         const questionsRef = db.ref().child(`users/shareef/forms/Name Form`);
 
@@ -150,14 +138,9 @@ export default function QuestionsProvider({ children }: Props) {
             const questionsValue = snap.val();
             // Converting Object to Array
             rawQuestions = Object.entries(questionsValue);
-            // for (let id in questionsValue) {
-            // questions.push(questionsValue[id]);
-            // }
+            // Setting Questions according to our structure
             setQuestions(rawQuestions.map((x) => ({ docId: x[0], ...x[1] })));
         });
-        console.log("From Helpers", questions);
-
-        return questions;
     };
 
     useEffect(() => {
@@ -173,37 +156,12 @@ export default function QuestionsProvider({ children }: Props) {
     };
 
     const handleSetQuestions = (questions: Array<QuestionType>) => {
-        // setQuestions(questions);
+        setQuestions(questions);
     };
 
     const handleAddQuestions = () => {
         const lastIndex = questions.length - 1;
-        // setQuestions((prevQuestions) => [
-        //     ...prevQuestions,
-        //     {
-        //         id: questions[lastIndex].id + 1,
-        //         option: "Short answer",
-        //         optionIcon: MdShortText,
-        //         question: null,
-        //         optionDetails: [{ id: 1, text: "option 1" }],
-        //         isDescription: false,
-        //         isRequired: false,
-        //     },
-        // ]);
         setSelectedQuestion({ id: questions[lastIndex].id + 1, state: true });
-    };
-
-    const updateQuestion = (id: number, questionText: string) => {
-        // setQuestions(
-        //     questions.map((question) =>
-        //         question.id === id
-        //             ? {
-        //                   ...question,
-        //                   question: questionText,
-        //               }
-        //             : { ...question }
-        //     )
-        // );
     };
 
     const handleCopyQuestion = (id: number) => {
@@ -223,13 +181,13 @@ export default function QuestionsProvider({ children }: Props) {
         option: string,
         Icon: IconType
     ) => {
-        // setQuestions(
-        //     questions.map((question) =>
-        //         question.id === id
-        //             ? { ...question, option, optionIcon: Icon }
-        //             : { ...question }
-        //     )
-        // );
+        setQuestions(
+            questions.map((question) =>
+                question.id === id
+                    ? { ...question, option, optionIcon: Icon }
+                    : { ...question }
+            )
+        );
     };
 
     const handleEditOption = (
@@ -356,8 +314,6 @@ export default function QuestionsProvider({ children }: Props) {
         selectedQuestion,
         handleSetSelectedQuestion,
         handleSetQuestions,
-        handleAddQuestions,
-        updateQuestion,
         handleCopyQuestion,
         handleUpdateOptionsDetails,
         updateQuestionOption,

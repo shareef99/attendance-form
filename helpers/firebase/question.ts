@@ -50,3 +50,11 @@ export const deleteQuestion = (docId: string) => {
         .child(`users/shareef/forms/Name Form/${docId}`);
     questionToDeleteRef.remove();
 };
+
+export const updateQuestion = (docId: string, questionText: string) => {
+    const questionToUpdateRef = db
+        .ref()
+        .child(`users/shareef/forms/Name Form/${docId}`);
+
+    questionToUpdateRef.update({ question: questionText });
+};

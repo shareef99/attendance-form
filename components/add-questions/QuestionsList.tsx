@@ -35,7 +35,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
             aria-label="list"
             onClick={handleRemoveSelected}
         >
-            {questions.map((question) => {
+            {questions?.map((question) => {
                 const {
                     docId,
                     id,

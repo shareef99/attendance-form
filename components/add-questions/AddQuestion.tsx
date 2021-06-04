@@ -47,7 +47,7 @@ const AddQuestion = (props: Props) => {
                 className={`rowCenter justify-between items-baseline flex-wrap space-x-4 space-y-4 
                     sm:space-y-0`}
             >
-                <Question id={id} preview={preview} />
+                <Question docId={docId} id={id} preview={preview} />
 
                 {isSelected(selectedQuestion.id, id) && (
                     <>
