@@ -83,6 +83,7 @@ const QuestionsList = ({ questions, preview }: Props) => {
                                 />
                             ) : (
                                 <TitleNDescription
+                                    docId={docId}
                                     id={id}
                                     preview={preview}
                                     title={title}

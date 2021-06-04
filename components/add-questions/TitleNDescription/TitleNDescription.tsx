@@ -5,6 +5,7 @@ import { isSelected } from "../../../helpers/question-utils";
 import QuestionFooter from "../QuestionFooter";
 
 interface Props {
+    docId: string;
     preview: boolean;
     id: number;
     description: string;
@@ -23,7 +24,13 @@ const DescriptionInput = withStyles({
     },
 })(Input);
 
-const TitleNDescription = ({ preview, id, title, description }: Props) => {
+const TitleNDescription = ({
+    docId,
+    preview,
+    id,
+    title,
+    description,
+}: Props) => {
     const { handleUpdateDescription, handleUpdateTitle, selectedQuestion } =
         useQuestions();
 
@@ -56,7 +63,7 @@ const TitleNDescription = ({ preview, id, title, description }: Props) => {
             {isSelected(selectedQuestion.id, id) && (
                 <>
                     <div className="border-b-[3px]" />
-                    <QuestionFooter id={id} />
+                    <QuestionFooter docId={docId} id={id} />
                 </>
             )}
         </div>
