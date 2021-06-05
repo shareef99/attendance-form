@@ -9,7 +9,7 @@ import classes from "../../styles/components/form/form-footer.module.scss";
 interface Props {}
 
 const FormFooter = ({}: Props) => {
-    const { handleAddQuestions, handleAddTitleAndDescription } = useQuestions();
+    const { handleAddTitleAndDescription } = useQuestions();
 
     return (
         <footer className="rowCenter sticky bottom-0">
