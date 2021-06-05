@@ -1,11 +1,11 @@
 import { useState, MouseEvent } from "react";
 import { MdArrowDropDown } from "react-icons/md";
 import { useAnswer } from "../../../../context/answerContext";
-import { OptionDetailsType } from "../../../../context/questionsContext";
 import { DropdownButton } from "../../../material-ui/DropdownButton";
 import { DropdownMenu } from "../../../material-ui/DropdownMenu";
 import { DropdownMenuItem } from "../../../material-ui/DropdownMenuItem";
 import Fade from "@material-ui/core/Fade";
+import { OptionDetailsType } from "../../../../interface/questions";
 
 interface Props {
     id: number;

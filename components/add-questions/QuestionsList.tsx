@@ -1,6 +1,5 @@
 import { MouseEvent } from "react";
-import { QuestionType, useQuestions } from "../../context/questionsContext";
-import { getQuestions } from "../../helpers/firebase/question";
+import { useQuestions } from "../../context/questionsContext";
 import { getIcon } from "../../helpers/question-utils";
 import AddQuestion from "./AddQuestion";
 import FormTitle from "./TitleNDescription/FormTitle";

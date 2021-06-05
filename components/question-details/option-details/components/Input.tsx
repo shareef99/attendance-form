@@ -1,8 +1,6 @@
-import { InputBase, InputBaseProps, withStyles } from "@material-ui/core";
-import {
-    OptionDetailsType,
-    useQuestions,
-} from "../../../../context/questionsContext";
+import { InputBase, withStyles } from "@material-ui/core";
+import { useQuestions } from "../../../../context/questionsContext";
+import { OptionDetailsType } from "../../../../interface/questions";
 
 interface Props {
     id?: number;
