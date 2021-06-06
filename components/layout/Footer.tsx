@@ -8,10 +8,6 @@ const Footer = ({ PageName }: Props) => {
         return <FormFooter />;
     }
 
-    if (PageName === "preview") {
-        return <></>;
-    }
-
     return <></>;
 };
 

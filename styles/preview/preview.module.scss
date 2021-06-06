@@ -1,5 +1,3 @@
-// @use '../tailwind.scss';
-
 .submitButton {
     background-color: var(--purple);
     color: white;
@@ -13,7 +11,8 @@
     text-align: center;
     letter-spacing: normal;
 
-    &:focus {
+    :focus,
+    :hover {
         outline: none;
     }
 }
