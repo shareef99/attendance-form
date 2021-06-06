@@ -12,11 +12,7 @@ const Footer = ({ PageName }: Props) => {
         return <></>;
     }
 
-    return (
-        <div>
-            <h1>Footer</h1>
-        </div>
-    );
+    return <></>;
 };
 
 export default Footer;

@@ -23,8 +23,6 @@ const FormFooter = ({}: Props) => {
                     title="Add title and description"
                     onClick={handleAddTitleAndDescription}
                 />
-                <RiImageAddFill title="Add Image" />
-                <RiVideoAddFill title="Add YouTube Video" />
             </div>
         </footer>
     );

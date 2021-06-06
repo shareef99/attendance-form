@@ -1,55 +1,18 @@
 import Link from "next/link";
-import { GetStaticProps } from "next";
-import { getTemplates } from "../helpers/firebase";
 import { useQuestions } from "../context/questionsContext";
 
-interface props {
-    templates: any;
-    // data: any;
-}
+interface props {}
 
-export default function Home({ templates }: props) {
+export default function Home({}: props) {
     // console.log(events);
 
     const { questions } = useQuestions();
-    console.log(templates);
 
     return (
-        <section>
-            <section className="my-12 container colCenter">
-                <div>
-                    <div className="font-medium pb-4 text-lg ">
-                        <span>Start a new form</span>
-                    </div>
-                    <div>
-                        <ul
-                            className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4
-                                lg:grid-cols-5 gap-4"
-                        >
-                            <li className="space-y-4">
-                                <Link href="/form/new">
-                                    <a>
-                                        <div className="w-[152px] h-[148px] bg-white rounded shadow"></div>
-                                    </a>
-                                </Link>
-                                <span className="inline-block">
-                                    Create a new form
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+        <section className="container colCenter">
+            <div className="font-medium text-lg" style={{ marginTop: "100px" }}>
+                <Link href="/form/new">Start a new form</Link>
+            </div>
         </section>
     );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-    const templates = await getTemplates();
-
-    return {
-        props: {
-            templates,
-        },
-    };
-};

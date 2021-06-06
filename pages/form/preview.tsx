@@ -1,3 +1,4 @@
+import Link from "next/link";
 import QuestionsList from "../../components/add-questions/QuestionsList";
 import { useQuestions } from "../../context/questionsContext";
 import classes from "../../styles/preview/preview.module.scss";
@@ -53,15 +54,31 @@ const Preview = (props: Props) => {
 
     return (
         <section className="my-14">
-            <QuestionsList questions={questions} preview />
-            <div className="container flex md:max-w-[60%]">
-                <button
-                    className={`${classes.submitButton} self-start -ml-8`}
-                    onClick={handleFormSubmit}
-                >
-                    Submit
-                </button>
-            </div>
+            {questions.length > 2 ? (
+                <>
+                    <QuestionsList questions={questions} preview />
+                    <div className="container flex md:max-w-[70%]">
+                        <button
+                            className={`${classes.submitButton} self-start -ml-8`}
+                            onClick={handleFormSubmit}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </>
+            ) : (
+                <div className="colCenter">
+                    <span className="text-red-400 font-medium text-lg">
+                        Failed to save your form
+                    </span>
+                    <div
+                        className="font-medium text-lg underline hover:no-underline focus:no-underline"
+                        style={{ marginTop: "100px" }}
+                    >
+                        <Link href="/form/new">Start a new form</Link>
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
