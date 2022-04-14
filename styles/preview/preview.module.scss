@@ -1,18 +1,37 @@
 .submitButton {
-    background-color: var(--purple);
-    color: white;
-    padding: 6px 24px;
-    border-radius: 0.25rem;
-    font-size: 18px;
-    font-weight: 500;
-    text-decoration: none;
-    text-transform: none;
-    outline: none;
-    text-align: center;
-    letter-spacing: normal;
+  background-color: var(--purple);
+  color: white;
+  padding: 6px 24px;
+  border-radius: 0.25rem;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: none;
+  outline: none;
+  text-align: center;
+  letter-spacing: normal;
 
-    :focus,
-    :hover {
-        outline: none;
-    }
+  :focus,
+  :hover {
+    outline: none;
+  }
+}
+
+.editButton {
+  background-color: white;
+  color: var(--purple);
+  padding: 6px 24px;
+  border-radius: 0.25rem;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: none;
+  outline: none;
+  text-align: center;
+  letter-spacing: normal;
+
+  :focus,
+  :hover {
+    outline: none;
+  }
 }
